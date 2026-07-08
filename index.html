@@ -79,20 +79,22 @@
         
         <!-- Заголовок и Инструкция -->
         <div class="flex flex-col mb-4 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight text-center">
                 <span class="lang-ru">Калькулятор капитализации</span>
                 <span class="lang-en">Capitalization Calculator</span>
             </h1>
             <p class="text-slate-600 mt-4 bg-blue-50 border border-blue-100 p-5 rounded-2xl text-sm leading-relaxed text-left inline-block mx-auto max-w-4xl shadow-sm">
                 <span class="lang-ru">
-                    • Редактируйте поля <strong>Стартовый капитал</strong>, <strong>Средний ROI</strong> и <strong>Период расчета</strong>, чтобы оценить время достижения своих финансовых целей.<br>
-                    • Изменяйте значения в полях <strong>Цель 1 - 4</strong>, для указания желаемых рубежей выплат.<br>
-                    <em>До достижения цели, 100% полученной прибыли реинвестируется в оборот. При достижении цели и выводе на себя, остаток прибыли автоматически остается в обороте для дальнейшего роста.</em>
+                    • Редактируйте поля <strong>Стартовый капитал</strong> и <strong>Средний ROI</strong>, чтобы оценить время достижения своих финансовых целей.<br>
+                    • Редактируйте поле <strong>Период расчета (мес.)</strong> для увеличения горизонта планирования. Максимальное значение — 5 лет (60 месяцев).<br>
+                    • Изменяйте значения в полях <strong>Цель 1 - 4</strong>, для указания своих значений.<br><br>
+                    <em>До достижения цели, 100% полученной прибыли полностью реинвестируются в оборот. При выводе достигнутой цели, часть прибыли остается для реинвестиции в оборот для дальнейшего роста.</em>
                 </span>
                 <span class="lang-en">
-                    • Edit <strong>Starting Capital</strong>, <strong>Average ROI</strong>, and <strong>Calculation Period</strong> to estimate the time required to reach your goals.<br>
-                    • Change the values in <strong>Goal 1 - 4</strong> fields to set your desired payout targets.<br>
-                    <em>Until a goal is reached, 100% of the profit is reinvested. Upon reaching a goal and paying yourself, the remaining profit automatically stays in circulation for further growth.</em>
+                    • Edit the <strong>Starting Capital</strong> and <strong>Average ROI</strong> fields to estimate the time required to reach your financial goals.<br>
+                    • Edit the <strong>Calculation Period</strong> to extend your planning horizon. Maximum value is 5 years (60 months).<br>
+                    • Change the values in the <strong>Goal 1 - 4</strong> fields to set your desired financial payout targets.<br><br>
+                    <em>Until a goal is reached, 100% of the profit is fully reinvested. Upon reaching a goal and paying out to yourself, the remaining profit automatically stays in circulation for reinvestment and further growth.</em>
                 </span>
             </p>
         </div>
@@ -158,6 +160,17 @@
             </div>
         </div>
 
+        <!-- График -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h3 id="chartTitle" class="text-lg font-semibold mb-4 text-slate-800 text-center md:text-left">
+                <span class="lang-ru">Динамика роста</span>
+                <span class="lang-en">Growth Dynamics</span>
+            </h3>
+            <div class="relative h-80 w-full">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+
         <!-- Карточки достижения целей -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
@@ -175,17 +188,6 @@
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
                 <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></div>
                 <div id="achieve-goal4" class="text-2xl font-bold text-indigo-600">-</div>
-            </div>
-        </div>
-
-        <!-- График -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 id="chartTitle" class="text-lg font-semibold mb-4 text-slate-800 text-center md:text-left">
-                <span class="lang-ru">Динамика роста</span>
-                <span class="lang-en">Growth Dynamics</span>
-            </h3>
-            <div class="relative h-80 w-full">
-                <canvas id="growthChart"></canvas>
             </div>
         </div>
 
