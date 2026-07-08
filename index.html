@@ -232,7 +232,7 @@
                 <span class="lang-en">Share calculation results:</span>
             </p>
             
-            <div class="flex flex-wrap justify-center items-center gap-3">
+            <div class="flex flex-wrap justify-center items-center gap-3 w-full lg:w-auto">
                 <!-- Telegram -->
                 <button onclick="shareSocial('tg')" class="w-10 h-10 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm flex-shrink-0" title="Telegram">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
@@ -259,10 +259,10 @@
                 </button>
 
                 <!-- Разделитель для десктопов -->
-                <div class="h-6 w-px bg-slate-200 hidden md:block mx-1"></div>
+                <div class="h-6 w-px bg-slate-200 hidden lg:block mx-1"></div>
                 
-                <!-- Обратная связь (Перемещена) -->
-                <button onclick="openFeedbackModal()" class="px-5 py-2 border border-slate-800 text-slate-800 font-semibold rounded-xl hover:bg-slate-800 hover:text-white transition-colors duration-200 flex-shrink-0 text-sm md:text-base">
+                <!-- Обратная связь -->
+                <button onclick="openFeedbackModal()" class="px-5 py-2 border border-slate-800 text-slate-800 font-semibold rounded-xl hover:bg-slate-800 hover:text-white transition-colors duration-200 flex-shrink-0 text-sm md:text-base w-full lg:w-auto">
                     <span class="lang-ru">Обратная связь</span>
                     <span class="lang-en">Send Feedback</span>
                 </button>
@@ -323,7 +323,7 @@
                     <span class="lang-ru">Отмена</span>
                     <span class="lang-en">Cancel</span>
                 </button>
-                <button onclick="sendFeedback()" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
+                <button id="sendBtn" onclick="sendFeedback()" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
                     <span class="lang-ru">Отправить письмо</span>
                     <span class="lang-en">Send Email</span>
                 </button>
@@ -332,7 +332,7 @@
     </div>
 
     <script>
-        // Мультиязычность
+        // Инициализация языка
         let currentLang = 'ru';
 
         function toggleLang(lang) {
@@ -397,23 +397,62 @@
         function closeFeedbackModal() {
             modalContent.classList.remove('scale-100', 'opacity-100');
             modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => { modal.classList.add('hidden'); }, 200);
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
         }
 
         function sendFeedback() {
             const text = document.getElementById('feedbackText').value.trim();
             if(!text) return;
             
+            // Скрытая сборка адреса (защита от спама)
             const p1 = "termit";
             const p2 = "dream";
             const d = "gmail.com";
             const target = p1 + p2 + "@" + d;
             
             const subject = currentLang === 'ru' ? 'Идея для Калькулятора Капитализации' : 'Feedback on Capitalization Calculator';
-            window.location.href = `mailto:${target}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
             
-            closeFeedbackModal();
-            document.getElementById('feedbackText').value = ''; 
+            const btn = document.getElementById('sendBtn');
+            const originalText = btn.innerHTML;
+            
+            // Меняем текст кнопки на время отправки
+            btn.innerHTML = currentLang === 'ru' ? 'Отправка...' : 'Sending...';
+            btn.disabled = true;
+
+            // Фоновая отправка через бесплатный шлюз Formsubmit
+            fetch(`https://formsubmit.co/ajax/${target}`, {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: subject,
+                    _template: "box",
+                    message: text
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === "true" || data.success === true) {
+                    alert(currentLang === 'ru' ? 'Сообщение успешно отправлено!' : 'Message sent successfully!');
+                    closeFeedbackModal();
+                    document.getElementById('feedbackText').value = ''; // очистка
+                } else {
+                    throw new Error('Server response error');
+                }
+            })
+            .catch(error => {
+                // Если API заблокирован браузером (например, AdBlock), используем mailto как резерв
+                window.location.href = `mailto:${target}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+                closeFeedbackModal();
+            })
+            .finally(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
         }
 
         // Форматирование валюты
