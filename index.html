@@ -28,6 +28,11 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
         }
+        
+        /* Логика переключения языков */
+        body.lang-en .lang-ru { display: none !important; }
+        body.lang-ru .lang-en { display: none !important; }
+
         /* Адаптация таблицы для мобильных - убираем стандартную прокрутку */
         @media (max-width: 768px) {
             .mobile-card-table thead { display: none; }
@@ -61,150 +66,403 @@
         }
     </style>
 </head>
-<body class="text-slate-800 p-4 md:p-8">
+<body class="text-slate-800 p-4 md:p-8 lang-ru relative">
 
-    <div class="max-w-7xl mx-auto space-y-6">
+    <!-- Переключатель языка -->
+    <div class="absolute top-4 right-4 md:top-8 md:right-8 flex items-center space-x-2 bg-white px-3 py-1.5 rounded-full shadow-sm border border-slate-200 z-10 text-sm">
+        <button id="btn-ru" onclick="toggleLang('ru')" class="font-bold text-blue-600 transition-colors focus:outline-none">RU</button>
+        <span class="text-slate-300">|</span>
+        <button id="btn-en" onclick="toggleLang('en')" class="font-normal text-slate-400 hover:text-blue-500 transition-colors focus:outline-none">EN</button>
+    </div>
+
+    <div class="max-w-7xl mx-auto space-y-8 pt-10 md:pt-4">
         
-        <!-- Заголовок и Инструкция -->
-        <div class="flex flex-col mb-2">
-            <h1 class="text-3xl font-bold text-slate-900 tracking-tight align-center">Калькулятор капитализации</h1>
-            <p class="text-slate-600 mt-3 bg-blue-50 border border-blue-100 p-4 rounded-xl text-sm leading-relaxed">
-                • Редактируйте поля <strong>Стартовый капитал</strong> и <strong>Средний ROI</strong>, чтобы оценить время достижения своих финансовых целей.<br>
-                • Редактируйте поле <strong>Период расчета (мес.)</strong> для увеличения горизонта планирования. Максимальное значение — 5 лет (60 месяцев).<br>
-                • Изменяйте значения в полях <strong>Цель 1 - 4</strong>, для указания желаемых финансовых целей для достижения.<br>
-                <br>
-                <em>До достижения цели, 100% полученной прибыли полностью реинвестируются в оборот.<br>
+        <!-- Заголовок и Инструкция (Отцентровано) -->
+        <div class="flex flex-col mb-2 text-center items-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight text-center">
+                <span class="lang-ru">Калькулятор капитализации</span>
+                <span class="lang-en">Capitalization Calculator</span>
+            </h1>
+            <p class="text-slate-600 mt-4 bg-blue-50 border border-blue-100 p-5 rounded-2xl text-sm leading-relaxed text-left inline-block max-w-4xl shadow-sm">
+                <span class="lang-ru">
+                    • Редактируйте поля <strong>Стартовый капитал</strong> и <strong>Средний ROI</strong>, чтобы оценить время достижения своих финансовых целей.<br>
+                    • Редактируйте поле <strong>Период расчета (мес.)</strong> для увеличения горизонта планирования. Максимальное значение — 5 лет (60 месяцев).<br>
+                    • Изменяйте значения в полях <strong>Цель 1 - 4</strong>, для указания желаемых финансовых целей для достижения.<br><br>
+                    <em>До достижения цели, 100% полученной прибыли полностью реинвестируются в оборот.<br>
                     При достижении цели и выводе на себя, часть прибыли автоматически остается в обороте для реинвестиции и дальнейшего роста.</em>
+                </span>
+                <span class="lang-en">
+                    • Edit the <strong>Starting Capital</strong> and <strong>Average ROI</strong> fields to estimate the time required to reach your financial goals.<br>
+                    • Edit the <strong>Calculation Period</strong> to extend your planning horizon. Maximum value is 5 years (60 months).<br>
+                    • Change the values in the <strong>Goal 1 - 4</strong> fields to set your desired financial payout targets.<br><br>
+                    <em>Until a goal is reached, 100% of the profit is fully reinvested.<br>
+                    Upon reaching a goal and paying out to yourself, the remaining profit automatically stays in circulation for reinvestment and further growth.</em>
+                </span>
             </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Центральный блок параметров (Заменяет боковое меню) -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
             
-            <!-- Левая панель: Инпуты -->
-            <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-fit">
-                <h2 class="text-lg font-semibold mb-4 text-slate-800">Параметры старта</h2>
+            <!-- СТРОКА 1: Капитал, ROI, Месяцы (по центру) -->
+            <div class="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mb-8">
+                <div class="w-full md:w-56">
+                    <label class="block text-sm font-semibold text-slate-600 mb-2 text-center">
+                        <span class="lang-ru">Стартовый капитал (₽)</span>
+                        <span class="lang-en">Starting Capital</span>
+                    </label>
+                    <input type="number" id="startCapital" value="100000" class="w-full px-4 py-2 text-center text-lg border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                </div>
                 
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-600 mb-1">Стартовый капитал (₽)</label>
-                        <input type="number" id="startCapital" value="100000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-slate-600 mb-1">Средний ROI (%)</label>
-                        <input type="number" id="roi" value="98.5" step="0.1" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                    </div>
+                <div class="w-full md:w-56">
+                    <label class="block text-sm font-semibold text-slate-600 mb-2 text-center">
+                        <span class="lang-ru">Средний ROI (%)</span>
+                        <span class="lang-en">Average ROI (%)</span>
+                    </label>
+                    <input type="number" id="roi" value="98.5" step="0.1" class="w-full px-4 py-2 text-center text-lg border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                </div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-slate-600 mb-1">Период расчета (мес.)</label>
-                        <input type="number" id="months" value="12" min="1" max="120" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                    </div>
+                <div class="w-full md:w-56">
+                    <label class="block text-sm font-semibold text-slate-600 mb-2 text-center">
+                        <span class="lang-ru">Период (мес.)</span>
+                        <span class="lang-en">Period (mo.)</span>
+                    </label>
+                    <input type="number" id="months" value="12" min="1" max="120" class="w-full px-4 py-2 text-center text-lg border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                </div>
+            </div>
 
-                    <div class="pt-4 border-t border-slate-100">
-                        <h3 class="text-sm font-semibold text-slate-800 mb-3 uppercase tracking-wider">Ваши цели (вывод/мес)</h3>
-                        
-                        <div class="space-y-3">
-                            <div>
-                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 1</label>
-                                <input type="number" id="goal1" value="100000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 2</label>
-                                <input type="number" id="goal2" value="300000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 3</label>
-                                <input type="number" id="goal3" value="500000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 4</label>
-                                <input type="number" id="goal4" value="1000000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                            </div>
-                        </div>
+            <!-- СТРОКА 2: Цели (по центру) -->
+            <div class="pt-6 border-t border-slate-100">
+                <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider text-center">
+                    <span class="lang-ru">Ваши цели (вывод в месяц)</span>
+                    <span class="lang-en">Your Goals (Monthly Payout)</span>
+                </h3>
+                
+                <div class="flex flex-col md:flex-row flex-wrap justify-center gap-4 md:gap-6">
+                    <div class="w-full md:w-48">
+                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
+                            <span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span>
+                        </label>
+                        <input type="number" id="goal1" value="100000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                    </div>
+                    <div class="w-full md:w-48">
+                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
+                            <span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span>
+                        </label>
+                        <input type="number" id="goal2" value="300000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                    </div>
+                    <div class="w-full md:w-48">
+                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
+                            <span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span>
+                        </label>
+                        <input type="number" id="goal3" value="500000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                    </div>
+                    <div class="w-full md:w-48">
+                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
+                            <span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span>
+                        </label>
+                        <input type="number" id="goal4" value="1000000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
                     </div>
                 </div>
             </div>
 
-            <!-- Правая панель: Результаты -->
-            <div class="lg:col-span-3 space-y-6">
+            <!-- Кнопки: Шеринг и Обратная связь (Под параметрами) -->
+            <div class="pt-8 mt-8 border-t border-slate-100 flex flex-col items-center">
+                <p class="text-sm font-medium text-slate-500 mb-3 w-full text-center">
+                    <span class="lang-ru">Поделиться калькулятором:</span>
+                    <span class="lang-en">Share calculator:</span>
+                </p>
                 
-                <!-- Карточки достижения целей -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 1</div>
-                        <div id="achieve-goal1" class="text-2xl font-bold text-indigo-600">-</div>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 2</div>
-                        <div id="achieve-goal2" class="text-2xl font-bold text-indigo-600">-</div>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 3</div>
-                        <div id="achieve-goal3" class="text-2xl font-bold text-indigo-600">-</div>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 4</div>
-                        <div id="achieve-goal4" class="text-2xl font-bold text-indigo-600">-</div>
-                    </div>
+                <div class="flex flex-wrap gap-2 justify-center w-full max-w-lg mb-6">
+                    <button onclick="shareSocial('tg')" class="p-2.5 bg-[#0088cc] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Telegram">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.18 3.42-.49.33-.93.5-1.33.49-.44-.01-1.28-.24-1.9-.44-.77-.24-1.38-.36-1.32-.77.03-.21.32-.42.88-.63 3.46-1.51 5.76-2.5 6.9-2.98 3.28-1.37 3.96-1.61 4.41-1.62.1 0 .32.02.46.12.12.09.16.21.17.31-.02.04-.02.11-.03.16z"/></svg>
+                    </button>
+                    <button onclick="shareSocial('tw')" class="p-2.5 bg-black text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Twitter / X">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </button>
+                    <button onclick="shareSocial('fb')" class="p-2.5 bg-[#1877f2] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Facebook">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3h2.4V9.41c0-2.36 1.4-3.66 3.55-3.66 1.04 0 2.12.19 2.12.19v2.33h-1.2c-1.17 0-1.54.73-1.54 1.48V12h2.64l-.42 3h-2.22v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+                    </button>
+                    <button onclick="shareSocial('vk')" class="p-2.5 bg-[#0077FF] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="VK">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.16 19.3h2.08c0 0 .63-.07.96-.4.3-.32.29-.93.29-.93s-.04-2.84 1.25-3.26c1.28-.4 2.92 2.7 4.68 3.89.19.13.38.2.56.23h3.76s1.97-.12 1.04-1.66c-.08-.13-1.13-2.38-2.32-3.48-1.24-1.15-1.07-.96.43-2.96 0 0 2.65-3.72 2.9-5.11.14-.52-.06-.72-.43-.72H24.3c-.43 0-.63.22-.73.47 0 0-1.42 3.44-3.43 6.87-1.14 1.94-1.65 2.05-1.99 1.83-.55-.35-.38-2.61-.38-3.41 0-1.58.24-2.24-.46-2.41-.23-.06-.6-.1-1.48-.1-1.13 0-2.09.01-2.73.32-.42.21-.75.67-.55.69.25.02.82.15 1.12.56.39.54.37 1.77.37 1.77s.22 2.04-.42 2.4c-.44.24-1.04-.26-2.33-2.51-1.33-2.3-2.35-4.84-2.35-4.84-.09-.23-.27-.37-.53-.38H4.66c-.36 0-.54.17-.54.17s-.27.24-.1.74c0 0 2.67 6.25 5.7 9.42 2.78 2.92 5.95 2.8 5.95 2.8z"/></svg>
+                    </button>
+                    <button onclick="shareSocial('rd')" class="p-2.5 bg-[#FF4500] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Reddit">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.79 6.82c.62 0 1.13.51 1.13 1.13 0 .43-.24.81-.6 1.01.01.12.02.24.02.37 0 2.22-2.11 4.02-4.72 4.02-2.61 0-4.73-1.8-4.73-4.02 0-.13.01-.25.02-.37-.36-.2-.6-.58-.6-1.01 0-.62.51-1.13 1.13-1.13.43 0 .8.24 1.01.6.86-.53 1.94-.86 3.12-.91l.66-2.06 1.44.31c.1.48.53.84 1.05.84.59 0 1.07-.48 1.07-1.07 0-.59-.48-1.07-1.07-1.07-.44 0-.82.26-.98.63L11.02 6l-.8 2.5c1.23.04 2.36.38 3.25.93.2-.38.58-.61 1.02-.61h.3zm-7.07 3.32c-.52 0-.94.42-.94.94 0 .52.42.94.94.94.52 0 .94-.42.94-.94 0-.52-.42-.94-.94-.94zm6.57 0c-.52 0-.94.42-.94.94 0 .52.42.94.94.94.52 0 .94-.42.94-.94 0-.52-.42-.94-.94-.94zm-3.28 3.65c-1.18 0-2.22-.38-2.6-.94l.65-.43c.24.36 1 .6 1.95.6s1.71-.24 1.95-.6l.65.43c-.38.56-1.42.94-2.6.94z"/></svg>
+                    </button>
+                    <!-- Копировать ссылку (Instagram style/fallback) -->
+                    <button onclick="shareSocial('copy')" class="p-2.5 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition shadow-sm focus:outline-none" title="Instagram / Copy link">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                    </button>
                 </div>
 
-                <!-- График -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <h3 id="chartTitle" class="text-lg font-semibold mb-4 text-slate-800">Динамика роста</h3>
-                    <div class="relative h-72 w-full">
-                        <canvas id="growthChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Таблица -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                    <div class="p-6 border-b border-slate-100">
-                        <h3 id="tableTitle" class="text-lg font-semibold text-slate-800">Помесячная детализация</h3>
-                    </div>
-                    <!-- Класс mobile-card-table включает CSS-адаптацию для телефонов -->
-                    <div class="w-full">
-                        <table class="min-w-full divide-y divide-slate-200 text-sm mobile-card-table">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left font-medium text-slate-500 uppercase tracking-wider">Месяц</th>
-                                    <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">Старт. капитал</th>
-                                    <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">Прибыль (ROI)</th>
-                                    <th scope="col" class="px-6 py-3 text-right font-medium text-emerald-600 uppercase tracking-wider">Вывод на себя</th>
-                                    <th scope="col" class="px-6 py-3 text-right font-medium text-blue-600 uppercase tracking-wider">Итоговый оборот</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody" class="bg-white md:divide-y md:divide-slate-100">
-                                <!-- Рендерится через JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
+                <button onclick="openFeedbackModal()" class="w-full max-w-sm border-2 border-slate-800 text-slate-800 font-semibold py-2.5 rounded-xl hover:bg-slate-800 hover:text-white transition-colors duration-200 focus:outline-none">
+                    <span class="lang-ru">Обратная связь</span>
+                    <span class="lang-en">Send Feedback</span>
+                </button>
             </div>
+        </div>
+
+        <!-- Блок Результатов -->
+        <div class="space-y-6">
+            
+            <!-- Карточки достижения целей -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span></div>
+                    <div id="achieve-goal1" class="text-2xl font-bold text-indigo-600">-</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span></div>
+                    <div id="achieve-goal2" class="text-2xl font-bold text-indigo-600">-</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span></div>
+                    <div id="achieve-goal3" class="text-2xl font-bold text-indigo-600">-</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></div>
+                    <div id="achieve-goal4" class="text-2xl font-bold text-indigo-600">-</div>
+                </div>
+            </div>
+
+            <!-- График -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h3 id="chartTitle" class="text-lg font-semibold mb-4 text-slate-800 text-center md:text-left">
+                    <span class="lang-ru">Динамика роста</span>
+                    <span class="lang-en">Growth Dynamics</span>
+                </h3>
+                <div class="relative h-72 w-full">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Таблица -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                <div class="p-6 border-b border-slate-100 flex justify-center md:justify-start items-center">
+                    <h3 id="tableTitle" class="text-lg font-semibold text-slate-800 text-center md:text-left">
+                        <span class="lang-ru">Помесячная детализация</span>
+                        <span class="lang-en">Monthly Breakdown</span>
+                    </h3>
+                </div>
+                <!-- Класс mobile-card-table включает CSS-адаптацию для телефонов -->
+                <div class="w-full">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm mobile-card-table">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left font-medium text-slate-500 uppercase tracking-wider">
+                                    <span class="lang-ru">Месяц</span><span class="lang-en">Month</span>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">
+                                    <span class="lang-ru">Старт. капитал</span><span class="lang-en">Start. Capital</span>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">
+                                    <span class="lang-ru">Прибыль (ROI)</span><span class="lang-en">Profit (ROI)</span>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-right font-medium text-emerald-600 uppercase tracking-wider">
+                                    <span class="lang-ru">Вывод на себя</span><span class="lang-en">Your Payout</span>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-right font-medium text-blue-600 uppercase tracking-wider">
+                                    <span class="lang-ru">Итоговый оборот</span><span class="lang-en">Ending Capital</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="bg-white md:divide-y md:divide-slate-100">
+                            <!-- Рендерится через JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Второй блок шеринга (Под таблицей) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm font-medium text-slate-600 whitespace-nowrap text-center md:text-left">
+                    <span class="lang-ru">Поделиться результатами расчета:</span>
+                    <span class="lang-en">Share calculation results:</span>
+                </p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="shareSocial('tg')" class="px-4 py-2 bg-[#0088cc] text-white text-sm font-medium rounded-xl hover:opacity-80 transition shadow-sm flex items-center gap-2 focus:outline-none">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.18 3.42-.49.33-.93.5-1.33.49-.44-.01-1.28-.24-1.9-.44-.77-.24-1.38-.36-1.32-.77.03-.21.32-.42.88-.63 3.46-1.51 5.76-2.5 6.9-2.98 3.28-1.37 3.96-1.61 4.41-1.62.1 0 .32.02.46.12.12.09.16.21.17.31-.02.04-.02.11-.03.16z"/></svg> Telegram
+                    </button>
+                    <button onclick="shareSocial('tw')" class="px-4 py-2 bg-black text-white text-sm font-medium rounded-xl hover:opacity-80 transition shadow-sm flex items-center gap-2 focus:outline-none">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Twitter
+                    </button>
+                    <button onclick="shareSocial('copy')" class="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-200 transition shadow-sm flex items-center gap-2 border border-slate-200 focus:outline-none">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> 
+                        <span class="lang-ru">Копировать</span><span class="lang-en">Copy Link</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
         <!-- SEO Статья для продвижения (внизу страницы) -->
         <article class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mt-12 mb-8 text-slate-700">
-            <h2 class="text-2xl font-bold text-slate-900 mb-4">Калькулятор сложного процента: инструмент для масштабирования бизнеса</h2>
-            <p class="mb-4">Успешный бизнес, особенно в сфере электронной коммерции и продаж на маркетплейсах, требует четкого понимания финансовой математики. Наш онлайн-калькулятор капитализации создан специально для предпринимателей, которые хотят визуализировать процесс роста оборотного капитала с помощью механизма сложного процента.</p>
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                <span class="lang-ru">Калькулятор сложного процента: инструмент для масштабирования бизнеса</span>
+                <span class="lang-en">Compound Interest Calculator: A Tool for Scaling Your Business</span>
+            </h2>
             
-            <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Почему важно реинвестировать прибыль?</h3>
-            <p class="mb-4">Секрет взрывного роста кроется в постоянном возврате заработанных средств обратно в товарооборот. Реинвестирование позволяет вашему капиталу работать на вас в геометрической прогрессии. Даже с небольшим стартовым капиталом и высоким показателем ROI (Return on Investment) можно достичь внушительных результатов уже в первый год работы.</p>
+            <div class="lang-ru">
+                <p class="mb-4">Успешный бизнес, особенно в сфере электронной коммерции и продаж на маркетплейсах, требует четкого понимания финансовой математики. Наш онлайн-калькулятор капитализации создан специально для предпринимателей, которые хотят визуализировать процесс роста оборотного капитала с помощью механизма сложного процента.</p>
+                
+                <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Почему важно реинвестировать прибыль?</h3>
+                <p class="mb-4">Секрет взрывного роста кроется в постоянном возврате заработанных средств обратно в товарооборот. Реинвестирование позволяет вашему капиталу работать на вас в геометрической прогрессии. Даже с небольшим стартовым капиталом и высоким показателем ROI (Return on Investment) можно достичь внушительных результатов уже в первый год работы.</p>
+                
+                <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Как использовать финансовую модель?</h3>
+                <ul class="list-disc pl-5 mb-4 space-y-2">
+                    <li><strong>Укажите стартовый капитал:</strong> сумму, которую вы готовы вложить в первую закупку или цикл производства.</li>
+                    <li><strong>Определите Средний ROI:</strong> чистую рентабельность на вложенные средства за один цикл (обычно это 1 месяц).</li>
+                    <li><strong>Поставьте личные цели:</strong> введите суммы, которые вы хотите ежемесячно выводить "на себя" в качестве дивидендов.</li>
+                </ul>
+                <p class="mb-4">Интеллектуальный алгоритм калькулятора сам рассчитает, в какой момент ваш оборотный капитал достигнет достаточного уровня, чтобы вы могли выплачивать себе желаемую сумму, <em>не останавливая при этом рост магазина</em>. Часть чистой прибыли будет автоматически направляться в реинвест, защищая бизнес от стагнации.</p>
+            </div>
             
-            <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Как использовать финансовую модель?</h3>
-            <ul class="list-disc pl-5 mb-4 space-y-2">
-                <li><strong>Укажите стартовый капитал:</strong> сумму, которую вы готовы вложить в первую закупку или цикл производства.</li>
-                <li><strong>Определите Средний ROI:</strong> чистую рентабельность на вложенные средства за один цикл (обычно это 1 месяц).</li>
-                <li><strong>Поставьте личные цели:</strong> введите суммы, которые вы хотите ежемесячно выводить "на себя" в качестве дивидендов.</li>
-            </ul>
-            <p class="mb-4">Интеллектуальный алгоритм калькулятора сам рассчитает, в какой момент ваш оборотный капитал достигнет достаточного уровня, чтобы вы могли выплачивать себе желаемую сумму, <em>не останавливая при этом рост магазина</em>. Часть чистой прибыли будет автоматически направляться в реинвест, защищая бизнес от стагнации.</p>
-
-            <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Стратегия роста и планирование</h3>
-            <p>Расширенный прогноз позволяет строить долгосрочные финансовые стратегии на любой заданный вами период. Вы сможете наглядно увидеть точку "отрыва", когда бизнес начинает генерировать пассивный доход, значительно превышающий изначальные инвестиции. Используйте этот калькулятор ROI для планирования закупок, общения с инвесторами и корректировки бизнес-плана товарного бизнеса.</p>
+            <div class="lang-en">
+                <p class="mb-4">Successful business, especially in e-commerce, requires a clear understanding of financial mathematics. Our online capitalization calculator is designed specifically for entrepreneurs who want to visualize working capital growth through the mechanism of compound interest.</p>
+                
+                <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Why is Reinvesting Profit Important?</h3>
+                <p class="mb-4">The secret to explosive growth lies in constantly returning earned funds back into inventory turnover. Reinvesting allows your capital to work for you exponentially. Even with a small starting capital and a high ROI (Return on Investment), impressive results can be achieved in the very first year.</p>
+                
+                <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">How to Use the Financial Model?</h3>
+                <ul class="list-disc pl-5 mb-4 space-y-2">
+                    <li><strong>Enter Starting Capital:</strong> the amount you are willing to invest in the first cycle.</li>
+                    <li><strong>Set Average ROI:</strong> the net profitability on invested funds per cycle (usually 1 month).</li>
+                    <li><strong>Set Personal Goals:</strong> enter the amounts you want to withdraw monthly as dividends.</li>
+                </ul>
+                <p class="mb-4">The intelligent calculator algorithm will automatically determine the point at which your working capital reaches a sufficient level for you to pay yourself the desired amount <em>without stopping the store's growth</em>. A portion of the net profit will automatically be directed to reinvestment, protecting your business from stagnation.</p>
+            </div>
         </article>
     </div>
 
+    <!-- Модальное окно Обратной связи -->
+    <div id="feedbackModal" class="hidden fixed inset-0 bg-slate-900 bg-opacity-50 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl relative transform transition-transform scale-95 opacity-0" id="feedbackModalContent">
+            <h3 class="text-xl font-bold mb-2 text-slate-800">
+                <span class="lang-ru">Обратная связь</span>
+                <span class="lang-en">Feedback</span>
+            </h3>
+            <p class="text-slate-600 text-sm mb-5">
+                <span class="lang-ru">Есть идеи для доработки калькулятора или вы нашли ошибку? Напишите нам.</span>
+                <span class="lang-en">Have ideas to improve the calculator or found a bug? Let us know.</span>
+            </p>
+            
+            <textarea id="feedbackText" rows="5" class="w-full border border-slate-300 rounded-xl p-4 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-5 resize-none" placeholder="..."></textarea>
+            
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeFeedbackModal()" class="px-5 py-2.5 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors focus:outline-none">
+                    <span class="lang-ru">Отмена</span>
+                    <span class="lang-en">Cancel</span>
+                </button>
+                <button onclick="sendFeedback()" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-sm focus:outline-none">
+                    <span class="lang-ru">Отправить письмо</span>
+                    <span class="lang-en">Send Email</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Инициализация языка
+        let currentLang = 'ru';
+
+        function toggleLang(lang) {
+            currentLang = lang;
+            if (lang === 'en') {
+                document.body.classList.add('lang-en');
+                document.body.classList.remove('lang-ru');
+                document.getElementById('btn-ru').classList.replace('font-bold', 'font-normal');
+                document.getElementById('btn-ru').classList.replace('text-blue-600', 'text-slate-400');
+                document.getElementById('btn-en').classList.replace('font-normal', 'font-bold');
+                document.getElementById('btn-en').classList.replace('text-slate-400', 'text-blue-600');
+            } else {
+                document.body.classList.add('lang-ru');
+                document.body.classList.remove('lang-en');
+                document.getElementById('btn-en').classList.replace('font-bold', 'font-normal');
+                document.getElementById('btn-en').classList.replace('text-blue-600', 'text-slate-400');
+                document.getElementById('btn-ru').classList.replace('font-normal', 'font-bold');
+                document.getElementById('btn-ru').classList.replace('text-slate-400', 'text-blue-600');
+            }
+            
+            // Обновляем легенды графика под новый язык
+            chartInstance.data.datasets[0].label = currentLang === 'ru' ? 'Личный вывод (выплата)' : 'Personal Payout';
+            chartInstance.data.datasets[1].label = currentLang === 'ru' ? 'Оборотный капитал' : 'Working Capital';
+            
+            calculate(); // Перерисовываем таблицу и графики
+        }
+
+        // Логика Шеринга
+        function shareSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(currentLang === 'ru' ? 'Интерактивный калькулятор сложного процента для селлеров и бизнеса!' : 'Interactive Compound Interest Calculator for Business!');
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'tg': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'vk': shareUrl = `https://vk.com/share.php?url=${url}&title=${title}`; break;
+                case 'tw': shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`; break;
+                case 'fb': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'rd': shareUrl = `https://www.reddit.com/submit?url=${url}&title=${title}`; break;
+                case 'copy':
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        alert(currentLang === 'ru' ? 'Ссылка успешно скопирована!' : 'Link successfully copied!');
+                    }).catch(() => {
+                        // Фолбэк, если writeText заблокирован браузером
+                        const textArea = document.createElement("textarea");
+                        textArea.value = window.location.href;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        try {
+                            document.execCommand('copy');
+                            alert(currentLang === 'ru' ? 'Ссылка успешно скопирована!' : 'Link successfully copied!');
+                        } catch (err) {
+                            console.error('Copy failed', err);
+                        }
+                        document.body.removeChild(textArea);
+                    });
+                    return;
+            }
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+
+        // Логика Обратной связи с защитой Email
+        const modal = document.getElementById('feedbackModal');
+        const modalContent = document.getElementById('feedbackModalContent');
+        
+        function openFeedbackModal() {
+            modal.classList.remove('hidden');
+            // Небольшая анимация появления
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            document.getElementById('feedbackText').focus();
+        }
+
+        function closeFeedbackModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function sendFeedback() {
+            const text = document.getElementById('feedbackText').value.trim();
+            if(!text) return;
+            
+            // Скрытая сборка адреса
+            const p1 = "termit";
+            const p2 = "dream";
+            const d = "gmail.com";
+            const target = p1 + p2 + "@" + d;
+            
+            const subject = currentLang === 'ru' ? 'Идея для Калькулятора Капитализации' : 'Feedback on Capitalization Calculator';
+            window.location.href = `mailto:${target}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+            
+            closeFeedbackModal();
+            document.getElementById('feedbackText').value = ''; // очистка
+        }
+
         // Инициализация графика Chart.js
         const ctx = document.getElementById('growthChart').getContext('2d');
         let chartInstance = new Chart(ctx, {
@@ -214,7 +472,7 @@
                 datasets: [
                     {
                         type: 'bar',
-                        label: 'Личный вывод (₽)',
+                        label: 'Личный вывод',
                         data: [],
                         backgroundColor: 'rgba(16, 185, 129, 0.8)', // Emerald 500
                         borderRadius: 4,
@@ -222,12 +480,12 @@
                     },
                     {
                         type: 'line',
-                        label: 'Оборотный капитал на конец месяца (₽)',
+                        label: 'Оборотный капитал',
                         data: [],
                         borderColor: 'rgba(59, 130, 246, 1)', // Blue 500
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
                         borderWidth: 2,
-                        pointRadius: 2, // Меньше точки для графиков с большими периодами
+                        pointRadius: 2, 
                         pointBackgroundColor: 'rgba(59, 130, 246, 1)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
@@ -261,7 +519,7 @@
                                     label += ': ';
                                 }
                                 if (context.parsed.y !== null) {
-                                    label += new Intl.NumberFormat('ru-RU').format(context.parsed.y) + ' ₽';
+                                    label += formatMoney(context.parsed.y);
                                 }
                                 return label;
                             }
@@ -292,7 +550,7 @@
                     },
                     x: {
                         ticks: {
-                            maxTicksLimit: 12, // Чтобы ось Х не перекрывалась на длинных периодах
+                            maxTicksLimit: 12,
                             maxRotation: 0
                         },
                         grid: {
@@ -304,8 +562,11 @@
             }
         });
 
-        // Функция форматирования валюты
+        // Функция форматирования валюты (зависит от языка)
         const formatMoney = (num) => {
+            if (currentLang === 'en') {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+            }
             return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(num) + ' ₽';
         };
 
@@ -336,8 +597,15 @@
             const monthlyData = [];
             const achievements = { 1: null, 2: null, 3: null, 4: null };
             
-            document.getElementById('chartTitle').textContent = `Динамика роста (${totalMonths} мес.)`;
-            document.getElementById('tableTitle').textContent = `Помесячная детализация (на ${totalMonths} мес.)`;
+            const moTxt = currentLang === 'ru' ? 'мес.' : 'mo.';
+            
+            document.getElementById('chartTitle').innerHTML = currentLang === 'ru' 
+                ? `Динамика роста (${totalMonths} ${moTxt})` 
+                : `Growth Dynamics (${totalMonths} ${moTxt})`;
+                
+            document.getElementById('tableTitle').innerHTML = currentLang === 'ru' 
+                ? `Помесячная детализация (на ${totalMonths} ${moTxt})` 
+                : `Monthly Breakdown (${totalMonths} ${moTxt})`;
 
             // 3. Цикл расчета на заданное количество месяцев
             for (let month = 1; month <= totalMonths; month++) {
@@ -376,16 +644,17 @@
             for (let i = 1; i <= 4; i++) {
                 const el = document.getElementById(`achieve-goal${i}`);
                 if (achievements[i]) {
-                    el.textContent = `Месяц ${achievements[i]}`;
+                    el.textContent = currentLang === 'ru' ? `Месяц ${achievements[i]}` : `Month ${achievements[i]}`;
                     el.className = "text-2xl font-bold text-emerald-600";
                 } else {
-                    el.textContent = `Более ${totalMonths} мес.`;
+                    el.textContent = currentLang === 'ru' ? `Более ${totalMonths} мес.` : `Over ${totalMonths} mo.`;
                     el.className = "text-2xl font-bold text-slate-400";
                 }
             }
 
             // 5. Обновление Графика
-            chartInstance.data.labels = monthlyData.map(d => `${d.month} мес.`);
+            const mLabel = currentLang === 'ru' ? 'мес.' : 'mo.';
+            chartInstance.data.labels = monthlyData.map(d => `${d.month} ${mLabel}`);
             chartInstance.data.datasets[0].data = monthlyData.map(d => d.payout);
             chartInstance.data.datasets[1].data = monthlyData.map(d => d.endCapital);
             chartInstance.update();
@@ -394,21 +663,28 @@
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
             
+            const lMonth = currentLang === 'ru' ? 'Месяц' : 'Month';
+            const lStartCap = currentLang === 'ru' ? 'Старт. капитал' : 'Start. Capital';
+            const lProfit = currentLang === 'ru' ? 'Прибыль (ROI)' : 'Profit (ROI)';
+            const lPayout = currentLang === 'ru' ? 'Вывод на себя' : 'Your Payout';
+            const lEndCap = currentLang === 'ru' ? 'Итоговый оборот' : 'Ending Capital';
+            
             monthlyData.forEach(data => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition-colors md:table-row";
                 
                 const isPayoutMonth = data.payout > 0;
+                const emptyMoney = currentLang === 'ru' ? '0 ₽' : '$0';
                 
                 // Рендер строки с использованием data-label для мобильной карточной раскладки
                 tr.innerHTML = `
-                    <td data-label="Месяц" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 font-medium">Месяц ${data.month}</td>
-                    <td data-label="Старт. капитал" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">${formatMoney(data.startCapital)}</td>
-                    <td data-label="Прибыль (ROI)" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">+ ${formatMoney(data.profit)}</td>
-                    <td data-label="Вывод на себя" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-emerald-600' : 'text-slate-400'}">
-                        ${isPayoutMonth ? formatMoney(data.payout) : '0 ₽'}
+                    <td data-label="${lMonth}" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 font-medium">${lMonth} ${data.month}</td>
+                    <td data-label="${lStartCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">${formatMoney(data.startCapital)}</td>
+                    <td data-label="${lProfit}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">+ ${formatMoney(data.profit)}</td>
+                    <td data-label="${lPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-emerald-600' : 'text-slate-400'}">
+                        ${isPayoutMonth ? formatMoney(data.payout) : emptyMoney}
                     </td>
-                    <td data-label="Итоговый оборот" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-bold text-blue-600 bg-slate-50 md:bg-transparent">${formatMoney(data.endCapital)}</td>
+                    <td data-label="${lEndCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-bold text-blue-600 bg-slate-50 md:bg-transparent">${formatMoney(data.endCapital)}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -420,7 +696,15 @@
             document.getElementById(id).addEventListener('input', calculate);
         });
 
-        window.onload = calculate;
+        // Закрытие модалки по клику вне контента
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeFeedbackModal();
+        });
+
+        window.onload = () => {
+            // Изначальный запуск с текущим языком
+            toggleLang('ru');
+        };
     </script>
 </body>
 </html>
