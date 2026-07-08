@@ -3,247 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Калькулятор сложного процента</title>
+    
+    <!-- SEO Мета-теги -->
+    <title>Калькулятор сложного процента и масштабирования бизнеса онлайн</title>
+    <meta name="description" content="Интерактивный калькулятор сложного процента для бизнеса. Рассчитайте сроки достижения финансовых целей, рентабельность (ROI) и скорость масштабирования капитала при реинвестировании прибыли.">
+    <meta name="keywords" content="калькулятор сложного процента, финансовая модель, масштабирование бизнеса, калькулятор ROI, реинвестирование прибыли, рост оборотного капитала, калькулятор для селлеров маркетплейсов, расчет чистой прибыли">
+    <meta name="author" content="Ваш Бренд/Имя">
+    
+    <!-- Open Graph для соцсетей -->
+    <meta property="og:title" content="Калькулятор капитализации и масштабирования бизнеса">
+    <meta property="og:description" content="Оцените время достижения ваших финансовых целей с учетом реинвестирования чистой прибыли. Онлайн калькулятор ROI.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+
+    <!-- Tailwind CSS для стилизации -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js для графиков -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Базовые стили */
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background: #f4f4f9; 
-            padding: 20px; 
-            color: #333; 
-            margin: 0;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
         }
-        .container { 
-            max-width: 900px; 
-            margin: 0 auto; 
-            background: #fff; 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-        }
-        h2 { 
-            text-align: center; 
-            margin-top: 0; 
-            margin-bottom: 25px;
-            color: #2c3e50;
-        }
-
-        /* Настройка центрированных строк с полями */
-        .input-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .input-group {
-            flex: 1 1 200px;
-            max-width: 220px;
-        }
-        
-        label { 
-            display: block; 
-            font-weight: 600; 
-            margin-bottom: 8px; 
-            font-size: 14px; 
-            color: #4a5568;
-            text-align: center;
-        }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #cbd5e1; 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            font-size: 16px;
-            text-align: center;
-            transition: border-color 0.2s;
-        }
-        input:focus {
-            outline: none;
-            border-color: #3b82f6;
-        }
-
-        button { 
-            background: #3b82f6; 
-            color: white; 
-            border: none; 
-            padding: 14px 20px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            width: 100%; 
-            font-weight: bold; 
-            margin-top: 10px;
-            transition: background 0.2s;
-        }
-        button:hover { background: #2563eb; }
-
-        /* Оповещения */
-        .alerts-container { margin-top: 20px; }
-        .goal-alert { 
-            padding: 12px; 
-            background: #dcfce7; 
-            color: #166534; 
-            border-radius: 8px; 
-            margin-top: 10px; 
-            display: none; 
-            text-align: center; 
-            font-weight: 500; 
-            border: 1px solid #bbf7d0;
-        }
-
-        /* Таблица с адаптацией для мобильных */
-        .table-responsive { 
-            overflow-x: auto; 
-            margin-top: 25px; 
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            min-width: 700px; /* Чтобы таблица не сжималась в кашу на телефоне */
-        }
-        th, td { 
-            border-bottom: 1px solid #e2e8f0; 
-            padding: 12px 15px; 
-            text-align: center; 
-        }
-        th { 
-            background: #f8fafc; 
-            font-weight: 600; 
-            color: #475569;
-        }
-        tr:last-child td { border-bottom: none; }
-
-        /* Правила для мобильных экранов */
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .container { padding: 15px; }
-            .input-group { 
-                max-width: 100%; 
-                flex-basis: 100%; 
+        /* Адаптация таблицы для мобильных - убираем стандартную прокрутку */
+        @media (max-width: 768px) {
+            .mobile-card-table thead { display: none; }
+            .mobile-card-table tr { 
+                display: block; 
+                margin-bottom: 1rem; 
+                background: #fff; 
+                border-radius: 0.75rem; 
+                border: 1px solid #e2e8f0;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             }
-            label { text-align: left; }
-            input { text-align: left; }
+            .mobile-card-table td { 
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+                padding: 0.75rem 1rem; 
+                border-bottom: 1px solid #f1f5f9;
+                text-align: right;
+            }
+            .mobile-card-table td:last-child { border-bottom: none; }
+            .mobile-card-table td::before {
+                content: attr(data-label);
+                font-weight: 500;
+                color: #64748b;
+                text-transform: uppercase;
+                font-size: 0.7rem;
+                letter-spacing: 0.05em;
+                text-align: left;
+                margin-right: 1rem;
+            }
         }
     </style>
 </head>
-<body>
+<body class="text-slate-800 p-4 md:p-8">
 
-<div class="container">
-    <h2>Прогноз масштабирования капитала</h2>
-    
-    <div class="input-row">
-        <div class="input-group">
-            <label>Стартовый капитал (₽)</label>
-            <input type="number" id="startCap" value="100000">
-        </div>
-        <div class="input-group">
-            <label>Средний ROI (%)</label>
-            <input type="number" id="roi" value="98.5" step="0.1">
-        </div>
-    </div>
-
-    <div class="input-row">
-        <div class="input-group">
-            <label>Цель 1 (₽/мес)</label>
-            <input type="number" id="g1" value="100000">
-        </div>
-        <div class="input-group">
-            <label>Цель 2 (₽/мес)</label>
-            <input type="number" id="g2" value="300000">
-        </div>
-        <div class="input-group">
-            <label>Цель 3 (₽/мес)</label>
-            <input type="number" id="g3" value="500000">
-        </div>
-        <div class="input-group">
-            <label>Цель 4 (₽/мес)</label>
-            <input type="number" id="g4" value="1000000">
-        </div>
-    </div>
-    
-    <button onclick="calculate()">Рассчитать прогноз</button>
-
-    <div id="alerts" class="alerts-container"></div>
-
-    <div class="table-responsive">
-        <table id="resultTable">
-            <thead>
-                <tr>
-                    <th>Месяц</th>
-                    <th>Капитал на старте</th>
-                    <th>Чистая прибыль</th>
-                    <th>Вывод (Личный доход)</th>
-                    <th>Капитал в реинвест</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    function formatCurrency(num) {
-        return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(num);
-    }
-
-    function calculate() {
-        let cap = parseFloat(document.getElementById('startCap').value) || 0;
-        let roi = (parseFloat(document.getElementById('roi').value) || 0) / 100;
-        let goals = [
-            parseFloat(document.getElementById('g1').value) || 0,
-            parseFloat(document.getElementById('g2').value) || 0,
-            parseFloat(document.getElementById('g3').value) || 0,
-            parseFloat(document.getElementById('g4').value) || 0
-        ].sort((a,b) => a - b); 
-
-        let tbody = document.querySelector('#resultTable tbody');
-        let alerts = document.getElementById('alerts');
-        tbody.innerHTML = '';
-        alerts.innerHTML = '';
+    <div class="max-w-7xl mx-auto space-y-6">
         
-        let achieved = {};
+        <!-- Заголовок и Инструкция -->
+        <div class="flex flex-col mb-2">
+            <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Калькулятор капитализации</h1>
+            <p class="text-slate-600 mt-3 bg-blue-50 border border-blue-100 p-4 rounded-xl text-sm leading-relaxed">
+                Редактируйте поля <strong>Стартовый капитал</strong> и <strong>Средний ROI</strong>, чтобы оценить время достижения своих финансовых целей. Изменяйте значения в полях <strong>Цель 1-4</strong>, для указания своих значений.<br>
+                <em>При выводе достигнутой цели, часть прибыли автоматически остается для реинвестиции в оборот для дальнейшего роста.</em>
+            </p>
+        </div>
 
-        for (let month = 1; month <= 12; month++) {
-            let profit = cap * roi;
-            let payout = 0;
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <!-- Левая панель: Инпуты -->
+            <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-fit">
+                <h2 class="text-lg font-semibold mb-4 text-slate-800">Параметры старта</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Стартовый капитал (₽)</label>
+                        <input type="number" id="startCapital" value="100000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Средний ROI (%)</label>
+                        <input type="number" id="roi" value="98.5" step="0.1" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    </div>
 
-            for (let i = goals.length - 1; i >= 0; i--) {
-                if (profit >= goals[i] && goals[i] > 0) {
-                    payout = goals[i];
-                    if (!achieved[goals[i]]) {
-                        achieved[goals[i]] = month;
-                        let div = document.createElement('div');
-                        div.className = 'goal-alert';
-                        div.style.display = 'block';
-                        div.innerText = `Цель ${formatCurrency(goals[i])} достигнута на ${month}-й месяц! 🎉`;
-                        alerts.appendChild(div);
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-1">Период расчета (мес.)</label>
+                        <input type="number" id="months" value="60" min="1" max="120" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100">
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3 uppercase tracking-wider">Ваши цели (вывод/мес)</h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 1</label>
+                                <input type="number" id="goal1" value="100000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 2</label>
+                                <input type="number" id="goal2" value="300000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 3</label>
+                                <input type="number" id="goal3" value="500000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-500 mb-1">Цель 4</label>
+                                <input type="number" id="goal4" value="1000000" class="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая панель: Результаты -->
+            <div class="lg:col-span-3 space-y-6">
+                
+                <!-- Карточки достижения целей -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 1</div>
+                        <div id="achieve-goal1" class="text-2xl font-bold text-indigo-600">-</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 2</div>
+                        <div id="achieve-goal2" class="text-2xl font-bold text-indigo-600">-</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 3</div>
+                        <div id="achieve-goal3" class="text-2xl font-bold text-indigo-600">-</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                        <div class="text-sm font-medium text-slate-500 mb-1">Цель 4</div>
+                        <div id="achieve-goal4" class="text-2xl font-bold text-indigo-600">-</div>
+                    </div>
+                </div>
+
+                <!-- График -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 id="chartTitle" class="text-lg font-semibold mb-4 text-slate-800">Динамика роста</h3>
+                    <div class="relative h-72 w-full">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Таблица -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                    <div class="p-6 border-b border-slate-100">
+                        <h3 id="tableTitle" class="text-lg font-semibold text-slate-800">Помесячная детализация</h3>
+                    </div>
+                    <!-- Класс mobile-card-table включает CSS-адаптацию для телефонов -->
+                    <div class="w-full">
+                        <table class="min-w-full divide-y divide-slate-200 text-sm mobile-card-table">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left font-medium text-slate-500 uppercase tracking-wider">Месяц</th>
+                                    <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">Старт. капитал</th>
+                                    <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">Прибыль (ROI)</th>
+                                    <th scope="col" class="px-6 py-3 text-right font-medium text-emerald-600 uppercase tracking-wider">Вывод на себя</th>
+                                    <th scope="col" class="px-6 py-3 text-right font-medium text-blue-600 uppercase tracking-wider">Итоговый оборот</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="bg-white md:divide-y md:divide-slate-100">
+                                <!-- Рендерится через JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SEO Статья для продвижения (внизу страницы) -->
+        <article class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mt-12 mb-8 text-slate-700">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">Калькулятор сложного процента: инструмент для масштабирования бизнеса</h2>
+            <p class="mb-4">Успешный бизнес, особенно в сфере электронной коммерции и продаж на маркетплейсах, требует четкого понимания финансовой математики. Наш онлайн-калькулятор капитализации создан специально для предпринимателей, которые хотят визуализировать процесс роста оборотного капитала с помощью механизма сложного процента.</p>
+            
+            <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Почему важно реинвестировать прибыль?</h3>
+            <p class="mb-4">Секрет взрывного роста кроется в постоянном возврате заработанных средств обратно в товарооборот. Реинвестирование позволяет вашему капиталу работать на вас в геометрической прогрессии. Даже с небольшим стартовым капиталом и высоким показателем ROI (Return on Investment) можно достичь внушительных результатов уже в первый год работы.</p>
+            
+            <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Как использовать финансовую модель?</h3>
+            <ul class="list-disc pl-5 mb-4 space-y-2">
+                <li><strong>Укажите стартовый капитал:</strong> сумму, которую вы готовы вложить в первую закупку или цикл производства.</li>
+                <li><strong>Определите Средний ROI:</strong> чистую рентабельность на вложенные средства за один цикл (обычно это 1 месяц).</li>
+                <li><strong>Поставьте личные цели:</strong> введите суммы, которые вы хотите ежемесячно выводить "на себя" в качестве дивидендов.</li>
+            </ul>
+            <p class="mb-4">Интеллектуальный алгоритм калькулятора сам рассчитает, в какой момент ваш оборотный капитал достигнет достаточного уровня, чтобы вы могли выплачивать себе желаемую сумму, <em>не останавливая при этом рост магазина</em>. Часть чистой прибыли будет автоматически направляться в реинвест, защищая бизнес от стагнации.</p>
+
+            <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Стратегия роста на 5 лет</h3>
+            <p>Расширенный прогноз на 60 месяцев (5 лет) позволяет строить долгосрочные финансовые стратегии. Вы сможете наглядно увидеть точку "отрыва", когда бизнес начинает генерировать пассивный доход, значительно превышающий изначальные инвестиции. Используйте этот калькулятор ROI для планирования закупок, общения с инвесторами и корректировки бизнес-плана товарного бизнеса.</p>
+        </article>
+    </div>
+
+    <script>
+        // Инициализация графика Chart.js
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        let chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Личный вывод (₽)',
+                        data: [],
+                        backgroundColor: 'rgba(16, 185, 129, 0.8)', // Emerald 500
+                        borderRadius: 4,
+                        order: 2
+                    },
+                    {
+                        type: 'line',
+                        label: 'Оборотный капитал на конец месяца (₽)',
+                        data: [],
+                        borderColor: 'rgba(59, 130, 246, 1)', // Blue 500
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 2, // Меньше точки для графика на 5 лет
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)',
+                        fill: true,
+                        tension: 0.3,
+                        order: 1
                     }
-                    break;
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 8
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('ru-RU').format(context.parsed.y) + ' ₽';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                if (value >= 1000000000) {
+                                    return (value / 1000000000).toFixed(1) + 'B';
+                                }
+                                if (value >= 1000000) {
+                                    return (value / 1000000).toFixed(1) + 'M';
+                                }
+                                if (value >= 1000) {
+                                    return (value / 1000).toFixed(0) + 'k';
+                                }
+                                return value;
+                            }
+                        },
+                        grid: {
+                            color: '#f1f5f9',
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            maxTicksLimit: 12, // Чтобы ось Х не перекрывалась на 60 месяцев
+                            maxRotation: 0
+                        },
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Функция форматирования валюты
+        const formatMoney = (num) => {
+            return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(num) + ' ₽';
+        };
+
+        const calculate = () => {
+            // 1. Сбор и конвертация данных
+            const startCapital = Number(document.getElementById('startCapital').value) || 0;
+            const roiPercent = Number(document.getElementById('roi').value) || 0;
+            const roi = roiPercent / 100;
+            const totalMonths = Number(document.getElementById('months').value) || 60;
+            
+            const g1 = Number(document.getElementById('goal1').value) || 0;
+            const g2 = Number(document.getElementById('goal2').value) || 0;
+            const g3 = Number(document.getElementById('goal3').value) || 0;
+            const g4 = Number(document.getElementById('goal4').value) || 0;
+            
+            const rawGoals = [
+                { id: 1, val: g1 },
+                { id: 2, val: g2 },
+                { id: 3, val: g3 },
+                { id: 4, val: g4 }
+            ];
+            
+            // Сортировка целей по возрастанию
+            const goals = [...rawGoals].sort((a, b) => a.val - b.val);
+
+            // 2. Инициализация переменных для симуляции
+            let currentCapital = startCapital;
+            const monthlyData = [];
+            const achievements = { 1: null, 2: null, 3: null, 4: null };
+            
+            document.getElementById('chartTitle').textContent = `Динамика роста (${totalMonths} мес.)`;
+            document.getElementById('tableTitle').textContent = `Помесячная детализация (на ${totalMonths} мес.)`;
+
+            // 3. Цикл расчета на заданное количество месяцев
+            for (let month = 1; month <= totalMonths; month++) {
+                const profit = currentCapital * roi;
+                let payout = 0;
+
+                for (let i = goals.length - 1; i >= 0; i--) {
+                    if (profit >= goals[i].val) {
+                        payout = goals[i].val;
+                        break;
+                    }
+                }
+
+                goals.forEach(g => {
+                    if (profit >= g.val && achievements[g.id] === null) {
+                        achievements[g.id] = month;
+                    }
+                });
+
+                const retained = profit - payout;
+                const endCapital = currentCapital + retained;
+
+                monthlyData.push({
+                    month: month,
+                    startCapital: currentCapital,
+                    profit: profit,
+                    payout: payout,
+                    retained: retained,
+                    endCapital: endCapital
+                });
+
+                currentCapital = endCapital;
+            }
+
+            // 4. Обновление карточек достижений
+            for (let i = 1; i <= 4; i++) {
+                const el = document.getElementById(`achieve-goal${i}`);
+                if (achievements[i]) {
+                    el.textContent = `Месяц ${achievements[i]}`;
+                    el.className = "text-2xl font-bold text-emerald-600";
+                } else {
+                    el.textContent = `Более ${totalMonths} мес.`;
+                    el.className = "text-2xl font-bold text-slate-400";
                 }
             }
 
-            let retained = profit - payout;
-            let endCap = cap + retained;
+            // 5. Обновление Графика
+            chartInstance.data.labels = monthlyData.map(d => `${d.month} мес.`);
+            chartInstance.data.datasets[0].data = monthlyData.map(d => d.payout);
+            chartInstance.data.datasets[1].data = monthlyData.map(d => d.endCapital);
+            chartInstance.update();
 
-            let row = `<tr>
-                <td><strong>${month}</strong></td>
-                <td>${formatCurrency(cap)}</td>
-                <td style="color: #059669; font-weight: 500;">+ ${formatCurrency(profit)}</td>
-                <td style="font-weight: bold; color: ${payout > 0 ? '#b91c1c' : '#333'}">${payout > 0 ? '- ' : ''}${formatCurrency(payout)}</td>
-                <td style="font-weight: 500;">${formatCurrency(endCap)}</td>
-            </tr>`;
-            tbody.innerHTML += row;
+            // 6. Обновление Таблицы с адаптацией под мобильные
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            monthlyData.forEach(data => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors md:table-row";
+                
+                const isPayoutMonth = data.payout > 0;
+                
+                // Рендер строки с использованием data-label для мобильной карточной раскладки
+                tr.innerHTML = `
+                    <td data-label="Месяц" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 font-medium">Месяц ${data.month}</td>
+                    <td data-label="Старт. капитал" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">${formatMoney(data.startCapital)}</td>
+                    <td data-label="Прибыль (ROI)" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">+ ${formatMoney(data.profit)}</td>
+                    <td data-label="Вывод на себя" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-emerald-600' : 'text-slate-400'}">
+                        ${isPayoutMonth ? formatMoney(data.payout) : '0 ₽'}
+                    </td>
+                    <td data-label="Итоговый оборот" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-bold text-blue-600 bg-slate-50 md:bg-transparent">${formatMoney(data.endCapital)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        };
 
-            cap = endCap;
-        }
-    }
-    
-    window.onload = calculate;
-</script>
+        // Слушатели событий
+        const inputs = ['startCapital', 'roi', 'months', 'goal1', 'goal2', 'goal3', 'goal4'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', calculate);
+        });
 
+        window.onload = calculate;
+    </script>
 </body>
 </html>
