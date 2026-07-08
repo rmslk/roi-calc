@@ -8,7 +8,7 @@
     <title>Калькулятор сложного процента и масштабирования бизнеса онлайн</title>
     <meta name="description" content="Интерактивный калькулятор сложного процента для бизнеса. Рассчитайте сроки достижения финансовых целей, рентабельность (ROI) и скорость масштабирования капитала при реинвестировании прибыли.">
     <meta name="keywords" content="калькулятор сложного процента, финансовая модель, масштабирование бизнеса, калькулятор ROI, реинвестирование прибыли, рост оборотного капитала, калькулятор для селлеров маркетплейсов, расчет чистой прибыли">
-    <meta name="author" content="Ваш Бренд/Имя">
+    <meta name="author" content="Ваш Бренд">
     
     <!-- Open Graph для соцсетей -->
     <meta property="og:title" content="Калькулятор капитализации и масштабирования бизнеса">
@@ -16,9 +16,9 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
 
-    <!-- Tailwind CSS для стилизации -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js для графиков -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
         body.lang-en .lang-ru { display: none !important; }
         body.lang-ru .lang-en { display: none !important; }
 
-        /* Адаптация таблицы для мобильных - убираем стандартную прокрутку */
+        /* Адаптация таблицы для мобильных (карточки вместо длинных строк) */
         @media (max-width: 768px) {
             .mobile-card-table thead { display: none; }
             .mobile-card-table tr { 
@@ -75,227 +75,228 @@
         <button id="btn-en" onclick="toggleLang('en')" class="font-normal text-slate-400 hover:text-blue-500 transition-colors focus:outline-none">EN</button>
     </div>
 
-    <div class="max-w-7xl mx-auto space-y-8 pt-10 md:pt-4">
+    <div class="max-w-6xl mx-auto space-y-6 pt-10 md:pt-0">
         
-        <!-- Заголовок и Инструкция (Отцентровано) -->
-        <div class="flex flex-col mb-2 text-center items-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight text-center">
+        <!-- Заголовок и Инструкция (Отцентрованы) -->
+        <div class="flex flex-col mb-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
                 <span class="lang-ru">Калькулятор капитализации</span>
                 <span class="lang-en">Capitalization Calculator</span>
             </h1>
-            <p class="text-slate-600 mt-4 bg-blue-50 border border-blue-100 p-5 rounded-2xl text-sm leading-relaxed text-left inline-block max-w-4xl shadow-sm">
+            <p class="text-slate-600 mt-4 bg-blue-50 border border-blue-100 p-5 rounded-2xl text-sm leading-relaxed text-left md:text-center inline-block mx-auto max-w-4xl shadow-sm">
                 <span class="lang-ru">
-                    • Редактируйте поля <strong>Стартовый капитал</strong> и <strong>Средний ROI</strong>, чтобы оценить время достижения своих финансовых целей.<br>
-                    • Редактируйте поле <strong>Период расчета (мес.)</strong> для увеличения горизонта планирования. Максимальное значение — 5 лет (60 месяцев).<br>
-                    • Изменяйте значения в полях <strong>Цель 1 - 4</strong>, для указания желаемых финансовых целей для достижения.<br><br>
-                    <em>До достижения цели, 100% полученной прибыли полностью реинвестируются в оборот.<br>
-                    При достижении цели и выводе на себя, часть прибыли автоматически остается в обороте для реинвестиции и дальнейшего роста.</em>
+                    • Редактируйте поля <strong>Стартовый капитал</strong>, <strong>Средний ROI</strong> и <strong>Период расчета</strong>, чтобы оценить время достижения своих финансовых целей.<br>
+                    • Изменяйте значения в полях <strong>Цель 1 - 4</strong>, для указания желаемых рубежей выплат.<br>
+                    <em>До достижения цели, 100% полученной прибыли реинвестируется в оборот. При достижении цели и выводе на себя, остаток прибыли автоматически остается в обороте для дальнейшего роста.</em>
                 </span>
                 <span class="lang-en">
-                    • Edit the <strong>Starting Capital</strong> and <strong>Average ROI</strong> fields to estimate the time required to reach your financial goals.<br>
-                    • Edit the <strong>Calculation Period</strong> to extend your planning horizon. Maximum value is 5 years (60 months).<br>
-                    • Change the values in the <strong>Goal 1 - 4</strong> fields to set your desired financial payout targets.<br><br>
-                    <em>Until a goal is reached, 100% of the profit is fully reinvested.<br>
-                    Upon reaching a goal and paying out to yourself, the remaining profit automatically stays in circulation for reinvestment and further growth.</em>
+                    • Edit <strong>Starting Capital</strong>, <strong>Average ROI</strong>, and <strong>Calculation Period</strong> to estimate the time required to reach your goals.<br>
+                    • Change the values in <strong>Goal 1 - 4</strong> fields to set your desired payout targets.<br>
+                    <em>Until a goal is reached, 100% of the profit is reinvested. Upon reaching a goal and paying yourself, the remaining profit automatically stays in circulation for further growth.</em>
                 </span>
             </p>
         </div>
 
-        <!-- Центральный блок параметров (Заменяет боковое меню) -->
+        <!-- Центральный блок настроек (2 строки по центру) -->
         <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
             
-            <!-- СТРОКА 1: Капитал, ROI, Месяцы (по центру) -->
-            <div class="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mb-8">
-                <div class="w-full md:w-56">
-                    <label class="block text-sm font-semibold text-slate-600 mb-2 text-center">
+            <!-- Строка 1: Параметры старта (Отцентрованы) -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 w-full">
+                <div class="w-full md:w-64">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1 text-center md:text-left">
                         <span class="lang-ru">Стартовый капитал (₽)</span>
                         <span class="lang-en">Starting Capital</span>
                     </label>
-                    <input type="number" id="startCapital" value="100000" class="w-full px-4 py-2 text-center text-lg border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    <input type="number" id="startCapital" value="100000" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-center md:text-left font-medium">
                 </div>
                 
-                <div class="w-full md:w-56">
-                    <label class="block text-sm font-semibold text-slate-600 mb-2 text-center">
+                <div class="w-full md:w-64">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1 text-center md:text-left">
                         <span class="lang-ru">Средний ROI (%)</span>
                         <span class="lang-en">Average ROI (%)</span>
                     </label>
-                    <input type="number" id="roi" value="98.5" step="0.1" class="w-full px-4 py-2 text-center text-lg border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    <input type="number" id="roi" value="98.5" step="0.1" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-center md:text-left font-medium">
                 </div>
 
-                <div class="w-full md:w-56">
-                    <label class="block text-sm font-semibold text-slate-600 mb-2 text-center">
-                        <span class="lang-ru">Период (мес.)</span>
-                        <span class="lang-en">Period (mo.)</span>
+                <div class="w-full md:w-64">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1 text-center md:text-left">
+                        <span class="lang-ru">Период расчета (мес.)</span>
+                        <span class="lang-en">Period (months)</span>
                     </label>
-                    <input type="number" id="months" value="12" min="1" max="120" class="w-full px-4 py-2 text-center text-lg border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    <input type="number" id="months" value="12" min="1" max="120" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-center md:text-left font-medium">
                 </div>
             </div>
 
-            <!-- СТРОКА 2: Цели (по центру) -->
-            <div class="pt-6 border-t border-slate-100">
-                <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider text-center">
-                    <span class="lang-ru">Ваши цели (вывод в месяц)</span>
-                    <span class="lang-en">Your Goals (Monthly Payout)</span>
+            <hr class="my-8 border-slate-100">
+
+            <!-- Строка 2: Цели (Отцентрованы) -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 w-full">
+                <div class="w-full md:w-56">
+                    <label class="block text-xs font-bold text-indigo-500 mb-1 text-center uppercase tracking-wide">
+                        <span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span>
+                    </label>
+                    <input type="number" id="goal1" value="100000" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-center md:text-left font-medium bg-indigo-50/30">
+                </div>
+                <div class="w-full md:w-56">
+                    <label class="block text-xs font-bold text-indigo-500 mb-1 text-center uppercase tracking-wide">
+                        <span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span>
+                    </label>
+                    <input type="number" id="goal2" value="300000" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-center md:text-left font-medium bg-indigo-50/30">
+                </div>
+                <div class="w-full md:w-56">
+                    <label class="block text-xs font-bold text-indigo-500 mb-1 text-center uppercase tracking-wide">
+                        <span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span>
+                    </label>
+                    <input type="number" id="goal3" value="500000" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-center md:text-left font-medium bg-indigo-50/30">
+                </div>
+                <div class="w-full md:w-56">
+                    <label class="block text-xs font-bold text-indigo-500 mb-1 text-center uppercase tracking-wide">
+                        <span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span>
+                    </label>
+                    <input type="number" id="goal4" value="1000000" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-center md:text-left font-medium bg-indigo-50/30">
+                </div>
+            </div>
+        </div>
+
+        <!-- Верхний блок "Поделиться" и "Обратная связь" (Отцентрован) -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center max-w-2xl mx-auto">
+            <p class="text-sm font-semibold text-slate-700 mb-4 text-center uppercase tracking-wide">
+                <span class="lang-ru">Поделиться калькулятором</span>
+                <span class="lang-en">Share Calculator</span>
+            </p>
+            
+            <!-- Чистые оригинальные иконки соцсетей -->
+            <div class="flex flex-wrap gap-3 justify-center w-full mb-6">
+                <!-- Telegram -->
+                <button onclick="shareSocial('tg')" class="w-12 h-12 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Telegram">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
+                </button>
+                <!-- X (Twitter) -->
+                <button onclick="shareSocial('tw')" class="w-12 h-12 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="X (Twitter)">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+                </button>
+                <!-- Facebook -->
+                <button onclick="shareSocial('fb')" class="w-12 h-12 flex items-center justify-center bg-[#1877f2] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Facebook">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                </button>
+                <!-- VK -->
+                <button onclick="shareSocial('vk')" class="w-12 h-12 flex items-center justify-center bg-[#0077FF] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="VK">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
+                </button>
+                <!-- Reddit -->
+                <button onclick="shareSocial('rd')" class="w-12 h-12 flex items-center justify-center bg-[#FF4500] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Reddit">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-46.1 17.9-46.1 17.9s-27.6.3-46.1-17.9c-3-3-4.2-7.7-3-11.6 1.1-3.9 4.7-6.6 8.9-6.6 6.4 0 11.1 3.6 14.1 6.6 14.7 14.7 26 14.9 26 14.9s11.3-.3 26-14.9c3-3 7.7-6.6 14.1-6.6 4.2 0 7.7 2.8 8.9 6.6 1.4 3.9 0 8.6-2.8 11.6zm4.3-50.1c-13.6 0-24.6-11.1-24.6-24.9 0-13.6 11.1-24.6 24.6-24.6 13.8 0 24.9 11.1 24.9 24.9 0 13.8-11.1 24.6-24.9 24.6z"/></svg>
+                </button>
+                <!-- Copy Link (Instagram Gradient) -->
+                <button onclick="shareSocial('copy')" class="w-12 h-12 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition-opacity shadow-sm" title="Copy Link / Instagram">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M326.6 109.2c21.5-21.5 56.4-21.5 77.9 0l41.5 41.5c21.5 21.5 21.5 56.4 0 77.9l-61.5 61.5c-21.5 21.5-56.4 21.5-77.9 0-5.9-5.9-10.6-12.7-13.9-20-2-4.4-6.6-6.9-11.5-6.9-8.4 0-14.3 8.3-11.6 16.2 4.6 13.1 11.8 25.1 21.4 34.6l61.5 61.5c34 34 89.2 34 123.2 0l41.5-41.5c34-34 34-89.2 0-123.2l-41.5-41.5c-34-34-89.2-34-123.2 0l-16.7 16.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l16.7-16.7zM185.4 402.8c-21.5 21.5-56.4 21.5-77.9 0l-41.5-41.5c-21.5-21.5-21.5-56.4 0-77.9l61.5-61.5c21.5-21.5 56.4-21.5 77.9 0 5.9 5.9 10.6 12.7 13.9 20 2 4.4 6.6 6.9 11.5 6.9 8.4 0 14.3-8.3 11.6-16.2-4.6-13.1-11.8-25.1-21.4-34.6l-61.5-61.5c-34-34-89.2-34-123.2 0L14.3 189.9c-34 34-34 89.2 0 123.2l41.5 41.5c34 34 89.2 34 123.2 0l16.7-16.7c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-16.7 16.7zm108.6-218.8l-123.2 123.2c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l123.2-123.2c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0z"/></svg>
+                </button>
+            </div>
+
+            <!-- Обратная связь -->
+            <button onclick="openFeedbackModal()" class="w-full md:w-64 border-2 border-slate-800 text-slate-800 font-semibold py-2.5 rounded-xl hover:bg-slate-800 hover:text-white transition-colors duration-200">
+                <span class="lang-ru">Обратная связь</span>
+                <span class="lang-en">Send Feedback</span>
+            </button>
+        </div>
+
+        <!-- Карточки достижения целей -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span></div>
+                <div id="achieve-goal1" class="text-2xl font-bold text-indigo-600">-</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span></div>
+                <div id="achieve-goal2" class="text-2xl font-bold text-indigo-600">-</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span></div>
+                <div id="achieve-goal3" class="text-2xl font-bold text-indigo-600">-</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
+                <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></div>
+                <div id="achieve-goal4" class="text-2xl font-bold text-indigo-600">-</div>
+            </div>
+        </div>
+
+        <!-- График -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h3 id="chartTitle" class="text-lg font-semibold mb-4 text-slate-800 text-center md:text-left">
+                <span class="lang-ru">Динамика роста</span>
+                <span class="lang-en">Growth Dynamics</span>
+            </h3>
+            <div class="relative h-80 w-full">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Таблица -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="p-6 border-b border-slate-100">
+                <h3 id="tableTitle" class="text-lg font-semibold text-slate-800 text-center md:text-left">
+                    <span class="lang-ru">Помесячная детализация</span>
+                    <span class="lang-en">Monthly Breakdown</span>
                 </h3>
-                
-                <div class="flex flex-col md:flex-row flex-wrap justify-center gap-4 md:gap-6">
-                    <div class="w-full md:w-48">
-                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
-                            <span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span>
-                        </label>
-                        <input type="number" id="goal1" value="100000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                    </div>
-                    <div class="w-full md:w-48">
-                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
-                            <span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span>
-                        </label>
-                        <input type="number" id="goal2" value="300000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                    </div>
-                    <div class="w-full md:w-48">
-                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
-                            <span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span>
-                        </label>
-                        <input type="number" id="goal3" value="500000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                    </div>
-                    <div class="w-full md:w-48">
-                        <label class="block text-xs font-medium text-slate-500 mb-1 text-center">
-                            <span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span>
-                        </label>
-                        <input type="number" id="goal4" value="1000000" class="w-full px-3 py-2 text-center border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                    </div>
-                </div>
             </div>
+            <!-- Класс mobile-card-table включает CSS-адаптацию для телефонов -->
+            <div class="w-full">
+                <table class="min-w-full divide-y divide-slate-200 text-sm mobile-card-table">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 text-left font-semibold text-slate-600 uppercase tracking-wider">
+                                <span class="lang-ru">Месяц</span><span class="lang-en">Month</span>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-right font-semibold text-slate-600 uppercase tracking-wider">
+                                <span class="lang-ru">Старт. капитал</span><span class="lang-en">Start. Capital</span>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-right font-semibold text-slate-600 uppercase tracking-wider">
+                                <span class="lang-ru">Прибыль (ROI)</span><span class="lang-en">Profit (ROI)</span>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-right font-bold text-emerald-600 uppercase tracking-wider">
+                                <span class="lang-ru">Вывод на себя</span><span class="lang-en">Your Payout</span>
+                            </th>
+                            <th scope="col" class="px-6 py-4 text-right font-bold text-blue-600 uppercase tracking-wider">
+                                <span class="lang-ru">Итоговый оборот</span><span class="lang-en">Ending Capital</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="bg-white md:divide-y md:divide-slate-100">
+                        <!-- Рендерится через JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            <!-- Кнопки: Шеринг и Обратная связь (Под параметрами) -->
-            <div class="pt-8 mt-8 border-t border-slate-100 flex flex-col items-center">
-                <p class="text-sm font-medium text-slate-500 mb-3 w-full text-center">
-                    <span class="lang-ru">Поделиться калькулятором:</span>
-                    <span class="lang-en">Share calculator:</span>
-                </p>
-                
-                <div class="flex flex-wrap gap-2 justify-center w-full max-w-lg mb-6">
-                    <button onclick="shareSocial('tg')" class="p-2.5 bg-[#0088cc] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Telegram">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.18 3.42-.49.33-.93.5-1.33.49-.44-.01-1.28-.24-1.9-.44-.77-.24-1.38-.36-1.32-.77.03-.21.32-.42.88-.63 3.46-1.51 5.76-2.5 6.9-2.98 3.28-1.37 3.96-1.61 4.41-1.62.1 0 .32.02.46.12.12.09.16.21.17.31-.02.04-.02.11-.03.16z"/></svg>
-                    </button>
-                    <button onclick="shareSocial('tw')" class="p-2.5 bg-black text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Twitter / X">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    </button>
-                    <button onclick="shareSocial('fb')" class="p-2.5 bg-[#1877f2] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Facebook">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.6v-3h2.4V9.41c0-2.36 1.4-3.66 3.55-3.66 1.04 0 2.12.19 2.12.19v2.33h-1.2c-1.17 0-1.54.73-1.54 1.48V12h2.64l-.42 3h-2.22v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
-                    </button>
-                    <button onclick="shareSocial('vk')" class="p-2.5 bg-[#0077FF] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="VK">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.16 19.3h2.08c0 0 .63-.07.96-.4.3-.32.29-.93.29-.93s-.04-2.84 1.25-3.26c1.28-.4 2.92 2.7 4.68 3.89.19.13.38.2.56.23h3.76s1.97-.12 1.04-1.66c-.08-.13-1.13-2.38-2.32-3.48-1.24-1.15-1.07-.96.43-2.96 0 0 2.65-3.72 2.9-5.11.14-.52-.06-.72-.43-.72H24.3c-.43 0-.63.22-.73.47 0 0-1.42 3.44-3.43 6.87-1.14 1.94-1.65 2.05-1.99 1.83-.55-.35-.38-2.61-.38-3.41 0-1.58.24-2.24-.46-2.41-.23-.06-.6-.1-1.48-.1-1.13 0-2.09.01-2.73.32-.42.21-.75.67-.55.69.25.02.82.15 1.12.56.39.54.37 1.77.37 1.77s.22 2.04-.42 2.4c-.44.24-1.04-.26-2.33-2.51-1.33-2.3-2.35-4.84-2.35-4.84-.09-.23-.27-.37-.53-.38H4.66c-.36 0-.54.17-.54.17s-.27.24-.1.74c0 0 2.67 6.25 5.7 9.42 2.78 2.92 5.95 2.8 5.95 2.8z"/></svg>
-                    </button>
-                    <button onclick="shareSocial('rd')" class="p-2.5 bg-[#FF4500] text-white rounded-full hover:opacity-80 transition shadow-sm focus:outline-none" title="Reddit">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.79 6.82c.62 0 1.13.51 1.13 1.13 0 .43-.24.81-.6 1.01.01.12.02.24.02.37 0 2.22-2.11 4.02-4.72 4.02-2.61 0-4.73-1.8-4.73-4.02 0-.13.01-.25.02-.37-.36-.2-.6-.58-.6-1.01 0-.62.51-1.13 1.13-1.13.43 0 .8.24 1.01.6.86-.53 1.94-.86 3.12-.91l.66-2.06 1.44.31c.1.48.53.84 1.05.84.59 0 1.07-.48 1.07-1.07 0-.59-.48-1.07-1.07-1.07-.44 0-.82.26-.98.63L11.02 6l-.8 2.5c1.23.04 2.36.38 3.25.93.2-.38.58-.61 1.02-.61h.3zm-7.07 3.32c-.52 0-.94.42-.94.94 0 .52.42.94.94.94.52 0 .94-.42.94-.94 0-.52-.42-.94-.94-.94zm6.57 0c-.52 0-.94.42-.94.94 0 .52.42.94.94.94.52 0 .94-.42.94-.94 0-.52-.42-.94-.94-.94zm-3.28 3.65c-1.18 0-2.22-.38-2.6-.94l.65-.43c.24.36 1 .6 1.95.6s1.71-.24 1.95-.6l.65.43c-.38.56-1.42.94-2.6.94z"/></svg>
-                    </button>
-                    <!-- Копировать ссылку (Instagram style/fallback) -->
-                    <button onclick="shareSocial('copy')" class="p-2.5 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition shadow-sm focus:outline-none" title="Instagram / Copy link">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-                    </button>
-                </div>
-
-                <button onclick="openFeedbackModal()" class="w-full max-w-sm border-2 border-slate-800 text-slate-800 font-semibold py-2.5 rounded-xl hover:bg-slate-800 hover:text-white transition-colors duration-200 focus:outline-none">
-                    <span class="lang-ru">Обратная связь</span>
-                    <span class="lang-en">Send Feedback</span>
+        <!-- Нижний блок шеринга -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm font-semibold text-slate-700 whitespace-nowrap uppercase tracking-wide">
+                <span class="lang-ru">Поделиться результатами расчета:</span>
+                <span class="lang-en">Share calculation results:</span>
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="shareSocial('tg')" class="w-10 h-10 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Telegram">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
+                </button>
+                <button onclick="shareSocial('tw')" class="w-10 h-10 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Twitter / X">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+                </button>
+                <button onclick="shareSocial('fb')" class="w-10 h-10 flex items-center justify-center bg-[#1877f2] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Facebook">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                </button>
+                <button onclick="shareSocial('vk')" class="w-10 h-10 flex items-center justify-center bg-[#0077FF] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="VK">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
+                </button>
+                <button onclick="shareSocial('rd')" class="w-10 h-10 flex items-center justify-center bg-[#FF4500] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Reddit">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-46.1 17.9-46.1 17.9s-27.6.3-46.1-17.9c-3-3-4.2-7.7-3-11.6 1.1-3.9 4.7-6.6 8.9-6.6 6.4 0 11.1 3.6 14.1 6.6 14.7 14.7 26 14.9 26 14.9s11.3-.3 26-14.9c3-3 7.7-6.6 14.1-6.6 4.2 0 7.7 2.8 8.9 6.6 1.4 3.9 0 8.6-2.8 11.6zm4.3-50.1c-13.6 0-24.6-11.1-24.6-24.9 0-13.6 11.1-24.6 24.6-24.6 13.8 0 24.9 11.1 24.9 24.9 0 13.8-11.1 24.6-24.9 24.6z"/></svg>
+                </button>
+                <button onclick="shareSocial('copy')" class="w-10 h-10 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition-opacity shadow-sm" title="Copy Link / Instagram">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M326.6 109.2c21.5-21.5 56.4-21.5 77.9 0l41.5 41.5c21.5 21.5 21.5 56.4 0 77.9l-61.5 61.5c-21.5 21.5-56.4 21.5-77.9 0-5.9-5.9-10.6-12.7-13.9-20-2-4.4-6.6-6.9-11.5-6.9-8.4 0-14.3 8.3-11.6 16.2 4.6 13.1 11.8 25.1 21.4 34.6l61.5 61.5c34 34 89.2 34 123.2 0l41.5-41.5c34-34 34-89.2 0-123.2l-41.5-41.5c-34-34-89.2-34-123.2 0l-16.7 16.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l16.7-16.7zM185.4 402.8c-21.5 21.5-56.4 21.5-77.9 0l-41.5-41.5c-21.5-21.5-21.5-56.4 0-77.9l61.5-61.5c21.5-21.5 56.4-21.5 77.9 0 5.9 5.9 10.6 12.7 13.9 20 2 4.4 6.6 6.9 11.5 6.9 8.4 0 14.3-8.3 11.6-16.2-4.6-13.1-11.8-25.1-21.4-34.6l-61.5-61.5c-34-34-89.2-34-123.2 0L14.3 189.9c-34 34-34 89.2 0 123.2l41.5 41.5c34 34 89.2 34 123.2 0l16.7-16.7c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-16.7 16.7zm108.6-218.8l-123.2 123.2c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l123.2-123.2c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0z"/></svg>
                 </button>
             </div>
         </div>
 
-        <!-- Блок Результатов -->
-        <div class="space-y-6">
-            
-            <!-- Карточки достижения целей -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span></div>
-                    <div id="achieve-goal1" class="text-2xl font-bold text-indigo-600">-</div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span></div>
-                    <div id="achieve-goal2" class="text-2xl font-bold text-indigo-600">-</div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span></div>
-                    <div id="achieve-goal3" class="text-2xl font-bold text-indigo-600">-</div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                    <div class="text-sm font-medium text-slate-500 mb-1"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></div>
-                    <div id="achieve-goal4" class="text-2xl font-bold text-indigo-600">-</div>
-                </div>
-            </div>
-
-            <!-- График -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <h3 id="chartTitle" class="text-lg font-semibold mb-4 text-slate-800 text-center md:text-left">
-                    <span class="lang-ru">Динамика роста</span>
-                    <span class="lang-en">Growth Dynamics</span>
-                </h3>
-                <div class="relative h-72 w-full">
-                    <canvas id="growthChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Таблица -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                <div class="p-6 border-b border-slate-100 flex justify-center md:justify-start items-center">
-                    <h3 id="tableTitle" class="text-lg font-semibold text-slate-800 text-center md:text-left">
-                        <span class="lang-ru">Помесячная детализация</span>
-                        <span class="lang-en">Monthly Breakdown</span>
-                    </h3>
-                </div>
-                <!-- Класс mobile-card-table включает CSS-адаптацию для телефонов -->
-                <div class="w-full">
-                    <table class="min-w-full divide-y divide-slate-200 text-sm mobile-card-table">
-                        <thead class="bg-slate-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left font-medium text-slate-500 uppercase tracking-wider">
-                                    <span class="lang-ru">Месяц</span><span class="lang-en">Month</span>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">
-                                    <span class="lang-ru">Старт. капитал</span><span class="lang-en">Start. Capital</span>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right font-medium text-slate-500 uppercase tracking-wider">
-                                    <span class="lang-ru">Прибыль (ROI)</span><span class="lang-en">Profit (ROI)</span>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right font-medium text-emerald-600 uppercase tracking-wider">
-                                    <span class="lang-ru">Вывод на себя</span><span class="lang-en">Your Payout</span>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-right font-medium text-blue-600 uppercase tracking-wider">
-                                    <span class="lang-ru">Итоговый оборот</span><span class="lang-en">Ending Capital</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody" class="bg-white md:divide-y md:divide-slate-100">
-                            <!-- Рендерится через JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Второй блок шеринга (Под таблицей) -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="text-sm font-medium text-slate-600 whitespace-nowrap text-center md:text-left">
-                    <span class="lang-ru">Поделиться результатами расчета:</span>
-                    <span class="lang-en">Share calculation results:</span>
-                </p>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <button onclick="shareSocial('tg')" class="px-4 py-2 bg-[#0088cc] text-white text-sm font-medium rounded-xl hover:opacity-80 transition shadow-sm flex items-center gap-2 focus:outline-none">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.18 3.42-.49.33-.93.5-1.33.49-.44-.01-1.28-.24-1.9-.44-.77-.24-1.38-.36-1.32-.77.03-.21.32-.42.88-.63 3.46-1.51 5.76-2.5 6.9-2.98 3.28-1.37 3.96-1.61 4.41-1.62.1 0 .32.02.46.12.12.09.16.21.17.31-.02.04-.02.11-.03.16z"/></svg> Telegram
-                    </button>
-                    <button onclick="shareSocial('tw')" class="px-4 py-2 bg-black text-white text-sm font-medium rounded-xl hover:opacity-80 transition shadow-sm flex items-center gap-2 focus:outline-none">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Twitter
-                    </button>
-                    <button onclick="shareSocial('copy')" class="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-medium rounded-xl hover:bg-slate-200 transition shadow-sm flex items-center gap-2 border border-slate-200 focus:outline-none">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg> 
-                        <span class="lang-ru">Копировать</span><span class="lang-en">Copy Link</span>
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- SEO Статья для продвижения (внизу страницы) -->
+        <!-- SEO Статья -->
         <article class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mt-12 mb-8 text-slate-700">
             <h2 class="text-2xl font-bold text-slate-900 mb-4">
                 <span class="lang-ru">Калькулятор сложного процента: инструмент для масштабирования бизнеса</span>
@@ -304,10 +305,8 @@
             
             <div class="lang-ru">
                 <p class="mb-4">Успешный бизнес, особенно в сфере электронной коммерции и продаж на маркетплейсах, требует четкого понимания финансовой математики. Наш онлайн-калькулятор капитализации создан специально для предпринимателей, которые хотят визуализировать процесс роста оборотного капитала с помощью механизма сложного процента.</p>
-                
                 <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Почему важно реинвестировать прибыль?</h3>
                 <p class="mb-4">Секрет взрывного роста кроется в постоянном возврате заработанных средств обратно в товарооборот. Реинвестирование позволяет вашему капиталу работать на вас в геометрической прогрессии. Даже с небольшим стартовым капиталом и высоким показателем ROI (Return on Investment) можно достичь внушительных результатов уже в первый год работы.</p>
-                
                 <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Как использовать финансовую модель?</h3>
                 <ul class="list-disc pl-5 mb-4 space-y-2">
                     <li><strong>Укажите стартовый капитал:</strong> сумму, которую вы готовы вложить в первую закупку или цикл производства.</li>
@@ -319,10 +318,8 @@
             
             <div class="lang-en">
                 <p class="mb-4">Successful business, especially in e-commerce, requires a clear understanding of financial mathematics. Our online capitalization calculator is designed specifically for entrepreneurs who want to visualize working capital growth through the mechanism of compound interest.</p>
-                
                 <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">Why is Reinvesting Profit Important?</h3>
                 <p class="mb-4">The secret to explosive growth lies in constantly returning earned funds back into inventory turnover. Reinvesting allows your capital to work for you exponentially. Even with a small starting capital and a high ROI (Return on Investment), impressive results can be achieved in the very first year.</p>
-                
                 <h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">How to Use the Financial Model?</h3>
                 <ul class="list-disc pl-5 mb-4 space-y-2">
                     <li><strong>Enter Starting Capital:</strong> the amount you are willing to invest in the first cycle.</li>
@@ -349,11 +346,11 @@
             <textarea id="feedbackText" rows="5" class="w-full border border-slate-300 rounded-xl p-4 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-5 resize-none" placeholder="..."></textarea>
             
             <div class="flex justify-end space-x-3">
-                <button onclick="closeFeedbackModal()" class="px-5 py-2.5 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors focus:outline-none">
+                <button onclick="closeFeedbackModal()" class="px-5 py-2.5 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">
                     <span class="lang-ru">Отмена</span>
                     <span class="lang-en">Cancel</span>
                 </button>
-                <button onclick="sendFeedback()" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-sm focus:outline-none">
+                <button onclick="sendFeedback()" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
                     <span class="lang-ru">Отправить письмо</span>
                     <span class="lang-en">Send Email</span>
                 </button>
@@ -362,7 +359,7 @@
     </div>
 
     <script>
-        // Инициализация языка
+        // Мультиязычность
         let currentLang = 'ru';
 
         function toggleLang(lang) {
@@ -383,17 +380,17 @@
                 document.getElementById('btn-ru').classList.replace('text-slate-400', 'text-blue-600');
             }
             
-            // Обновляем легенды графика под новый язык
-            chartInstance.data.datasets[0].label = currentLang === 'ru' ? 'Личный вывод (выплата)' : 'Personal Payout';
-            chartInstance.data.datasets[1].label = currentLang === 'ru' ? 'Оборотный капитал' : 'Working Capital';
-            
-            calculate(); // Перерисовываем таблицу и графики
+            if(chartInstance) {
+                chartInstance.data.datasets[0].label = currentLang === 'ru' ? 'Личный вывод (выплата)' : 'Personal Payout';
+                chartInstance.data.datasets[1].label = currentLang === 'ru' ? 'Оборотный капитал' : 'Working Capital';
+                calculate();
+            }
         }
 
-        // Логика Шеринга
+        // Шеринг
         function shareSocial(platform) {
             const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent(currentLang === 'ru' ? 'Интерактивный калькулятор сложного процента для селлеров и бизнеса!' : 'Interactive Compound Interest Calculator for Business!');
+            const title = encodeURIComponent(currentLang === 'ru' ? 'Интерактивный калькулятор сложного процента для бизнеса!' : 'Interactive Compound Interest Calculator for Business!');
             let shareUrl = '';
             
             switch(platform) {
@@ -405,32 +402,18 @@
                 case 'copy':
                     navigator.clipboard.writeText(window.location.href).then(() => {
                         alert(currentLang === 'ru' ? 'Ссылка успешно скопирована!' : 'Link successfully copied!');
-                    }).catch(() => {
-                        // Фолбэк, если writeText заблокирован браузером
-                        const textArea = document.createElement("textarea");
-                        textArea.value = window.location.href;
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        try {
-                            document.execCommand('copy');
-                            alert(currentLang === 'ru' ? 'Ссылка успешно скопирована!' : 'Link successfully copied!');
-                        } catch (err) {
-                            console.error('Copy failed', err);
-                        }
-                        document.body.removeChild(textArea);
                     });
                     return;
             }
             if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
         }
 
-        // Логика Обратной связи с защитой Email
+        // Обратная связь
         const modal = document.getElementById('feedbackModal');
         const modalContent = document.getElementById('feedbackModalContent');
         
         function openFeedbackModal() {
             modal.classList.remove('hidden');
-            // Небольшая анимация появления
             setTimeout(() => {
                 modalContent.classList.remove('scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
@@ -441,16 +424,13 @@
         function closeFeedbackModal() {
             modalContent.classList.remove('scale-100', 'opacity-100');
             modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 200);
+            setTimeout(() => { modal.classList.add('hidden'); }, 200);
         }
 
         function sendFeedback() {
             const text = document.getElementById('feedbackText').value.trim();
             if(!text) return;
             
-            // Скрытая сборка адреса
             const p1 = "termit";
             const p2 = "dream";
             const d = "gmail.com";
@@ -460,109 +440,10 @@
             window.location.href = `mailto:${target}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
             
             closeFeedbackModal();
-            document.getElementById('feedbackText').value = ''; // очистка
+            document.getElementById('feedbackText').value = ''; 
         }
 
-        // Инициализация графика Chart.js
-        const ctx = document.getElementById('growthChart').getContext('2d');
-        let chartInstance = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [
-                    {
-                        type: 'bar',
-                        label: 'Личный вывод',
-                        data: [],
-                        backgroundColor: 'rgba(16, 185, 129, 0.8)', // Emerald 500
-                        borderRadius: 4,
-                        order: 2
-                    },
-                    {
-                        type: 'line',
-                        label: 'Оборотный капитал',
-                        data: [],
-                        borderColor: 'rgba(59, 130, 246, 1)', // Blue 500
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        borderWidth: 2,
-                        pointRadius: 2, 
-                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)',
-                        fill: true,
-                        tension: 0.3,
-                        order: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            usePointStyle: true,
-                            boxWidth: 8
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed.y !== null) {
-                                    label += formatMoney(context.parsed.y);
-                                }
-                                return label;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                if (value >= 1000000000) {
-                                    return (value / 1000000000).toFixed(1) + 'B';
-                                }
-                                if (value >= 1000000) {
-                                    return (value / 1000000).toFixed(1) + 'M';
-                                }
-                                if (value >= 1000) {
-                                    return (value / 1000).toFixed(0) + 'k';
-                                }
-                                return value;
-                            }
-                        },
-                        grid: {
-                            color: '#f1f5f9',
-                            drawBorder: false
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            maxTicksLimit: 12,
-                            maxRotation: 0
-                        },
-                        grid: {
-                            display: false,
-                            drawBorder: false
-                        }
-                    }
-                }
-            }
-        });
-
-        // Функция форматирования валюты (зависит от языка)
+        // Форматирование валюты
         const formatMoney = (num) => {
             if (currentLang === 'en') {
                 return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
@@ -570,12 +451,14 @@
             return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(num) + ' ₽';
         };
 
+        // Инициализация Chart.js
+        let chartInstance;
+        
         const calculate = () => {
-            // 1. Сбор и конвертация данных
             const startCapital = Number(document.getElementById('startCapital').value) || 0;
             const roiPercent = Number(document.getElementById('roi').value) || 0;
             const roi = roiPercent / 100;
-            const totalMonths = Number(document.getElementById('months').value) || 12; // По умолчанию 12 месяцев
+            const totalMonths = Number(document.getElementById('months').value) || 12; 
             
             const g1 = Number(document.getElementById('goal1').value) || 0;
             const g2 = Number(document.getElementById('goal2').value) || 0;
@@ -589,10 +472,8 @@
                 { id: 4, val: g4 }
             ];
             
-            // Сортировка целей по возрастанию
             const goals = [...rawGoals].sort((a, b) => a.val - b.val);
 
-            // 2. Инициализация переменных для симуляции
             let currentCapital = startCapital;
             const monthlyData = [];
             const achievements = { 1: null, 2: null, 3: null, 4: null };
@@ -607,20 +488,19 @@
                 ? `Помесячная детализация (на ${totalMonths} ${moTxt})` 
                 : `Monthly Breakdown (${totalMonths} ${moTxt})`;
 
-            // 3. Цикл расчета на заданное количество месяцев
             for (let month = 1; month <= totalMonths; month++) {
                 const profit = currentCapital * roi;
                 let payout = 0;
 
                 for (let i = goals.length - 1; i >= 0; i--) {
-                    if (profit >= goals[i].val) {
+                    if (profit >= goals[i].val && goals[i].val > 0) {
                         payout = goals[i].val;
                         break;
                     }
                 }
 
                 goals.forEach(g => {
-                    if (profit >= g.val && achievements[g.id] === null) {
+                    if (profit >= g.val && g.val > 0 && achievements[g.id] === null) {
                         achievements[g.id] = month;
                     }
                 });
@@ -640,7 +520,6 @@
                 currentCapital = endCapital;
             }
 
-            // 4. Обновление карточек достижений
             for (let i = 1; i <= 4; i++) {
                 const el = document.getElementById(`achieve-goal${i}`);
                 if (achievements[i]) {
@@ -648,18 +527,16 @@
                     el.className = "text-2xl font-bold text-emerald-600";
                 } else {
                     el.textContent = currentLang === 'ru' ? `Более ${totalMonths} мес.` : `Over ${totalMonths} mo.`;
-                    el.className = "text-2xl font-bold text-slate-400";
+                    el.className = "text-xl font-semibold text-slate-400";
                 }
             }
 
-            // 5. Обновление Графика
             const mLabel = currentLang === 'ru' ? 'мес.' : 'mo.';
             chartInstance.data.labels = monthlyData.map(d => `${d.month} ${mLabel}`);
             chartInstance.data.datasets[0].data = monthlyData.map(d => d.payout);
             chartInstance.data.datasets[1].data = monthlyData.map(d => d.endCapital);
             chartInstance.update();
 
-            // 6. Обновление Таблицы с адаптацией под мобильные
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
             
@@ -676,17 +553,93 @@
                 const isPayoutMonth = data.payout > 0;
                 const emptyMoney = currentLang === 'ru' ? '0 ₽' : '$0';
                 
-                // Рендер строки с использованием data-label для мобильной карточной раскладки
                 tr.innerHTML = `
-                    <td data-label="${lMonth}" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 font-medium">${lMonth} ${data.month}</td>
+                    <td data-label="${lMonth}" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 font-medium text-lg md:text-sm">${lMonth} ${data.month}</td>
                     <td data-label="${lStartCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">${formatMoney(data.startCapital)}</td>
                     <td data-label="${lProfit}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-600">+ ${formatMoney(data.profit)}</td>
                     <td data-label="${lPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-emerald-600' : 'text-slate-400'}">
                         ${isPayoutMonth ? formatMoney(data.payout) : emptyMoney}
                     </td>
-                    <td data-label="${lEndCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-bold text-blue-600 bg-slate-50 md:bg-transparent">${formatMoney(data.endCapital)}</td>
+                    <td data-label="${lEndCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-bold text-blue-600 bg-slate-50 md:bg-transparent rounded-lg md:rounded-none mt-2 md:mt-0">${formatMoney(data.endCapital)}</td>
                 `;
                 tbody.appendChild(tr);
+            });
+        };
+
+        const initChart = () => {
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: 'Личный вывод (выплата)',
+                            data: [],
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            borderRadius: 4,
+                            order: 2
+                        },
+                        {
+                            type: 'line',
+                            label: 'Оборотный капитал',
+                            data: [],
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 2, 
+                            pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(59, 130, 246, 1)',
+                            fill: true,
+                            tension: 0.3,
+                            order: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    if (context.parsed.y !== null) {
+                                        label += formatMoney(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B';
+                                    if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
+                                    if (value >= 1000) return (value / 1000).toFixed(0) + 'k';
+                                    return value;
+                                }
+                            },
+                            grid: { color: '#f1f5f9', drawBorder: false }
+                        },
+                        x: {
+                            ticks: { maxTicksLimit: 12, maxRotation: 0 },
+                            grid: { display: false, drawBorder: false }
+                        }
+                    }
+                }
             });
         };
 
@@ -696,13 +649,12 @@
             document.getElementById(id).addEventListener('input', calculate);
         });
 
-        // Закрытие модалки по клику вне контента
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeFeedbackModal();
         });
 
         window.onload = () => {
-            // Изначальный запуск с текущим языком
+            initChart();
             toggleLang('ru');
         };
     </script>
