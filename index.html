@@ -2,52 +2,187 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор сложного процента (4 цели)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Калькулятор сложного процента</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f4f4f9; padding: 20px; color: #333; }
-        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
-        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; font-weight: bold; }
-        button:hover { background: #0056b3; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #f8f9fa; }
-        .goal-alert { padding: 10px; background: #d4edda; color: #155724; border-radius: 4px; margin-top: 10px; display: none; }
+        /* Базовые стили */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background: #f4f4f9; 
+            padding: 20px; 
+            color: #333; 
+            margin: 0;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        h2 { 
+            text-align: center; 
+            margin-top: 0; 
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        /* Настройка центрированных строк с полями */
+        .input-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            flex: 1 1 200px;
+            max-width: 220px;
+        }
+        
+        label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            font-size: 14px; 
+            color: #4a5568;
+            text-align: center;
+        }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 16px;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        button { 
+            background: #3b82f6; 
+            color: white; 
+            border: none; 
+            padding: 14px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            width: 100%; 
+            font-weight: bold; 
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover { background: #2563eb; }
+
+        /* Оповещения */
+        .alerts-container { margin-top: 20px; }
+        .goal-alert { 
+            padding: 12px; 
+            background: #dcfce7; 
+            color: #166534; 
+            border-radius: 8px; 
+            margin-top: 10px; 
+            display: none; 
+            text-align: center; 
+            font-weight: 500; 
+            border: 1px solid #bbf7d0;
+        }
+
+        /* Таблица с адаптацией для мобильных */
+        .table-responsive { 
+            overflow-x: auto; 
+            margin-top: 25px; 
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            min-width: 700px; /* Чтобы таблица не сжималась в кашу на телефоне */
+        }
+        th, td { 
+            border-bottom: 1px solid #e2e8f0; 
+            padding: 12px 15px; 
+            text-align: center; 
+        }
+        th { 
+            background: #f8fafc; 
+            font-weight: 600; 
+            color: #475569;
+        }
+        tr:last-child td { border-bottom: none; }
+
+        /* Правила для мобильных экранов */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 15px; }
+            .input-group { 
+                max-width: 100%; 
+                flex-basis: 100%; 
+            }
+            label { text-align: left; }
+            input { text-align: left; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Прогноз оборачиваемости капитала</h2>
+    <h2>Прогноз масштабирования капитала</h2>
     
-    <div class="grid">
-        <div><label>Стартовый капитал (₽)</label><input type="number" id="startCap" value="100000"></div>
-        <div><label>Средний ROI (%)</label><input type="number" id="roi" value="98.5" step="0.1"></div>
-        <div><label>Цель 1 (₽/мес)</label><input type="number" id="g1" value="100000"></div>
-        <div><label>Цель 2 (₽/мес)</label><input type="number" id="g2" value="300000"></div>
-        <div><label>Цель 3 (₽/мес)</label><input type="number" id="g3" value="500000"></div>
-        <div><label>Цель 4 (₽/мес)</label><input type="number" id="g4" value="1000000"></div>
+    <div class="input-row">
+        <div class="input-group">
+            <label>Стартовый капитал (₽)</label>
+            <input type="number" id="startCap" value="100000">
+        </div>
+        <div class="input-group">
+            <label>Средний ROI (%)</label>
+            <input type="number" id="roi" value="98.5" step="0.1">
+        </div>
+    </div>
+
+    <div class="input-row">
+        <div class="input-group">
+            <label>Цель 1 (₽/мес)</label>
+            <input type="number" id="g1" value="100000">
+        </div>
+        <div class="input-group">
+            <label>Цель 2 (₽/мес)</label>
+            <input type="number" id="g2" value="300000">
+        </div>
+        <div class="input-group">
+            <label>Цель 3 (₽/мес)</label>
+            <input type="number" id="g3" value="500000">
+        </div>
+        <div class="input-group">
+            <label>Цель 4 (₽/мес)</label>
+            <input type="number" id="g4" value="1000000">
+        </div>
     </div>
     
     <button onclick="calculate()">Рассчитать прогноз</button>
 
-    <div id="alerts"></div>
+    <div id="alerts" class="alerts-container"></div>
 
-    <table id="resultTable">
-        <thead>
-            <tr>
-                <th>Месяц</th>
-                <th>Капитал на старте</th>
-                <th>Чистая прибыль</th>
-                <th>Вывод на себя</th>
-                <th>Итоговый капитал</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="table-responsive">
+        <table id="resultTable">
+            <thead>
+                <tr>
+                    <th>Месяц</th>
+                    <th>Капитал на старте</th>
+                    <th>Чистая прибыль</th>
+                    <th>Вывод (Личный доход)</th>
+                    <th>Капитал в реинвест</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -56,14 +191,14 @@
     }
 
     function calculate() {
-        let cap = parseFloat(document.getElementById('startCap').value);
-        let roi = parseFloat(document.getElementById('roi').value) / 100;
+        let cap = parseFloat(document.getElementById('startCap').value) || 0;
+        let roi = (parseFloat(document.getElementById('roi').value) || 0) / 100;
         let goals = [
-            parseFloat(document.getElementById('g1').value),
-            parseFloat(document.getElementById('g2').value),
-            parseFloat(document.getElementById('g3').value),
-            parseFloat(document.getElementById('g4').value)
-        ].sort((a,b) => a - b); // Сортируем цели по возрастанию
+            parseFloat(document.getElementById('g1').value) || 0,
+            parseFloat(document.getElementById('g2').value) || 0,
+            parseFloat(document.getElementById('g3').value) || 0,
+            parseFloat(document.getElementById('g4').value) || 0
+        ].sort((a,b) => a - b); 
 
         let tbody = document.querySelector('#resultTable tbody');
         let alerts = document.getElementById('alerts');
@@ -76,16 +211,15 @@
             let profit = cap * roi;
             let payout = 0;
 
-            // Ищем максимально доступную цель
             for (let i = goals.length - 1; i >= 0; i--) {
-                if (profit >= goals[i]) {
+                if (profit >= goals[i] && goals[i] > 0) {
                     payout = goals[i];
                     if (!achieved[goals[i]]) {
                         achieved[goals[i]] = month;
                         let div = document.createElement('div');
                         div.className = 'goal-alert';
                         div.style.display = 'block';
-                        div.innerText = `Цель ${formatCurrency(goals[i])} достигнута на ${month} месяц!`;
+                        div.innerText = `Цель ${formatCurrency(goals[i])} достигнута на ${month}-й месяц! 🎉`;
                         alerts.appendChild(div);
                     }
                     break;
@@ -96,11 +230,11 @@
             let endCap = cap + retained;
 
             let row = `<tr>
-                <td>${month}</td>
+                <td><strong>${month}</strong></td>
                 <td>${formatCurrency(cap)}</td>
-                <td>${formatCurrency(profit)}</td>
-                <td style="font-weight:bold; color: ${payout > 0 ? 'green' : 'black'}">${formatCurrency(payout)}</td>
-                <td>${formatCurrency(endCap)}</td>
+                <td style="color: #059669; font-weight: 500;">+ ${formatCurrency(profit)}</td>
+                <td style="font-weight: bold; color: ${payout > 0 ? '#b91c1c' : '#333'}">${payout > 0 ? '- ' : ''}${formatCurrency(payout)}</td>
+                <td style="font-weight: 500;">${formatCurrency(endCap)}</td>
             </tr>`;
             tbody.innerHTML += row;
 
@@ -108,7 +242,6 @@
         }
     }
     
-    // Запуск расчета при первой загрузке
     window.onload = calculate;
 </script>
 
