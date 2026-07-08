@@ -77,13 +77,13 @@
 
     <div class="max-w-6xl mx-auto space-y-6 pt-10 md:pt-0">
         
-        <!-- Заголовок и Инструкция (Отцентрованы) -->
+        <!-- Заголовок и Инструкция -->
         <div class="flex flex-col mb-4 text-center">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
                 <span class="lang-ru">Калькулятор капитализации</span>
                 <span class="lang-en">Capitalization Calculator</span>
             </h1>
-            <p class="text-slate-600 mt-4 bg-blue-50 border border-blue-100 p-5 rounded-2xl text-sm leading-relaxed text-left md:text-center inline-block mx-auto max-w-4xl shadow-sm">
+            <p class="text-slate-600 mt-4 bg-blue-50 border border-blue-100 p-5 rounded-2xl text-sm leading-relaxed text-left inline-block mx-auto max-w-4xl shadow-sm">
                 <span class="lang-ru">
                     • Редактируйте поля <strong>Стартовый капитал</strong>, <strong>Средний ROI</strong> и <strong>Период расчета</strong>, чтобы оценить время достижения своих финансовых целей.<br>
                     • Изменяйте значения в полях <strong>Цель 1 - 4</strong>, для указания желаемых рубежей выплат.<br>
@@ -97,10 +97,10 @@
             </p>
         </div>
 
-        <!-- Центральный блок настроек (2 строки по центру) -->
+        <!-- Центральный блок настроек -->
         <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
             
-            <!-- Строка 1: Параметры старта (Отцентрованы) -->
+            <!-- Строка 1: Параметры старта -->
             <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 w-full">
                 <div class="w-full md:w-64">
                     <label class="block text-sm font-semibold text-slate-700 mb-1 text-center md:text-left">
@@ -129,7 +129,7 @@
 
             <hr class="my-8 border-slate-100">
 
-            <!-- Строка 2: Цели (Отцентрованы) -->
+            <!-- Строка 2: Цели -->
             <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 w-full">
                 <div class="w-full md:w-56">
                     <label class="block text-xs font-bold text-indigo-500 mb-1 text-center uppercase tracking-wide">
@@ -156,48 +156,6 @@
                     <input type="number" id="goal4" value="1000000" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-center md:text-left font-medium bg-indigo-50/30">
                 </div>
             </div>
-        </div>
-
-        <!-- Верхний блок "Поделиться" и "Обратная связь" (Отцентрован) -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center max-w-2xl mx-auto">
-            <p class="text-sm font-semibold text-slate-700 mb-4 text-center uppercase tracking-wide">
-                <span class="lang-ru">Поделиться калькулятором</span>
-                <span class="lang-en">Share Calculator</span>
-            </p>
-            
-            <!-- Чистые оригинальные иконки соцсетей -->
-            <div class="flex flex-wrap gap-3 justify-center w-full mb-6">
-                <!-- Telegram -->
-                <button onclick="shareSocial('tg')" class="w-12 h-12 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Telegram">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
-                </button>
-                <!-- X (Twitter) -->
-                <button onclick="shareSocial('tw')" class="w-12 h-12 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="X (Twitter)">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
-                </button>
-                <!-- Facebook -->
-                <button onclick="shareSocial('fb')" class="w-12 h-12 flex items-center justify-center bg-[#1877f2] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Facebook">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
-                </button>
-                <!-- VK -->
-                <button onclick="shareSocial('vk')" class="w-12 h-12 flex items-center justify-center bg-[#0077FF] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="VK">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
-                </button>
-                <!-- Reddit -->
-                <button onclick="shareSocial('rd')" class="w-12 h-12 flex items-center justify-center bg-[#FF4500] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Reddit">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-46.1 17.9-46.1 17.9s-27.6.3-46.1-17.9c-3-3-4.2-7.7-3-11.6 1.1-3.9 4.7-6.6 8.9-6.6 6.4 0 11.1 3.6 14.1 6.6 14.7 14.7 26 14.9 26 14.9s11.3-.3 26-14.9c3-3 7.7-6.6 14.1-6.6 4.2 0 7.7 2.8 8.9 6.6 1.4 3.9 0 8.6-2.8 11.6zm4.3-50.1c-13.6 0-24.6-11.1-24.6-24.9 0-13.6 11.1-24.6 24.6-24.6 13.8 0 24.9 11.1 24.9 24.9 0 13.8-11.1 24.6-24.9 24.6z"/></svg>
-                </button>
-                <!-- Copy Link (Instagram Gradient) -->
-                <button onclick="shareSocial('copy')" class="w-12 h-12 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition-opacity shadow-sm" title="Copy Link / Instagram">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M326.6 109.2c21.5-21.5 56.4-21.5 77.9 0l41.5 41.5c21.5 21.5 21.5 56.4 0 77.9l-61.5 61.5c-21.5 21.5-56.4 21.5-77.9 0-5.9-5.9-10.6-12.7-13.9-20-2-4.4-6.6-6.9-11.5-6.9-8.4 0-14.3 8.3-11.6 16.2 4.6 13.1 11.8 25.1 21.4 34.6l61.5 61.5c34 34 89.2 34 123.2 0l41.5-41.5c34-34 34-89.2 0-123.2l-41.5-41.5c-34-34-89.2-34-123.2 0l-16.7 16.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l16.7-16.7zM185.4 402.8c-21.5 21.5-56.4 21.5-77.9 0l-41.5-41.5c-21.5-21.5-21.5-56.4 0-77.9l61.5-61.5c21.5-21.5 56.4-21.5 77.9 0 5.9 5.9 10.6 12.7 13.9 20 2 4.4 6.6 6.9 11.5 6.9 8.4 0 14.3-8.3 11.6-16.2-4.6-13.1-11.8-25.1-21.4-34.6l-61.5-61.5c-34-34-89.2-34-123.2 0L14.3 189.9c-34 34-34 89.2 0 123.2l41.5 41.5c34 34 89.2 34 123.2 0l16.7-16.7c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-16.7 16.7zm108.6-218.8l-123.2 123.2c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l123.2-123.2c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0z"/></svg>
-                </button>
-            </div>
-
-            <!-- Обратная связь -->
-            <button onclick="openFeedbackModal()" class="w-full md:w-64 border-2 border-slate-800 text-slate-800 font-semibold py-2.5 rounded-xl hover:bg-slate-800 hover:text-white transition-colors duration-200">
-                <span class="lang-ru">Обратная связь</span>
-                <span class="lang-en">Send Feedback</span>
-            </button>
         </div>
 
         <!-- Карточки достижения целей -->
@@ -239,7 +197,6 @@
                     <span class="lang-en">Monthly Breakdown</span>
                 </h3>
             </div>
-            <!-- Класс mobile-card-table включает CSS-адаптацию для телефонов -->
             <div class="w-full">
                 <table class="min-w-full divide-y divide-slate-200 text-sm mobile-card-table">
                     <thead class="bg-slate-50">
@@ -268,30 +225,46 @@
             </div>
         </div>
 
-        <!-- Нижний блок шеринга -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-sm font-semibold text-slate-700 whitespace-nowrap uppercase tracking-wide">
+        <!-- Нижний блок шеринга + Обратная связь -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col lg:flex-row items-center justify-between gap-6">
+            <p class="text-sm font-semibold text-slate-700 whitespace-nowrap uppercase tracking-wide text-center lg:text-left">
                 <span class="lang-ru">Поделиться результатами расчета:</span>
                 <span class="lang-en">Share calculation results:</span>
             </p>
-            <div class="flex flex-wrap justify-center gap-3">
-                <button onclick="shareSocial('tg')" class="w-10 h-10 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Telegram">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
+            
+            <div class="flex flex-wrap justify-center items-center gap-3">
+                <!-- Telegram -->
+                <button onclick="shareSocial('tg')" class="w-10 h-10 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm flex-shrink-0" title="Telegram">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
                 </button>
-                <button onclick="shareSocial('tw')" class="w-10 h-10 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Twitter / X">
+                <!-- Twitter / X -->
+                <button onclick="shareSocial('tw')" class="w-10 h-10 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition-opacity shadow-sm flex-shrink-0" title="Twitter / X">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
                 </button>
-                <button onclick="shareSocial('fb')" class="w-10 h-10 flex items-center justify-center bg-[#1877f2] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Facebook">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                <!-- Facebook -->
+                <button onclick="shareSocial('fb')" class="w-10 h-10 flex items-center justify-center bg-[#1877f2] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm flex-shrink-0" title="Facebook">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
                 </button>
-                <button onclick="shareSocial('vk')" class="w-10 h-10 flex items-center justify-center bg-[#0077FF] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="VK">
+                <!-- VK -->
+                <button onclick="shareSocial('vk')" class="w-10 h-10 flex items-center justify-center bg-[#0077FF] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm flex-shrink-0" title="VK">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
                 </button>
-                <button onclick="shareSocial('rd')" class="w-10 h-10 flex items-center justify-center bg-[#FF4500] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm" title="Reddit">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-46.1 17.9-46.1 17.9s-27.6.3-46.1-17.9c-3-3-4.2-7.7-3-11.6 1.1-3.9 4.7-6.6 8.9-6.6 6.4 0 11.1 3.6 14.1 6.6 14.7 14.7 26 14.9 26 14.9s11.3-.3 26-14.9c3-3 7.7-6.6 14.1-6.6 4.2 0 7.7 2.8 8.9 6.6 1.4 3.9 0 8.6-2.8 11.6zm4.3-50.1c-13.6 0-24.6-11.1-24.6-24.9 0-13.6 11.1-24.6 24.6-24.6 13.8 0 24.9 11.1 24.9 24.9 0 13.8-11.1 24.6-24.9 24.6z"/></svg>
+                <!-- Reddit -->
+                <button onclick="shareSocial('rd')" class="w-10 h-10 flex items-center justify-center bg-[#FF4500] text-white rounded-full hover:opacity-80 transition-opacity shadow-sm flex-shrink-0" title="Reddit">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512"><path d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-46.1 17.9-46.1 17.9s-27.6.3-46.1-17.9c-3-3-4.2-7.7-3-11.6 1.1-3.9 4.7-6.6 8.9-6.6 6.4 0 11.1 3.6 14.1 6.6 14.7 14.7 26 14.9 26 14.9s11.3-.3 26-14.9c3-3 7.7-6.6 14.1-6.6 4.2 0 7.7 2.8 8.9 6.6 1.4 3.9 0 8.6-2.8 11.6zm4.3-50.1c-13.6 0-24.6-11.1-24.6-24.9 0-13.6 11.1-24.6 24.6-24.6 13.8 0 24.9 11.1 24.9 24.9 0 13.8-11.1 24.6-24.9 24.6z"/></svg>
                 </button>
-                <button onclick="shareSocial('copy')" class="w-10 h-10 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition-opacity shadow-sm" title="Copy Link / Instagram">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M326.6 109.2c21.5-21.5 56.4-21.5 77.9 0l41.5 41.5c21.5 21.5 21.5 56.4 0 77.9l-61.5 61.5c-21.5 21.5-56.4 21.5-77.9 0-5.9-5.9-10.6-12.7-13.9-20-2-4.4-6.6-6.9-11.5-6.9-8.4 0-14.3 8.3-11.6 16.2 4.6 13.1 11.8 25.1 21.4 34.6l61.5 61.5c34 34 89.2 34 123.2 0l41.5-41.5c34-34 34-89.2 0-123.2l-41.5-41.5c-34-34-89.2-34-123.2 0l-16.7 16.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l16.7-16.7zM185.4 402.8c-21.5 21.5-56.4 21.5-77.9 0l-41.5-41.5c-21.5-21.5-21.5-56.4 0-77.9l61.5-61.5c21.5-21.5 56.4-21.5 77.9 0 5.9 5.9 10.6 12.7 13.9 20 2 4.4 6.6 6.9 11.5 6.9 8.4 0 14.3-8.3 11.6-16.2-4.6-13.1-11.8-25.1-21.4-34.6l-61.5-61.5c-34-34-89.2-34-123.2 0L14.3 189.9c-34 34-34 89.2 0 123.2l41.5 41.5c34 34 89.2 34 123.2 0l16.7-16.7c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0l-16.7 16.7zm108.6-218.8l-123.2 123.2c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l123.2-123.2c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0z"/></svg>
+                <!-- Copy Link (Instagram) -->
+                <button onclick="shareSocial('copy')" class="w-10 h-10 flex items-center justify-center bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition-opacity shadow-sm flex-shrink-0" title="Copy Link / Instagram">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                </button>
+
+                <!-- Разделитель для десктопов -->
+                <div class="h-6 w-px bg-slate-200 hidden md:block mx-1"></div>
+                
+                <!-- Обратная связь (Перемещена) -->
+                <button onclick="openFeedbackModal()" class="px-5 py-2 border border-slate-800 text-slate-800 font-semibold rounded-xl hover:bg-slate-800 hover:text-white transition-colors duration-200 flex-shrink-0 text-sm md:text-base">
+                    <span class="lang-ru">Обратная связь</span>
+                    <span class="lang-en">Send Feedback</span>
                 </button>
             </div>
         </div>
