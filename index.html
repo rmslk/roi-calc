@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru" class="light">
 <head>
@@ -105,36 +106,44 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 lang-ru relative">
 
-    <!-- Верхняя плавающая панель (Glassmorphism) -->
-    <div class="fixed top-4 right-4 md:top-6 md:right-8 flex items-center space-x-3 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md px-4 py-2.5 rounded-full shadow-lg border border-slate-200/50 dark:border-slate-700/50 z-50 text-sm" data-html2canvas-ignore="true">
+    <!-- Верхняя плавающая панель (Glassmorphism + Умное сворачивание) -->
+    <div id="topPanel" class="fixed top-4 right-4 md:top-6 md:right-8 flex items-center bg-white/80 dark:bg-slate-800/80 backdrop-blur-md px-4 py-2.5 rounded-full shadow-lg border border-slate-200/50 dark:border-slate-700/50 z-50 text-sm transition-all duration-300" data-html2canvas-ignore="true" onmouseenter="expandPanel()" onmouseleave="collapsePanelIfScrolled()">
         
-        <!-- Выбор валюты -->
-        <select id="currency" onchange="changeCurrency()" class="bg-transparent font-bold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer outline-none appearance-none pr-1">
-            <option value="RUB" class="text-slate-900">₽ RUB</option>
-            <option value="USD" class="text-slate-900">$ USD</option>
-            <option value="EUR" class="text-slate-900">€ EUR</option>
-            <option value="KZT" class="text-slate-900">₸ KZT</option>
-            <option value="BYN" class="text-slate-900">Br BYN</option>
-        </select>
-        
-        <div class="w-px h-5 bg-slate-300 dark:bg-slate-600"></div>
-        
-        <!-- Выбор языка -->
-        <div class="flex items-center space-x-2">
-            <button id="btn-ru" onclick="toggleLang('ru')" class="font-bold text-blue-600 dark:text-blue-400 focus:outline-none">RU</button>
-            <span class="text-slate-300 dark:text-slate-600">|</span>
-            <button id="btn-en" onclick="toggleLang('en')" class="font-normal text-slate-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 focus:outline-none">EN</button>
-        </div>
-
-        <div class="w-px h-5 bg-slate-300 dark:bg-slate-600"></div>
-
-        <!-- Переключатель Темы (Светлая/Темная) -->
-        <button onclick="toggleTheme()" class="text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-300 focus:outline-none flex items-center justify-center w-6 h-6" title="Сменить тему">
-            <!-- Иконка Солнца (показывается в темной теме) -->
-            <svg id="theme-icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <!-- Иконка Луны (показывается в светлой теме) -->
-            <svg id="theme-icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        <!-- Кнопка разворачивания (Три точки) - Скрыта по умолчанию -->
+        <button id="panelToggleBtn" onclick="togglePanel()" class="hidden text-slate-500 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 focus:outline-none flex items-center justify-center w-6 h-6 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
         </button>
+
+        <!-- Контейнер с настройками -->
+        <div id="panelContentWrapper" class="overflow-hidden transition-all duration-300 ease-in-out max-w-lg opacity-100 flex items-center">
+            <div id="panelContent" class="flex items-center space-x-3 w-full">
+                <!-- Выбор валюты -->
+                <select id="currency" onchange="changeCurrency()" class="bg-transparent font-bold text-slate-700 dark:text-slate-200 focus:outline-none cursor-pointer outline-none appearance-none pr-1">
+                    <option value="RUB" class="text-slate-900">₽ RUB</option>
+                    <option value="USD" class="text-slate-900">$ USD</option>
+                    <option value="EUR" class="text-slate-900">€ EUR</option>
+                    <option value="KZT" class="text-slate-900">₸ KZT</option>
+                    <option value="BYN" class="text-slate-900">Br BYN</option>
+                </select>
+                
+                <div class="w-px h-5 bg-slate-300 dark:bg-slate-600 flex-shrink-0"></div>
+                
+                <!-- Выбор языка -->
+                <div class="flex items-center space-x-2 flex-shrink-0">
+                    <button id="btn-ru" onclick="toggleLang('ru')" class="font-bold text-blue-600 dark:text-blue-400 focus:outline-none">RU</button>
+                    <span class="text-slate-300 dark:text-slate-600">|</span>
+                    <button id="btn-en" onclick="toggleLang('en')" class="font-normal text-slate-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 focus:outline-none">EN</button>
+                </div>
+
+                <div class="w-px h-5 bg-slate-300 dark:bg-slate-600 flex-shrink-0"></div>
+
+                <!-- Переключатель Темы (Светлая/Темная) -->
+                <button onclick="toggleTheme()" class="text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-300 focus:outline-none flex items-center justify-center w-6 h-6 flex-shrink-0" title="Сменить тему">
+                    <svg id="theme-icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </div>
     </div>
 
     <main class="flex-grow p-4 md:p-8 mt-14 md:mt-10">
@@ -144,8 +153,8 @@
             <!-- Заголовок и Инструкция -->
             <div class="flex flex-col mb-6 text-center">
                 <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
-                    <span class="lang-ru">Калькулятор капитализации</span>
-                    <span class="lang-en">Capitalization Calculator</span>
+                    <span class="lang-ru">Калькулятор капитализации PRO</span>
+                    <span class="lang-en">Capitalization Calculator PRO</span>
                 </h1>
                 
                 <div class="mt-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-6 rounded-3xl text-sm leading-relaxed text-left inline-block mx-auto max-w-4xl shadow-sm" data-html2canvas-ignore="true">
@@ -155,177 +164,257 @@
                             Как использовать калькулятор:
                         </strong>
                         <ul class="space-y-2 text-slate-600 dark:text-slate-300">
-                            <li><strong class="text-slate-800 dark:text-slate-100">1. Параметры старта:</strong> Введите сумму стартового капитала и ожидаемый средний ROI (рентабельность) за 1 цикл.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">2. Горизонт:</strong> Укажите период расчета (рекомендуется от 12 до 60 месяцев).</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">3. Доп. условия:</strong> При необходимости укажите ежемесячные внешние довложения и процент налога/потерь.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">4. Цели вывода:</strong> Задайте свои Цели 1-4 (суммы, которые вы хотите вынимать из бизнеса ежемесячно "на себя").</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">1. Базовые метрики:</strong> Введите стартовый капитал, средний ROI за цикл, горизонт планирования и регулярные довложения (если есть).</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">2. Рынок и Риски:</strong> Учтите налоги (вычитаются до распределения прибыли), инфляцию, сезонность (x2 к ROI в ноябре/декабре) или включите «Реалистичную модель» (снижение ROI при сильном росте капитала).</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">3. Стратегия вывода:</strong> Выберите, какую долю прибыли вы хотите реинвестировать (например, 80%), а какую забирать на себя. Задайте целевые суммы (Цели 1-4).</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">4. Сравнение:</strong> Нажмите «Сравнить с планом А», чтобы зафиксировать текущий график на экране, а затем измените данные для наглядного сравнения стратегий.</li>
                         </ul>
                         <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-xs md:text-sm">
-                            <em>Алгоритм: До достижения цели, 100% полученной прибыли реинвестируется в оборот. При достижении цели и выплате дивидендов, остаток прибыли автоматически остается в обороте для дальнейшего роста.</em>
+                            <em>Алгоритм: Прибыль формируется после вычета налогов. Часть реинвестируется (по настройке), остаток выводится «на себя». Если выведенной суммы хватает для достижения Цели, она фиксируется как выполненная.</em>
                         </div>
                     </span>
                     <span class="lang-en">
                         <strong class="text-blue-600 dark:text-blue-400 text-base mb-3 block flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            How to use the calculator:
+                            How to use the calculator (PRO Version):
                         </strong>
                         <ul class="space-y-2 text-slate-600 dark:text-slate-300">
-                            <li><strong class="text-slate-800 dark:text-slate-100">1. Starting Parameters:</strong> Enter your starting capital and expected average ROI per cycle (month).</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">2. Horizon:</strong> Specify the calculation period (12 to 60 months recommended).</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">3. Conditions:</strong> Add monthly external top-ups and tax/losses percentage if necessary.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">4. Payout Goals:</strong> Set your Goals 1-4 (desired monthly personal payout amounts).</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">1. Basic Metrics:</strong> Enter starting capital, average ROI, calculation period, and monthly top-ups.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">2. Market & Risks:</strong> Account for taxes, inflation, seasonality (x2 ROI in Nov/Dec) or enable "Realistic Model" (ROI drops as capital scales).</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">3. Payout Strategy:</strong> Choose reinvestment share (e.g. 80%) and set your target Goals 1-4 for personal payouts.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100">4. Compare:</strong> Click "Save as Plan A" to fix the current chart, then change values to compare strategies visually.</li>
                         </ul>
                         <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-xs md:text-sm">
-                            <em>Algorithm: Until a goal is reached, 100% of the profit is reinvested. Upon reaching a goal and paying yourself, the remaining profit automatically stays in circulation for further growth.</em>
+                            <em>Algorithm: Profit is calculated after tax. A portion is reinvested based on settings, the rest is your payout. If the payout reaches a Goal amount, the goal is marked as achieved.</em>
                         </div>
                     </span>
                 </div>
             </div>
 
             <!-- Центральный блок настроек -->
-            <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
+            <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 space-y-8">
                 
-                <!-- Строка 1: Основные Параметры -->
-                <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 w-full mb-6">
-                    <div class="w-full md:w-64">
-                        <label class="flex items-center justify-center md:justify-start text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
-                            <span class="lang-ru">Стартовый капитал</span><span class="lang-en">Starting Capital</span>
-                            <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 text-center shadow-xl z-50">
-                                <span class="lang-ru">Сумма средств для старта или первого цикла.</span>
-                                <span class="lang-en">Initial amount of funds to start the business.</span>
-                            </div>
-                        </label>
-                        <input type="text" inputmode="numeric" id="startCapital" value="100 000" class="w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 focus:border-blue-500 dark:focus:border-blue-400 transition-all text-center md:text-left font-semibold text-lg text-slate-900 dark:text-white shadow-inner">
+                <!-- БЛОК 1: Базовые метрики -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
+                        <span class="lang-ru">1. Базовые метрики</span><span class="lang-en">1. Basic Metrics</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+                        <div class="w-full">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Стартовый капитал</span><span class="lang-en">Starting Capital</span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 left-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 shadow-xl z-50">
+                                    <span class="lang-ru">Сумма средств для старта или первого цикла.</span>
+                                    <span class="lang-en">Initial amount of funds to start the business.</span>
+                                </div>
+                            </label>
+                            <input type="text" inputmode="numeric" id="startCapital" value="100 000" class="w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-lg text-slate-900 dark:text-white shadow-inner">
+                        </div>
+                        
+                        <div class="w-full">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Средний ROI (%)</span><span class="lang-en">Average ROI (%)</span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 left-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 shadow-xl z-50">
+                                    <span class="lang-ru">Ваша чистая рентабельность на вложенные средства за 1 цикл (месяц).</span>
+                                    <span class="lang-en">Your net return on investment per 1 cycle (month).</span>
+                                </div>
+                            </label>
+                            <input type="number" id="roi" value="50" step="0.1" class="w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-lg text-slate-900 dark:text-white shadow-inner">
+                        </div>
+
+                        <div class="w-full">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Период (мес.)</span><span class="lang-en">Period (months)</span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 left-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 shadow-xl z-50">
+                                    <span class="lang-ru">Горизонт планирования.</span>
+                                    <span class="lang-en">Planning horizon.</span>
+                                </div>
+                            </label>
+                            <input type="number" id="months" value="12" min="1" max="120" class="w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-lg text-slate-900 dark:text-white shadow-inner">
+                        </div>
+
+                        <div class="w-full">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Довложения / мес.</span><span class="lang-en">Monthly Top-up</span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 right-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-52 shadow-xl z-50">
+                                    <span class="lang-ru">Сумма регулярных вливаний из личного бюджета в оборот.</span>
+                                    <span class="lang-en">Amount injected into the business from outside sources.</span>
+                                </div>
+                            </label>
+                            <input type="text" inputmode="numeric" id="monthlyAdd" value="0" class="w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-lg text-slate-900 dark:text-white shadow-inner">
+                        </div>
                     </div>
+                </div>
+
+                <!-- БЛОК 2: Рынок и Риски -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
+                        <span class="lang-ru">2. Рынок и Риски</span><span class="lang-en">2. Market & Risks</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+                        <div class="w-full">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Налог / Потери (%)</span><span class="lang-en">Tax / Losses (%)</span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 left-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 shadow-xl z-50">
+                                    <span class="lang-ru">Вычитается из валовой прибыли до реинвестирования.</span>
+                                    <span class="lang-en">Deducted from gross profit before distribution.</span>
+                                </div>
+                            </label>
+                            <input type="number" id="tax" value="0" step="0.1" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200">
+                        </div>
+
+                        <div class="w-full">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Годовая инфляция (%)</span><span class="lang-en">Annual Inflation (%)</span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 left-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 shadow-xl z-50">
+                                    <span class="lang-ru">Покажет реальную покупательную способность капитала в таблице.</span>
+                                    <span class="lang-en">Shows real purchasing power in the details table.</span>
+                                </div>
+                            </label>
+                            <input type="number" id="inflation" value="0" step="0.1" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200">
+                        </div>
+
+                        <div class="w-full flex items-center justify-start h-[44px] md:mt-6">
+                            <label class="flex items-center cursor-pointer group relative">
+                                <div class="relative">
+                                    <input type="checkbox" id="realisticRoi" class="sr-only peer">
+                                    <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
+                                </div>
+                                <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    <span class="lang-ru">Снижение ROI</span><span class="lang-en">ROI Drop</span>
+                                </span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-56 text-center shadow-xl z-50">
+                                    <span class="lang-ru">Учитывает емкость рынка: плавно снижает ROI по мере сильного роста вашего капитала.</span>
+                                    <span class="lang-en">Accounts for market capacity: smoothly decreases ROI as capital grows heavily.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="w-full flex items-center justify-start h-[44px] md:mt-6">
+                            <label class="flex items-center cursor-pointer group relative">
+                                <div class="relative">
+                                    <input type="checkbox" id="seasonality" class="sr-only peer">
+                                    <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
+                                </div>
+                                <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    <span class="lang-ru">Учет сезонности</span><span class="lang-en">Seasonality</span>
+                                </span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 right-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-56 shadow-xl z-50">
+                                    <span class="lang-ru">В месяцы 11 и 12 (распродажи, Новый год) ROI автоматически удваивается.</span>
+                                    <span class="lang-en">Doubles your ROI in months 11 and 12 (Holiday Sales).</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- БЛОК 3: Стратегия вывода (Цели) -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
+                        <span class="lang-ru">3. Стратегия вывода</span><span class="lang-en">3. Payout Strategy</span>
+                    </h3>
                     
-                    <div class="w-full md:w-64">
-                        <label class="flex items-center justify-center md:justify-start text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
-                            <span class="lang-ru">Средний ROI (%)</span><span class="lang-en">Average ROI (%)</span>
+                    <div class="mb-4 max-w-sm">
+                        <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                            <span class="lang-ru">Доля реинвестирования (%)</span><span class="lang-en">Reinvestment Share (%)</span>
                             <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 text-center shadow-xl z-50">
-                                <span class="lang-ru">Ваша чистая рентабельность на вложенные средства за 1 цикл (месяц).</span>
-                                <span class="lang-en">Your net return on investment per 1 cycle (month).</span>
+                            <div class="absolute bottom-full mb-2 left-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-64 shadow-xl z-50">
+                                <span class="lang-ru">Какую часть прибыли возвращать в бизнес. Если указать 80%, то 20% будет стабильно уходить "Вам в карман". По умолчанию 100%.</span>
+                                <span class="lang-en">What portion of profit returns to business. E.g. 80% means you withdraw 20% every month. Default 100%.</span>
                             </div>
                         </label>
-                        <input type="number" id="roi" value="50" step="0.1" class="w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 focus:border-blue-500 dark:focus:border-blue-400 transition-all text-center md:text-left font-semibold text-lg text-slate-900 dark:text-white shadow-inner">
+                        <div class="flex items-center gap-3">
+                            <input type="range" id="reinvestShare" min="0" max="100" value="100" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                            <span id="reinvestShareVal" class="text-sm font-bold w-12 text-blue-600 dark:text-blue-400">100%</span>
+                        </div>
                     </div>
 
-                    <div class="w-full md:w-64">
-                        <label class="flex items-center justify-center md:justify-start text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
-                            <span class="lang-ru">Период расчета (мес.)</span><span class="lang-en">Period (months)</span>
-                            <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 text-center shadow-xl z-50">
-                                <span class="lang-ru">Горизонт планирования (рекомендуется от 12 до 60).</span>
-                                <span class="lang-en">Planning horizon (12 to 60 is recommended).</span>
-                            </div>
-                        </label>
-                        <input type="number" id="months" value="12" min="1" max="120" class="w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 focus:border-blue-500 dark:focus:border-blue-400 transition-all text-center md:text-left font-semibold text-lg text-slate-900 dark:text-white shadow-inner">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-6">
+                        <div class="w-full">
+                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider">
+                                <span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span>
+                            </label>
+                            <input type="text" inputmode="numeric" id="goal1" value="100 000" class="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800">
+                        </div>
+                        <div class="w-full">
+                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider">
+                                <span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span>
+                            </label>
+                            <input type="text" inputmode="numeric" id="goal2" value="300 000" class="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800">
+                        </div>
+                        <div class="w-full">
+                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider">
+                                <span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span>
+                            </label>
+                            <input type="text" inputmode="numeric" id="goal3" value="500 000" class="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800">
+                        </div>
+                        <div class="w-full">
+                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider">
+                                <span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span>
+                            </label>
+                            <input type="text" inputmode="numeric" id="goal4" value="1 000 000" class="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-semibold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800">
+                        </div>
                     </div>
                 </div>
 
-                <!-- Строка 2: Доп. Параметры (Довложения, Налоги, Реализм) -->
-                <div class="flex flex-col md:flex-row justify-center items-end gap-4 md:gap-6 w-full">
-                    <div class="w-full md:w-64">
-                        <label class="flex items-center justify-center md:justify-start text-sm font-semibold text-slate-600 dark:text-slate-400 mb-1.5 relative group">
-                            <span class="lang-ru">Довложения / мес.</span><span class="lang-en">Monthly Top-up</span>
-                            <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-52 text-center shadow-xl z-50">
-                                <span class="lang-ru">Сумма, которую вы готовы добавлять в бизнес из внешних источников каждый месяц.</span>
-                                <span class="lang-en">Amount you are willing to inject into the business from outside sources each month.</span>
-                            </div>
-                        </label>
-                        <input type="text" inputmode="numeric" id="monthlyAdd" value="0" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-center md:text-left font-medium text-slate-800 dark:text-slate-200">
-                    </div>
-
-                    <div class="w-full md:w-64">
-                        <label class="flex items-center justify-center md:justify-start text-sm font-semibold text-slate-600 dark:text-slate-400 mb-1.5 relative group">
-                            <span class="lang-ru">Налог / Потери (%)</span><span class="lang-en">Tax / Losses (%)</span>
-                            <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 text-center shadow-xl z-50">
-                                <span class="lang-ru">Вычитается из валовой прибыли до распределения. (Напр., 7% для УСН).</span>
-                                <span class="lang-en">Deducted from gross profit before distribution (e.g. taxes).</span>
-                            </div>
-                        </label>
-                        <input type="number" id="tax" value="0" step="0.1" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-center md:text-left font-medium text-slate-800 dark:text-slate-200">
-                    </div>
-
-                    <div class="w-full md:w-64 flex items-center justify-center md:justify-start h-[44px] px-1">
-                        <label class="flex items-center cursor-pointer group relative">
-                            <div class="relative">
-                                <input type="checkbox" id="realisticRoi" class="sr-only peer">
-                                <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                            </div>
-                            <span class="ml-3 text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                <span class="lang-ru">Реалистичная модель</span>
-                                <span class="lang-en">Realistic Model</span>
-                            </span>
-                            <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-56 text-center shadow-xl z-50">
-                                <span class="lang-ru">Учитывает емкость рынка: плавно снижает ROI по мере сильного роста вашего капитала.</span>
-                                <span class="lang-en">Accounts for market capacity: smoothly decreases ROI as your capital grows heavily.</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <hr class="my-8 border-slate-100 dark:border-slate-700/50">
-
-                <!-- Строка 3: Цели -->
-                <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 w-full">
-                    <div class="w-full md:w-56">
-                        <label class="block text-xs font-bold text-indigo-500 dark:text-indigo-400 mb-1.5 text-center uppercase tracking-wider">
-                            <span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span>
-                        </label>
-                        <input type="text" inputmode="numeric" id="goal1" value="100 000" class="w-full px-4 py-3 border border-indigo-200 dark:border-indigo-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-center md:text-left font-semibold text-indigo-900 dark:text-indigo-100 bg-indigo-50/50 dark:bg-indigo-500/10">
-                    </div>
-                    <div class="w-full md:w-56">
-                        <label class="block text-xs font-bold text-indigo-500 dark:text-indigo-400 mb-1.5 text-center uppercase tracking-wider">
-                            <span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span>
-                        </label>
-                        <input type="text" inputmode="numeric" id="goal2" value="300 000" class="w-full px-4 py-3 border border-indigo-200 dark:border-indigo-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-center md:text-left font-semibold text-indigo-900 dark:text-indigo-100 bg-indigo-50/50 dark:bg-indigo-500/10">
-                    </div>
-                    <div class="w-full md:w-56">
-                        <label class="block text-xs font-bold text-indigo-500 dark:text-indigo-400 mb-1.5 text-center uppercase tracking-wider">
-                            <span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span>
-                        </label>
-                        <input type="text" inputmode="numeric" id="goal3" value="500 000" class="w-full px-4 py-3 border border-indigo-200 dark:border-indigo-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-center md:text-left font-semibold text-indigo-900 dark:text-indigo-100 bg-indigo-50/50 dark:bg-indigo-500/10">
-                    </div>
-                    <div class="w-full md:w-56">
-                        <label class="block text-xs font-bold text-indigo-500 dark:text-indigo-400 mb-1.5 text-center uppercase tracking-wider">
-                            <span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span>
-                        </label>
-                        <input type="text" inputmode="numeric" id="goal4" value="1 000 000" class="w-full px-4 py-3 border border-indigo-200 dark:border-indigo-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-center md:text-left font-semibold text-indigo-900 dark:text-indigo-100 bg-indigo-50/50 dark:bg-indigo-500/10">
-                    </div>
-                </div>
             </div>
 
             <!-- Карточки достижения целей -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span></div>
-                    <div id="achieve-goal1" class="text-sm md:text-base font-bold text-indigo-600 dark:text-indigo-400">-</div>
+                    <div id="achieve-goal1" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span></div>
-                    <div id="achieve-goal2" class="text-sm md:text-base font-bold text-indigo-600 dark:text-indigo-400">-</div>
+                    <div id="achieve-goal2" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span></div>
-                    <div id="achieve-goal3" class="text-sm md:text-base font-bold text-indigo-600 dark:text-indigo-400">-</div>
+                    <div id="achieve-goal3" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></div>
-                    <div id="achieve-goal4" class="text-sm md:text-base font-bold text-indigo-600 dark:text-indigo-400">-</div>
+                    <div id="achieve-goal4" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
                 </div>
             </div>
 
-            <!-- График -->
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
-                <h3 id="chartTitle" class="text-lg font-bold mb-4 text-slate-800 dark:text-white text-center md:text-left">
-                    <span class="lang-ru">Динамика роста</span>
-                    <span class="lang-en">Growth Dynamics</span>
-                </h3>
+            <!-- График и Сравнение -->
+            <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
+                    <div>
+                        <h3 id="chartTitle" class="text-lg font-bold text-slate-800 dark:text-white mb-2">
+                            <span class="lang-ru">Динамика роста</span>
+                            <span class="lang-en">Growth Dynamics</span>
+                        </h3>
+                        <div class="flex flex-wrap gap-2" data-html2canvas-ignore="true">
+                            <button onclick="saveBaseline()" id="btnBaseline" class="text-xs font-semibold px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                                <span class="lang-ru">Запомнить как План А</span><span class="lang-en">Save as Plan A</span>
+                            </button>
+                            <button onclick="clearBaseline()" id="btnClearBaseline" class="hidden text-xs font-semibold px-3 py-1.5 bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 rounded-lg hover:bg-rose-100 transition-colors">
+                                <span class="lang-ru">Сбросить План А</span><span class="lang-en">Clear Plan A</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Total Payout (Итого выведено) -->
+                    <div class="text-left md:text-right bg-blue-50 dark:bg-blue-500/10 px-5 py-3 rounded-2xl border border-blue-100 dark:border-blue-500/20">
+                        <div class="text-xs font-semibold text-blue-600/70 dark:text-blue-400/80 uppercase tracking-wide mb-1">
+                            <span class="lang-ru">Всего выведено за период</span><span class="lang-en">Total Payout</span>
+                        </div>
+                        <div id="totalPayoutDisplay" class="text-2xl font-bold text-blue-600 dark:text-blue-400">0 ₽</div>
+                    </div>
+                </div>
+
                 <div class="relative h-80 w-full">
                     <canvas id="growthChart"></canvas>
                 </div>
@@ -366,10 +455,10 @@
                                 <th scope="col" class="px-6 py-4 text-right font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs">
                                     <span class="lang-ru">Прибыль (Чистая)</span><span class="lang-en">Net Profit</span>
                                 </th>
-                                <th scope="col" class="px-6 py-4 text-right font-bold text-emerald-600 dark:text-emerald-500 uppercase tracking-wider text-xs">
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider text-xs">
                                     <span class="lang-ru">Вывод на себя</span><span class="lang-en">Your Payout</span>
                                 </th>
-                                <th scope="col" class="px-6 py-4 text-right font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider text-xs">
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-800 dark:text-white uppercase tracking-wider text-xs">
                                     <span class="lang-ru">Итоговый оборот</span><span class="lang-en">Ending Capital</span>
                                 </th>
                             </tr>
@@ -379,6 +468,17 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- Лид Магнит Баннер (Скрыт по умолчанию) -->
+            <div id="leadMagnet" class="hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transform hover:scale-[1.01] transition-transform" data-html2canvas-ignore="true">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-2">Вы достигли Цели 4!</h3>
+                    <p class="text-blue-100 text-sm md:text-base leading-relaxed">Хотите узнать, как делать ROI 50%+ стабильно каждый месяц и превратить этот план в реальность? Читайте закрепленный пост в моем канале!</p>
+                </div>
+                <a href="https://t.me/OzonGreenROI" target="_blank" class="px-8 py-3.5 bg-white text-blue-600 font-bold rounded-xl whitespace-nowrap hover:bg-blue-50 hover:shadow-lg transition-all shadow-sm">
+                    Перейти в Telegram
+                </a>
             </div>
 
             <!-- Нижний блок: Звезды, Шеринг и Обратная связь -->
@@ -412,23 +512,23 @@
                         
                         <div class="flex flex-wrap justify-center items-center gap-3">
                             <!-- Telegram -->
-                            <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-[#0088cc] text-white rounded-full hover:opacity-85 transition-all hover:scale-105 shadow-md flex-shrink-0" title="Telegram">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
+                            <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0" title="Telegram">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
                             </button>
                             <!-- Twitter / X -->
-                            <button onclick="shareSocial('tw')" class="w-11 h-11 flex items-center justify-center bg-black dark:bg-slate-700 text-white rounded-full hover:opacity-85 transition-all hover:scale-105 shadow-md flex-shrink-0" title="Twitter / X">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+                            <button onclick="shareSocial('tw')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-black dark:hover:bg-slate-700 hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0" title="Twitter / X">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
                             </button>
                             <!-- Facebook -->
-                            <button onclick="shareSocial('fb')" class="w-11 h-11 flex items-center justify-center bg-[#1877f2] text-white rounded-full hover:opacity-85 transition-all hover:scale-105 shadow-md flex-shrink-0" title="Facebook">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                            <button onclick="shareSocial('fb')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#1877f2] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0" title="Facebook">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
                             </button>
                             <!-- VK -->
-                            <button onclick="shareSocial('vk')" class="w-11 h-11 flex items-center justify-center bg-[#0077FF] text-white rounded-full hover:opacity-85 transition-all hover:scale-105 shadow-md flex-shrink-0" title="VK">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
+                            <button onclick="shareSocial('vk')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0077FF] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0" title="VK">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
                             </button>
                             <!-- Копировать ссылку -->
-                            <button onclick="shareSocial('copy')" class="w-11 h-11 flex items-center justify-center bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 text-white rounded-full hover:opacity-90 transition-all hover:scale-105 shadow-md flex-shrink-0" title="Copy Text & Link">
+                            <button onclick="shareSocial('copy')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-blue-500 hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0" title="Copy Text & Link">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                             </button>
                         </div>
@@ -455,12 +555,26 @@
                     <p class="mb-4">Успешный бизнес, особенно в сфере электронной коммерции и продаж на маркетплейсах, требует четкого понимания финансовой математики. Наш онлайн-калькулятор капитализации создан специально для предпринимателей, которые хотят визуализировать процесс роста оборотного капитала с помощью механизма сложного процента.</p>
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Почему важно реинвестировать прибыль?</h3>
                     <p class="mb-4">Секрет взрывного роста кроется в постоянном возврате заработанных средств обратно в товарооборот. Реинвестирование позволяет вашему капиталу работать на вас в геометрической прогрессии. Даже с небольшим стартовым капиталом и высоким показателем ROI (Return on Investment) можно достичь внушительных результатов уже в первый год работы.</p>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-6 mb-3">Как использовать финансовую модель?</h3>
+                    <ul class="list-disc pl-5 mb-4 space-y-2">
+                        <li><strong>Укажите стартовый капитал:</strong> сумму, которую вы готовы вложить в первую закупку или цикл производства.</li>
+                        <li><strong>Определите Средний ROI:</strong> чистую рентабельность на вложенные средства за один цикл (обычно это 1 месяц).</li>
+                        <li><strong>Поставьте личные цели:</strong> введите суммы, которые вы хотите ежемесячно выводить "на себя" в качестве дивидендов.</li>
+                    </ul>
+                    <p class="mb-4">Интеллектуальный алгоритм калькулятора сам рассчитает, в какой момент ваш оборотный капитал достигнет достаточного уровня, чтобы вы могли выплачивать себе желаемую сумму, <em>не останавливая при этом рост магазина</em>. Часть чистой прибыли будет автоматически направляться в реинвест, защищая бизнес от стагнации.</p>
                 </div>
                 
                 <div class="lang-en">
                     <p class="mb-4">Successful business, especially in e-commerce, requires a clear understanding of financial mathematics. Our online capitalization calculator is designed specifically for entrepreneurs who want to visualize working capital growth through the mechanism of compound interest.</p>
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Why is Reinvesting Profit Important?</h3>
                     <p class="mb-4">The secret to explosive growth lies in constantly returning earned funds back into inventory turnover. Reinvesting allows your capital to work for you exponentially. Even with a small starting capital and a high ROI (Return on Investment), impressive results can be achieved in the very first year.</p>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-6 mb-3">How to Use the Financial Model?</h3>
+                    <ul class="list-disc pl-5 mb-4 space-y-2">
+                        <li><strong>Enter Starting Capital:</strong> the amount you are willing to invest in the first cycle.</li>
+                        <li><strong>Set Average ROI:</strong> the net profitability on invested funds per cycle (usually 1 month).</li>
+                        <li><strong>Set Personal Goals:</strong> enter the amounts you want to withdraw monthly as dividends.</li>
+                    </ul>
+                    <p class="mb-4">The intelligent calculator algorithm will automatically determine the point at which your working capital reaches a sufficient level for you to pay yourself the desired amount <em>without stopping the store's growth</em>. A portion of the net profit will automatically be directed to reinvestment, protecting your business from stagnation.</p>
                 </div>
             </article>
         </div>
@@ -542,6 +656,7 @@
             'BYN': { locale: 'ru-BY', curr: 'BYN', symbol: 'Br' }
         };
         let globalMonthlyData = [];
+        let baselineData = null; // Для плана А
 
         // --- LCOAL STORAGE ---
         function saveState() {
@@ -551,7 +666,10 @@
                 months: Number(document.getElementById('months').value) || 12,
                 monthlyAdd: getRawNumber('monthlyAdd'),
                 tax: Number(document.getElementById('tax').value) || 0,
+                inflation: Number(document.getElementById('inflation').value) || 0,
+                reinvestShare: Number(document.getElementById('reinvestShare').value) || 100,
                 realisticRoi: document.getElementById('realisticRoi').checked,
+                seasonality: document.getElementById('seasonality').checked,
                 goal1: getRawNumber('goal1'),
                 goal2: getRawNumber('goal2'),
                 goal3: getRawNumber('goal3'),
@@ -559,11 +677,11 @@
                 currency: document.getElementById('currency').value,
                 lang: currentLang
             };
-            localStorage.setItem('roiCalcState', JSON.stringify(state));
+            localStorage.setItem('roiCalcStatePRO', JSON.stringify(state));
         }
 
         function loadState() {
-            const saved = localStorage.getItem('roiCalcState');
+            const saved = localStorage.getItem('roiCalcStatePRO');
             if (saved) {
                 try {
                     const state = JSON.parse(saved);
@@ -572,7 +690,13 @@
                     document.getElementById('months').value = state.months;
                     document.getElementById('monthlyAdd').value = formatRawNumber(state.monthlyAdd || 0);
                     document.getElementById('tax').value = state.tax || 0;
+                    document.getElementById('inflation').value = state.inflation || 0;
+                    document.getElementById('reinvestShare').value = state.reinvestShare ?? 100;
+                    document.getElementById('reinvestShareVal').innerText = (state.reinvestShare ?? 100) + '%';
+                    
                     document.getElementById('realisticRoi').checked = !!state.realisticRoi;
+                    document.getElementById('seasonality').checked = !!state.seasonality;
+                    
                     document.getElementById('goal1').value = formatRawNumber(state.goal1);
                     document.getElementById('goal2').value = formatRawNumber(state.goal2);
                     document.getElementById('goal3').value = formatRawNumber(state.goal3);
@@ -613,8 +737,12 @@
             }
             
             if(chartInstance) {
-                chartInstance.data.datasets[0].label = currentLang === 'ru' ? 'Личный вывод' : 'Personal Payout';
-                chartInstance.data.datasets[1].label = currentLang === 'ru' ? 'Оборотный капитал' : 'Working Capital';
+                chartInstance.data.datasets[0].label = currentLang === 'ru' ? 'Вывод на себя' : 'Payout';
+                chartInstance.data.datasets[1].label = currentLang === 'ru' ? 'Оборот (План)' : 'Capital (Plan)';
+                if(baselineData) {
+                    chartInstance.data.datasets[2].label = currentLang === 'ru' ? 'Вывод (План А)' : 'Payout (Plan A)';
+                    chartInstance.data.datasets[3].label = currentLang === 'ru' ? 'Оборот (План А)' : 'Capital (Plan A)';
+                }
             }
             calculate();
         }
@@ -683,6 +811,11 @@
             calculate();
         }
 
+        document.getElementById('reinvestShare').addEventListener('input', function(e) {
+            document.getElementById('reinvestShareVal').innerText = e.target.value + '%';
+            calculate();
+        });
+
         const formatMoney = (num) => {
             const conf = currencies[currentCurrency];
             return new Intl.NumberFormat(conf.locale, { style: 'currency', currency: conf.curr, maximumFractionDigits: 0 }).format(num);
@@ -691,11 +824,11 @@
         // --- ЭКСПОРТ (CSV / PDF) ---
         function exportCSV() {
             let csv = currentLang === 'ru'
-                ? "Месяц,Старт. капитал,Валовая Прибыль,Налог/Потери,Чистая Прибыль,Вливания,Вывод на себя,Итоговый оборот\n"
-                : "Month,Start Capital,Gross Profit,Tax/Loss,Net Profit,Top-up,Payout,Ending Capital\n";
+                ? "Месяц,Старт. капитал,Валовая Прибыль,Налог/Потери,Чистая Прибыль,Вливания,Вывод на себя,Итоговый оборот,С учетом инфляции\n"
+                : "Month,Start Capital,Gross Profit,Tax/Loss,Net Profit,Top-up,Payout,Ending Capital,Inflation Adjusted\n";
 
             globalMonthlyData.forEach(d => {
-                csv += `${d.month},${d.startCapital.toFixed(2)},${d.grossProfit.toFixed(2)},${d.taxAmount.toFixed(2)},${d.profit.toFixed(2)},${d.monthlyAdd.toFixed(2)},${d.payout.toFixed(2)},${d.endCapital.toFixed(2)}\n`;
+                csv += `${d.month},${d.startCapital.toFixed(2)},${d.grossProfit.toFixed(2)},${d.taxAmount.toFixed(2)},${d.profit.toFixed(2)},${d.monthlyAdd.toFixed(2)},${d.payout.toFixed(2)},${d.endCapital.toFixed(2)},${d.realEndCapital.toFixed(2)}\n`;
             });
 
             const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' }); 
@@ -833,6 +966,25 @@
             });
         }
 
+        // --- СРАВНЕНИЕ (ПЛАН А) ---
+        function saveBaseline() {
+            baselineData = globalMonthlyData.map(d => ({ payout: d.payout, capital: d.endCapital }));
+            document.getElementById('btnClearBaseline').classList.remove('hidden');
+            showToast(currentLang === 'ru' ? 'План А сохранен! Измените настройки для сравнения.' : 'Plan A saved! Change settings to compare.');
+            calculate();
+        }
+
+        function clearBaseline() {
+            baselineData = null;
+            document.getElementById('btnClearBaseline').classList.add('hidden');
+            
+            // Удаляем датасеты плана А из графика
+            if(chartInstance.data.datasets.length > 2) {
+                chartInstance.data.datasets.splice(2, 2);
+            }
+            calculate();
+        }
+
         // --- ГЛАВНАЯ ЛОГИКА КАЛЬКУЛЯТОРА ---
         const calculate = () => {
             const startCapital = getRawNumber('startCapital');
@@ -842,7 +994,12 @@
             
             const monthlyAdd = getRawNumber('monthlyAdd');
             const taxRate = Number(document.getElementById('tax').value) || 0;
+            const inflationRate = Number(document.getElementById('inflation').value) || 0;
+            const monthlyInf = Math.pow(1 + inflationRate / 100, 1 / 12) - 1; // Месячная инфляция
+            const reinvestShare = Number(document.getElementById('reinvestShare').value) / 100;
+
             const isRealistic = document.getElementById('realisticRoi').checked;
+            const isSeasonal = document.getElementById('seasonality').checked;
             
             const goals = [
                 { id: 1, val: getRawNumber('goal1') },
@@ -852,16 +1009,23 @@
             ].sort((a, b) => a.val - b.val);
 
             let currentCapital = startCapital;
+            let totalPayout = 0;
             globalMonthlyData = [];
             const achievements = { 1: null, 2: null, 3: null, 4: null };
             
             const moTxt = currentLang === 'ru' ? 'мес.' : 'mo.';
-            document.getElementById('chartTitle').innerHTML = currentLang === 'ru' 
-                ? `Динамика роста (${totalMonths} ${moTxt})` 
-                : `Growth Dynamics (${totalMonths} ${moTxt})`;
-            document.getElementById('tableTitle').innerHTML = currentLang === 'ru' 
-                ? `Помесячная детализация (на ${totalMonths} ${moTxt})` 
-                : `Monthly Breakdown (${totalMonths} ${moTxt})`;
+            const chartTitleEl = document.getElementById('chartTitle');
+            if (chartTitleEl) {
+                chartTitleEl.innerHTML = currentLang === 'ru' 
+                    ? `Динамика роста (${totalMonths} ${moTxt})` 
+                    : `Growth Dynamics (${totalMonths} ${moTxt})`;
+            }
+            const tableTitleEl = document.getElementById('tableTitle');
+            if (tableTitleEl) {
+                tableTitleEl.innerHTML = currentLang === 'ru' 
+                    ? `Помесячная детализация (на ${totalMonths} ${moTxt})` 
+                    : `Monthly Breakdown (${totalMonths} ${moTxt})`;
+            }
 
             let threshold = 1000000;
             if (currentCurrency === 'USD' || currentCurrency === 'EUR') threshold = 15000;
@@ -870,19 +1034,27 @@
             for (let month = 1; month <= totalMonths; month++) {
                 let currentRoi = roi;
                 
+                if (isSeasonal && (month % 12 === 11 || month % 12 === 0)) {
+                    currentRoi *= 2;
+                }
+
                 if (isRealistic) {
                     let drops = Math.floor(currentCapital / threshold);
-                    currentRoi = Math.max(roi * 0.2, roi * Math.pow(0.95, drops)); 
+                    currentRoi = Math.max(roi * 0.2, currentRoi * Math.pow(0.95, drops)); 
                 }
 
                 let grossProfit = currentCapital * currentRoi;
                 let taxAmount = grossProfit * (taxRate / 100);
                 let netProfit = grossProfit - taxAmount;
 
-                let payout = 0;
+                // Базовый вывод, если доля реинвеста < 100%
+                let payout = netProfit * (1 - reinvestShare);
+
+                // Если базовая выплата недостаточна для выполнения достижимых целей,
+                // забираем больше денег (при наличии чистой прибыли).
                 for (let i = goals.length - 1; i >= 0; i--) {
                     if (netProfit >= goals[i].val && goals[i].val > 0) {
-                        payout = goals[i].val;
+                        payout = Math.max(payout, goals[i].val);
                         break;
                     }
                 }
@@ -895,6 +1067,9 @@
 
                 let retained = netProfit - payout;
                 let endCapital = currentCapital + retained + monthlyAdd;
+                let realEndCapital = endCapital / Math.pow(1 + monthlyInf, month);
+
+                totalPayout += payout;
 
                 globalMonthlyData.push({
                     month: month,
@@ -905,31 +1080,76 @@
                     monthlyAdd: monthlyAdd,
                     payout: payout,
                     retained: retained,
-                    endCapital: endCapital
+                    endCapital: endCapital,
+                    realEndCapital: realEndCapital
                 });
 
                 currentCapital = endCapital;
             }
 
+            // Обновляем карточки
             for (let i = 1; i <= 4; i++) {
                 const el = document.getElementById(`achieve-goal${i}`);
                 if (achievements[i]) {
                     el.textContent = currentLang === 'ru' ? `Достигнута после ${achievements[i]} мес.` : `Achieved after ${achievements[i]} mo.`;
-                    el.classList.remove('text-slate-400', 'font-semibold');
-                    el.classList.add('text-emerald-600', 'dark:text-emerald-400', 'font-bold');
+                    el.classList.remove('text-slate-400', 'dark:text-slate-500', 'font-semibold');
+                    el.classList.add('text-blue-600', 'dark:text-blue-400', 'font-bold');
                 } else {
                     el.textContent = currentLang === 'ru' ? `Более ${totalMonths} мес.` : `Over ${totalMonths} mo.`;
-                    el.classList.remove('text-emerald-600', 'dark:text-emerald-400', 'font-bold');
+                    el.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-bold');
                     el.classList.add('text-slate-400', 'dark:text-slate-500', 'font-semibold');
                 }
             }
 
+            // Лид-магнит
+            const leadMagnet = document.getElementById('leadMagnet');
+            if(achievements[4] !== null) {
+                leadMagnet.classList.remove('hidden');
+            } else {
+                leadMagnet.classList.add('hidden');
+            }
+
+            document.getElementById('totalPayoutDisplay').innerText = formatMoney(totalPayout);
+
+            // График
             const mLabel = currentLang === 'ru' ? 'мес.' : 'mo.';
             chartInstance.data.labels = globalMonthlyData.map(d => `${d.month} ${mLabel}`);
             chartInstance.data.datasets[0].data = globalMonthlyData.map(d => d.payout);
             chartInstance.data.datasets[1].data = globalMonthlyData.map(d => d.endCapital);
+
+            if (baselineData) {
+                if (chartInstance.data.datasets.length === 2) {
+                    chartInstance.data.datasets.push({
+                        type: 'line',
+                        label: currentLang === 'ru' ? 'Вывод (План А)' : 'Payout (Plan A)',
+                        data: baselineData.map(d => d.payout),
+                        borderColor: 'rgba(16, 185, 129, 0.4)', // emerald
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false,
+                        order: 3
+                    });
+                    chartInstance.data.datasets.push({
+                        type: 'line',
+                        label: currentLang === 'ru' ? 'Оборот (План А)' : 'Capital (Plan A)',
+                        data: baselineData.map(d => d.capital),
+                        borderColor: 'rgba(59, 130, 246, 0.4)', // blue
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false,
+                        order: 4
+                    });
+                } else {
+                    chartInstance.data.datasets[2].data = baselineData.map(d => d.payout);
+                    chartInstance.data.datasets[3].data = baselineData.map(d => d.capital);
+                }
+            }
+
             chartInstance.update();
 
+            // Таблица
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
             
@@ -956,14 +1176,20 @@
                     profitHtml += `<br><span class="text-xs text-rose-500/80 dark:text-rose-400/80">- ${formatMoney(data.taxAmount)} ${taxText}</span>`;
                 }
 
+                let endCapHtml = `<span class="font-bold text-slate-800 dark:text-white">${formatMoney(data.endCapital)}</span>`;
+                if (inflationRate > 0) {
+                    const infText = currentLang === 'ru' ? 'В реальных ценах' : 'Real Value';
+                    endCapHtml += `<br><span class="text-xs text-slate-400 font-normal">${infText}: ${formatMoney(data.realEndCapital)}</span>`;
+                }
+
                 tr.innerHTML = `
                     <td data-label="${lMonth}" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 dark:text-white font-medium text-lg md:text-sm">${lMonth} ${data.month}</td>
                     <td data-label="${lStartCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-500 dark:text-slate-400">${formatMoney(data.startCapital)}</td>
                     <td data-label="${lProfit}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right">${profitHtml}</td>
-                    <td data-label="${lPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-600'}">
+                    <td data-label="${lPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-600'}">
                         ${isPayoutMonth ? formatMoney(data.payout) : emptyMoney}
                     </td>
-                    <td data-label="${lEndCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-bold text-blue-600 dark:text-blue-400 bg-slate-50 dark:bg-slate-700/50 md:bg-transparent md:dark:bg-transparent rounded-lg md:rounded-none mt-2 md:mt-0">${formatMoney(data.endCapital)}</td>
+                    <td data-label="${lEndCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right bg-slate-50 dark:bg-slate-700/50 md:bg-transparent md:dark:bg-transparent rounded-lg md:rounded-none mt-2 md:mt-0">${endCapHtml}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -984,21 +1210,21 @@
                     datasets: [
                         {
                             type: 'bar',
-                            label: 'Личный вывод',
+                            label: 'Вывод на себя',
                             data: [],
-                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            backgroundColor: 'rgba(59, 130, 246, 0.8)', // blue-500
                             borderRadius: 4,
                             order: 2
                         },
                         {
                             type: 'line',
-                            label: 'Оборотный капитал',
+                            label: 'Оборот (План)',
                             data: [],
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderColor: 'rgba(15, 23, 42, 0.8)', // slate-900
+                            backgroundColor: 'rgba(15, 23, 42, 0.05)',
                             borderWidth: 3,
-                            pointRadius: 3, 
-                            pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                            pointRadius: 2, 
+                            pointBackgroundColor: 'rgba(15, 23, 42, 1)',
                             fill: true,
                             tension: 0.4,
                             order: 1
@@ -1057,7 +1283,7 @@
         const textInputs = ['startCapital', 'monthlyAdd', 'goal1', 'goal2', 'goal3', 'goal4'];
         textInputs.forEach(id => document.getElementById(id).addEventListener('input', handleNumberInput));
 
-        const otherInputs = ['roi', 'months', 'tax', 'realisticRoi'];
+        const otherInputs = ['roi', 'months', 'tax', 'inflation', 'realisticRoi', 'seasonality'];
         otherInputs.forEach(id => document.getElementById(id).addEventListener('input', calculate));
 
         modal.addEventListener('click', (e) => { if (e.target === modal) closeFeedbackModal(); });
@@ -1068,10 +1294,100 @@
             toggleLang(currentLang); 
             updateStarsDisplay();
             
-            // Заставляем график сразу подхватить текущую тему
             const isDark = document.documentElement.classList.contains('dark');
             updateChartTheme(isDark);
+
+            // Меняем цвет линии оборота в темной теме на белую
+            if(isDark) {
+                chartInstance.data.datasets[1].borderColor = 'rgba(255, 255, 255, 0.8)';
+                chartInstance.data.datasets[1].backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                chartInstance.data.datasets[1].pointBackgroundColor = 'rgba(255, 255, 255, 1)';
+                chartInstance.update();
+            }
         };
+
+        // Слушатель смены темы для графика
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    chartInstance.data.datasets[1].borderColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 23, 42, 0.8)';
+                    chartInstance.data.datasets[1].backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 23, 42, 0.05)';
+                    chartInstance.data.datasets[1].pointBackgroundColor = isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(15, 23, 42, 1)';
+                    updateChartTheme(isDark);
+                }
+            });
+        });
+        observer.observe(document.documentElement, { attributes: true });
+
+        // --- УМНОЕ СКРЫТИЕ ПАНЕЛИ (Сворачивание в "таблетку") ---
+        let isPanelCollapsed = false;
+        let collapseTimeout;
+
+        function updatePanelState() {
+            const topPanel = document.getElementById('topPanel');
+            const wrapper = document.getElementById('panelContentWrapper');
+            const btn = document.getElementById('panelToggleBtn');
+
+            if (isPanelCollapsed) {
+                // Скрываем содержимое, показываем кнопку
+                wrapper.classList.remove('max-w-lg', 'opacity-100');
+                wrapper.classList.add('max-w-0', 'opacity-0');
+                btn.classList.remove('hidden');
+                topPanel.classList.remove('px-4', 'md:px-4');
+                topPanel.classList.add('px-3'); // Делаем таблетку круглой
+            } else {
+                // Раскрываем
+                wrapper.classList.remove('max-w-0', 'opacity-0');
+                wrapper.classList.add('max-w-lg', 'opacity-100');
+                btn.classList.add('hidden');
+                topPanel.classList.add('px-4', 'md:px-4');
+                topPanel.classList.remove('px-3');
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 150 && !isPanelCollapsed) {
+                isPanelCollapsed = true;
+                updatePanelState();
+            } else if (window.scrollY <= 150 && isPanelCollapsed) {
+                isPanelCollapsed = false;
+                updatePanelState();
+            }
+        });
+
+        function expandPanel() {
+            if (window.scrollY > 150) {
+                isPanelCollapsed = false;
+                updatePanelState();
+                clearTimeout(collapseTimeout);
+            }
+        }
+
+        function collapsePanelIfScrolled() {
+            if (window.scrollY > 150) {
+                collapseTimeout = setTimeout(() => {
+                    isPanelCollapsed = true;
+                    updatePanelState();
+                }, 300); // Небольшая задержка, чтобы курсор мог вернуться
+            }
+        }
+
+        function togglePanel() {
+            isPanelCollapsed = !isPanelCollapsed;
+            updatePanelState();
+            
+            // На мобильных: если развернули руками при скролле, свернем автоматически через 4 сек неактивности
+            if(!isPanelCollapsed) {
+                clearTimeout(collapseTimeout);
+                collapseTimeout = setTimeout(() => {
+                    if (window.scrollY > 150) {
+                        isPanelCollapsed = true;
+                        updatePanelState();
+                    }
+                }, 4000); 
+            }
+        }
     </script>
 </body>
 </html>
