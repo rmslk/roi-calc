@@ -23,8 +23,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- html2canvas (для скриншотов) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -478,79 +476,38 @@
             return text;
         }
 
-        // Шеринг (Текст + Скриншот графика)
-        async function shareSocial(platform) {
-            showToast(currentLang === 'ru' ? 'Создаем скриншот с графиком...' : 'Generating screenshot...');
-            
+        // Шеринг (Только текст)
+        function shareSocial(platform) {
             // Фикс ссылки для предпросмотра
             let realUrl = window.location.href;
             if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) {
                 realUrl = 'https://rmslk.github.io/roi-calc/';
             }
 
-            try {
-                const captureArea = document.getElementById('capture-area');
-                await new Promise(r => setTimeout(r, 100)); 
-                
-                const canvasObj = await html2canvas(captureArea, { 
-                    backgroundColor: '#f8fafc', 
-                    scale: 2,
-                    logging: false
+            const textPart = generateShareText();
+            const callToAction = currentLang === 'ru' ? `\nРассчитай свои цели: ` : `\nCalculate your goals: `;
+            const fullText = textPart + callToAction + realUrl;
+
+            // Мобильные устройства (Native Share передает текст + ссылку)
+            if (navigator.share && platform !== 'copy') {
+                navigator.share({
+                    title: currentLang === 'ru' ? 'Калькулятор ROI' : 'ROI Calculator',
+                    text: textPart + callToAction,
+                    url: realUrl
+                }).catch(err => {
+                    console.log("Web Share API error or cancelled", err);
+                    openIntent(platform, realUrl, textPart);
                 });
-                
-                const blob = await new Promise(resolve => canvasObj.toBlob(resolve, 'image/png'));
-                
-                const textPart = generateShareText();
-                const callToAction = currentLang === 'ru' ? `\nРассчитай свои цели: ` : `\nCalculate your goals: `;
-                const fullText = textPart + callToAction + realUrl;
-                
-                const file = new File([blob], "roi-calc-result.png", { type: "image/png" });
+                return;
+            }
 
-                // Мобильные устройства (Native Share передает текст + фото + ссылку)
-                if (navigator.canShare && navigator.canShare({ files: [file] }) && platform !== 'copy') {
-                    try {
-                        await navigator.share({
-                            title: currentLang === 'ru' ? 'Калькулятор ROI' : 'ROI Calculator',
-                            text: textPart + callToAction,
-                            url: realUrl,
-                            files: [file]
-                        });
-                        return; 
-                    } catch(err) {
-                        console.log("Web Share API error or cancelled", err);
-                    }
-                }
-
-                // ПК / Кнопка копирования
-                if (platform === 'copy') {
-                    try {
-                        await navigator.clipboard.write([
-                            new ClipboardItem({
-                                'image/png': blob,
-                                'text/plain': new Blob([fullText], { type: 'text/plain' })
-                            })
-                        ]);
-                        showToast(currentLang === 'ru' ? 'Скриншот и текст скопированы в буфер обмена!' : 'Screenshot and text copied to clipboard!');
-                    } catch(e) {
-                        navigator.clipboard.writeText(fullText);
-                        downloadBlob(blob, 'roi-plan.png');
-                        showToast(currentLang === 'ru' ? 'Текст скопирован, а скриншот сохранен на ПК!' : 'Text copied, screenshot saved!');
-                    }
-                } else {
-                    // Обычные соцсети на ПК
-                    try {
-                        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-                        showToast(currentLang === 'ru' ? 'Открываем... Нажмите Ctrl+V (Вставить) в окне сообщения, чтобы прикрепить график!' : 'Opening... Press Ctrl+V in the chat to attach the image!');
-                    } catch(e) {
-                        downloadBlob(blob, 'roi-plan.png');
-                        showToast(currentLang === 'ru' ? 'График скачан. Прикрепите его к вашему сообщению вручную.' : 'Image saved. Attach it to your message manually.');
-                    }
-                    
-                    setTimeout(() => { openIntent(platform, realUrl, textPart); }, 2500);
-                }
-            } catch (err) {
-                console.error("Screenshot error:", err);
-                showToast(currentLang === 'ru' ? 'Произошла ошибка при создании скриншота.' : 'Error generating screenshot.');
+            // ПК / Кнопка копирования
+            if (platform === 'copy') {
+                navigator.clipboard.writeText(fullText)
+                    .then(() => showToast(currentLang === 'ru' ? 'Текст и ссылка скопированы в буфер обмена!' : 'Text and link copied to clipboard!'))
+                    .catch(() => showToast(currentLang === 'ru' ? 'Ошибка копирования.' : 'Copy error.'));
+            } else {
+                openIntent(platform, realUrl, textPart);
             }
         }
 
@@ -568,17 +525,6 @@
                 case 'rd': shareUrl = `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedText}`; break;
             }
             if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
-        }
-
-        // Вспомогательная функция скачивания
-        function downloadBlob(blob, filename) {
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(link.href);
         }
 
         // Обратная связь
