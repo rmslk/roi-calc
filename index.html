@@ -136,11 +136,11 @@
             
             <div class="flex flex-col mb-6 text-center px-2">
                 <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-                    <span class="lang-ru">Калькулятор капитализации PRO<span class="hidden md:inline"></span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">от стартового капитала до масштабных финансовых целей</span></span>
-                    <span class="lang-en">Capitalization Calculator PRO<span class="hidden md:inline"></span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">from starting capital to major financial goals</span></span>
+                    <span class="lang-ru">Калькулятор капитализации PRO<span class="hidden md:inline">:</span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">от стартового капитала до масштабных финансовых целей</span></span>
+                    <span class="lang-en">Capitalization Calculator PRO<span class="hidden md:inline">:</span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">from starting capital to major financial goals</span></span>
                 </h1>
                 <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-                    <span class="lang-ru">Смоделируйте рост оборотных средств. Узнайте, когда и в каком размере сможете безопасно забирать деньги из бизнеса, не останавливая его развитие.</span>
+                    <span class="lang-ru">Смоделируйте рост оборотных средств. Узнайте, когда вы сможете безопасно забирать деньги из бизнеса, не останавливая его развитие.</span>
                     <span class="lang-en">Model your working capital growth. Find out when you can safely withdraw money from the business without stopping its development.</span>
                 </p>
             </div>
@@ -149,8 +149,8 @@
                 <div class="flex items-center justify-between cursor-pointer group" onclick="toggleInstruction()">
                     <strong class="text-blue-600 dark:text-blue-400 text-base flex items-center gap-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <span class="lang-ru">Как использовать калькулятор</span>
-                        <span class="lang-en">How to use the calculator</span>
+                        <span class="lang-ru">Как использовать калькулятор (PRO-версия)</span>
+                        <span class="lang-en">How to use the calculator (PRO Version)</span>
                     </strong>
                     <div class="p-1 rounded-full bg-slate-100 dark:bg-slate-700 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 transition-colors flex-shrink-0">
                         <svg id="instructionChevron" class="w-5 h-5 text-blue-600 dark:text-blue-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -166,6 +166,9 @@
                             <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">4. Кредит и Расходы:</strong> Укажите постоянные операционные затраты и параметры займа.</li>
                             <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">5. Сравнение и Экспорт:</strong> Сохраняйте сценарии как «Проекты» (кнопка сверху), сравнивайте графики через «План А» и генерируйте PDF-питч для инвесторов.</li>
                         </ul>
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-[13px] md:text-sm">
+                            <em>Алгоритм: Прибыль формируется после вычета налогов. Затем вычитаются постоянные расходы и платежи по кредиту. Оставшаяся часть реинвестируется, остаток выводится «на себя».</em>
+                        </div>
                     </span>
                     <span class="lang-en">
                         <ul class="space-y-3 text-slate-600 dark:text-slate-300 mb-4">
@@ -316,7 +319,7 @@
                                             <input type="checkbox" id="seasonality" class="sr-only peer" onchange="toggleSeasonalityFields()">
                                             <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
                                         </div>
-                                        <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Сезонность</span><span class="lang-en">Seasonality</span></span>
+                                        <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Особая сезонность</span><span class="lang-en">Seasonality</span></span>
                                     </label>
                                     <div class="relative flex items-center">
                                         <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -651,7 +654,7 @@
             <!-- Лид Магнит Баннер -->
             <div id="leadMagnet" class="hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transform hover:scale-[1.01] transition-transform" data-html2canvas-ignore="true">
                 <div class="text-center md:text-left">
-                    <h3 class="text-2xl font-bold mb-2"> Вы достигли Цели 4!</h3>
+                    <h3 class="text-2xl font-bold mb-2">🔥 Вы достигли Цели 4!</h3>
                     <p class="text-blue-100 text-sm md:text-base leading-relaxed">Хотите узнать, как делать ROI 50%+ стабильно каждый месяц и превратить этот план в реальность? Читайте закрепленный пост в моем канале!</p>
                 </div>
                 <a href="https://t.me/OzonGreenROI" target="_blank" class="px-8 py-3.5 bg-white text-blue-600 font-bold rounded-xl whitespace-nowrap hover:bg-blue-50 hover:shadow-lg transition-all shadow-sm active:scale-95">
@@ -1492,12 +1495,12 @@
                 const isPayoutMonth = data.payout > 0; const emptyMoney = formatMoney(0);
                 
                 let profitHtml = `<span class="text-slate-700 dark:text-slate-300 font-semibold">${data.profit >= 0 ? '+' : ''} ${formatMoney(data.profit)}</span>`;
-                if (data.monthlyAdd > 0) { const topupText = currentLang === 'ru' ? \u00A0\u00A0'Вливания' : 'Top-up'; profitHtml += `<br><span class="text-xs text-slate-400 dark:text-slate-500">+ ${formatMoney(data.monthlyAdd)} ${topupText}</span>`; }
+                if (data.monthlyAdd > 0) { const topupText = currentLang === 'ru' ? 'Вливания' : 'Top-up'; profitHtml += `<br><span class="text-xs text-slate-400 dark:text-slate-500">+ ${formatMoney(data.monthlyAdd)} ${topupText}</span>`; }
                 if (data.taxAmount > 0 || data.fixedCost > 0 || data.creditPayment > 0) {
                      profitHtml += `<div class="text-xs text-rose-500/80 dark:text-rose-400/80 mt-1">`;
-                    if (data.taxAmount > 0) { const taxText = currentLang === 'ru' ? \u00A0\u00A0'Налог' : 'Tax'; profitHtml += `<div>- ${formatMoney(data.taxAmount)} ${taxText}</div>`; }
-                    if (data.fixedCost > 0) { const fcText = currentLang === 'ru' ? \u00A0\u00A0'Расходы' : 'Fixed Costs'; profitHtml += `<div>- ${formatMoney(data.fixedCost)} ${fcText}</div>`; }
-                    if (data.creditPayment > 0) { const crText = currentLang === 'ru' ? \u00A0\u00A0'Кредит' : 'Credit'; profitHtml += `<div>- ${formatMoney(data.creditPayment)} ${crText}</div>`; }
+                    if (data.taxAmount > 0) { const taxText = currentLang === 'ru' ? 'Налог' : 'Tax'; profitHtml += `<div>- ${formatMoney(data.taxAmount)} ${taxText}</div>`; }
+                    if (data.fixedCost > 0) { const fcText = currentLang === 'ru' ? 'Расходы' : 'Fixed Costs'; profitHtml += `<div>- ${formatMoney(data.fixedCost)} ${fcText}</div>`; }
+                    if (data.creditPayment > 0) { const crText = currentLang === 'ru' ? 'Кредит' : 'Credit'; profitHtml += `<div>- ${formatMoney(data.creditPayment)} ${crText}</div>`; }
                     profitHtml += `</div>`;
                 }
 
