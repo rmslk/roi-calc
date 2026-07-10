@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
+    <!-- SEO Мета-теги -->
     <title>Калькулятор капитализации PRO | Финансовое планирование и масштабирование</title>
     <meta name="description" content="Интерактивная финансовая модель и калькулятор сложного процента для e-commerce. Рассчитайте сроки выхода на масштабные финансовые цели с учетом налогов, кредитов, инфляции и сезонности.">
     <meta name="keywords" content="калькулятор капитализации, калькулятор сложного процента, финансовая модель селлера, юнит-экономика Ozon, масштабирование бизнеса, калькулятор ROI, расчет чистой прибыли маркетплейсы, Роман Солкин, кассовый разрыв, планирование дивидендов">
@@ -11,16 +12,22 @@
     <meta name="google-site-verification" content="HWiXwLRq7-eUjkvclx4z9hhZSoAxgSqS2VbRob0JU5c" />
     <meta name="yandex-verification" content="37c3c939a952a508" />
     
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#3b82f6">
     <link rel="apple-touch-icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'>
     <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>' type="image/svg+xml">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } }
+        }
     </script>
     
+    <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
@@ -33,11 +40,13 @@
         body.lang-ru .lang-en { display: none !important; }
         input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         
+        /* Range Slider */
         input[type="range"] { -webkit-appearance: none; width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; outline: none; transition: background 0.3s; }
         .dark input[type="range"] { background: #334155; }
         input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.1s; }
         input[type="range"]::-webkit-slider-thumb:active { transform: scale(0.9); }
 
+        /* Driver.js Custom Styling */
         .driver-popover { font-family: 'Inter', sans-serif !important; border-radius: 1rem !important; padding: 1.25rem !important; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1) !important; border: none !important; }
         .driver-popover-title { font-weight: 700 !important; font-size: 1.125rem !important; color: #0f172a !important; margin-bottom: 0.5rem !important; }
         .driver-popover-description { color: #475569 !important; font-size: 0.875rem !important; line-height: 1.6 !important; }
@@ -48,6 +57,7 @@
         html.dark .driver-popover-footer button { background-color: #334155 !important; color: #f8fafc !important; border: 1px solid #475569 !important; }
         html.dark .driver-popover-footer .driver-popover-next-btn { background-color: #3b82f6 !important; border-color: #3b82f6 !important; }
 
+        /* Mobile Tables */
         @media (max-width: 768px) {
             .mobile-card-table thead { display: none; }
             .mobile-card-table tr { display: block; margin-bottom: 1rem; border-radius: 0.75rem; border: 1px solid var(--tw-border-opacity); }
@@ -66,6 +76,7 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 lang-ru relative">
 
+    <!-- Floating Panel -->
     <div id="topPanel" class="fixed bottom-4 left-1/2 -translate-x-1/2 md:top-6 md:right-8 md:bottom-auto md:left-auto md:translate-x-0 flex items-center bg-white/80 dark:bg-slate-800/80 backdrop-blur-md px-4 py-2.5 rounded-full shadow-xl border border-slate-200/50 dark:border-slate-700/50 z-[60] text-sm transition-all duration-300" data-html2canvas-ignore="true" onmouseenter="expandPanel()" onmouseleave="collapsePanelIfScrolled()">
         <button id="panelToggleBtn" onclick="togglePanel()" class="hidden text-slate-500 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 focus:outline-none flex items-center justify-center w-6 h-6 transition-colors active:scale-95">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
@@ -412,19 +423,19 @@
                                     <span class="lang-en">Desired monthly payout targets. Algorithm will try to reach them.</span>
                                 </div>
                             </div>
-                            <input type="text" inputmode="numeric" id="goal1" value="100 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 transition-all">
+                            <input type="text" inputmode="numeric" id="goal1" value="100 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 text-center md:text-left transition-all">
                         </div>
                         <div class="w-full">
-                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider text-left"><span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span></label>
-                            <input type="text" inputmode="numeric" id="goal2" value="300 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 transition-all">
+                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider text-center md:text-left"><span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span></label>
+                            <input type="text" inputmode="numeric" id="goal2" value="300 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 text-center md:text-left transition-all">
                         </div>
                         <div class="w-full">
-                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider text-left"><span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span></label>
-                            <input type="text" inputmode="numeric" id="goal3" value="500 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 transition-all">
+                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider text-center md:text-left"><span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span></label>
+                            <input type="text" inputmode="numeric" id="goal3" value="500 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 text-center md:text-left transition-all">
                         </div>
                         <div class="w-full">
-                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider text-left"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></label>
-                            <input type="text" inputmode="numeric" id="goal4" value="1 000 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 transition-all">
+                            <label class="block text-xs font-bold text-blue-500 dark:text-blue-400 mb-1.5 uppercase tracking-wider text-center md:text-left"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></label>
+                            <input type="text" inputmode="numeric" id="goal4" value="1 000 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 text-center md:text-left transition-all">
                         </div>
                     </div>
                 </div>
@@ -436,7 +447,7 @@
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
                         <div class="w-full relative">
-                            <div class="flex items-center justify-start mb-1.5">
+                            <div class="flex items-center justify-center md:justify-start mb-1.5">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">
                                     <span class="lang-ru">Пост. расходы / мес.</span><span class="lang-en">Fixed Expenses</span>
                                 </label>
@@ -446,10 +457,10 @@
                                     <span class="lang-en">Fixed costs (salary, rent) deducted monthly.</span>
                                 </div>
                             </div>
-                            <input type="text" inputmode="numeric" id="fixedCost" value="0" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200">
+                            <input type="text" inputmode="numeric" id="fixedCost" value="0" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-center md:text-left">
                         </div>
 
-                        <div class="w-full flex items-center justify-start h-[44px] relative">
+                        <div class="w-full flex items-center justify-center md:justify-start h-[44px] relative">
                              <label class="flex items-center cursor-pointer">
                                 <div class="relative">
                                     <input type="checkbox" id="useCredit" class="sr-only peer" onchange="toggleCreditFields()">
@@ -465,7 +476,7 @@
                         </div>
 
                         <div class="w-full credit-field hidden relative">
-                            <div class="flex items-center justify-start mb-1.5">
+                            <div class="flex items-center justify-center md:justify-start mb-1.5">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">
                                     <span class="lang-ru">Сумма займа</span><span class="lang-en">Loan Amount</span>
                                 </label>
@@ -475,12 +486,12 @@
                                     <span class="lang-en">Principal loan amount taken at the start.</span>
                                 </div>
                             </div>
-                            <input type="text" inputmode="numeric" id="creditAmount" value="0" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-left">
+                            <input type="text" inputmode="numeric" id="creditAmount" value="0" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-center md:text-left">
                         </div>
 
                          <div class="w-full credit-field hidden flex gap-3 relative">
                             <div class="w-1/2">
-                                <div class="flex items-center justify-start mb-1.5">
+                                <div class="flex items-center justify-center mb-1.5">
                                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">
                                         <span class="lang-ru">Ставка (%)</span><span class="lang-en">Rate (%)</span>
                                     </label>
@@ -490,15 +501,15 @@
                                         <span class="lang-en">Annual interest rate.</span>
                                     </div>
                                 </div>
-                                <input type="number" id="creditRate" value="15" step="0.1" placeholder="%" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200">
+                                <input type="number" id="creditRate" value="15" step="0.1" placeholder="%" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
                             </div>
                             <div class="w-1/2">
-                                <div class="flex items-center justify-start mb-1.5">
+                                <div class="flex items-center justify-center mb-1.5">
                                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">
                                         <span class="lang-ru">Срок (мес.)</span><span class="lang-en">Term (mo.)</span>
                                     </label>
                                 </div>
-                                <input type="number" id="creditTerm" value="12" min="1" placeholder="мес" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200">
+                                <input type="number" id="creditTerm" value="12" min="1" placeholder="мес" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
                             </div>
                         </div>
                     </div>
@@ -1482,7 +1493,9 @@
             chartInstance.update();
             
             if(donutChartInstance) {
-                donutChartInstance.data.labels = currentLang === 'ru' ? ['Выведено на себя', 'Реинвестировано', 'Налоги', 'Фикс. расходы', 'Кредиты'] : ['Payouts', 'Reinvested', 'Taxes', 'Fixed Costs', 'Credit'];
+                donutChartInstance.data.labels = currentLang === 'ru' 
+                    ? ['\u00A0\u00A0Выведено на себя', '\u00A0\u00A0Реинвестировано', '\u00A0\u00A0Налоги', '\u00A0\u00A0Фикс. расходы', '\u00A0\u00A0Кредиты'] 
+                    : ['\u00A0\u00A0Payouts', '\u00A0\u00A0Reinvested', '\u00A0\u00A0Taxes', '\u00A0\u00A0Fixed Costs', '\u00A0\u00A0Credit'];
                 donutChartInstance.data.datasets[0].data = [globalTotals.payout, Math.max(0, globalTotals.retained), globalTotals.tax, globalTotals.cost, globalTotals.credit];
                 donutChartInstance.update();
             }
