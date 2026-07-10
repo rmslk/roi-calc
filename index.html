@@ -907,47 +907,47 @@
             };
         }
         function applyStateObj(state) {
-            if (Object.keys(state).length === 0) return;
-            document.getElementById('startCapital').value = formatRawNumber(state.startCapital);
-            document.getElementById('roi').value = state.roi; document.getElementById('cycleDays').value = state.cycleDays || 30; document.getElementById('months').value = state.months;
-            document.getElementById('monthlyAdd').value = formatRawNumber(state.monthlyAdd || 0); document.getElementById('tax').value = state.tax || 0;
-            if(state.taxType) document.getElementById('taxType').value = state.taxType; document.getElementById('inflation').value = state.inflation || 0;
-            document.getElementById('reinvestShare').value = state.reinvestShare ?? 100; document.getElementById('reinvestShareVal').innerText = (state.reinvestShare ?? 100) + '%';
-            document.getElementById('realisticRoi').checked = state.realisticRoi == 1; document.getElementById('seasonality').checked = state.seasonality == 1;
-            if(state.seasonalityMonths) document.getElementById('seasonalityMonths').value = state.seasonalityMonths;
-            document.getElementById('seasonalityMultiplier').value = state.seasonalityMultiplier || 2;
-            document.getElementById('dynamicReinvest').checked = state.dynamicReinvest == 1; document.getElementById('reinvestThreshold').value = formatRawNumber(state.reinvestThreshold || 1000000);
-            document.getElementById('newReinvestShare').value = state.newReinvestShare ?? 50; document.getElementById('newReinvestShareVal').innerText = (state.newReinvestShare ?? 50) + '%';
-            document.getElementById('goal1').value = formatRawNumber(state.goal1); document.getElementById('goal2').value = formatRawNumber(state.goal2);
-            document.getElementById('goal3').value = formatRawNumber(state.goal3); document.getElementById('goal4').value = formatRawNumber(state.goal4);
-            if(state.currency) { document.getElementById('currency').value = state.currency; currentCurrency = state.currency; const textMap = {'RUB':'₽ RUB', 'USD':'$ USD', 'EUR':'€ EUR', 'KZT':'₸ KZT', 'BYN':'Br BYN'}; document.getElementById('currentCurrencyDisplay').innerText = textMap[state.currency] || '₽ RUB'; }
-            if(state.lang) currentLang = state.lang;
-            document.getElementById('fixedCost').value = formatRawNumber(state.fixedCost || 0); document.getElementById('useCredit').checked = state.useCredit == 1;
-            document.getElementById('creditAmount').value = formatRawNumber(state.creditAmount || 0); document.getElementById('creditRate').value = state.creditRate || 15; document.getElementById('creditTerm').value = state.creditTerm || 12;
-            toggleCreditFields(); toggleSeasonalityFields(false); toggleDynamicReinvest(false);
-        }
-        function saveState() {
-            const state = getStateObj();
-            localStorage.setItem('roiCalcStatePRO', JSON.stringify(state));
-            const params = new URLSearchParams();
-            for (const key in state) params.set(key, state[key]);
-            try { window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`); } catch (e) {}
-        }
-        function loadState() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let state = {};
-            if (urlParams.has('startCapital')) { urlParams.forEach((v, k) => { state[key] = v; }); } 
-            else { const saved = localStorage.getItem('roiCalcStatePRO'); if (saved) { try { state = JSON.parse(saved); } catch(e) {} } }
-            applyStateObj(state);
-        }
+        // --- UI ФУНКЦИИ ---
+        function toggleLang(lang) {
+            currentLang = lang;
+            if (lang === 'en') {
+                document.body.classList.add('lang-en');
+                document.body.classList.remove('lang-ru');
+                document.getElementById('btn-ru').classList.replace('font-bold', 'font-normal');
+                document.getElementById('btn-ru').classList.replace('text-blue-600', 'text-slate-400');
+                document.getElementById('btn-ru').classList.replace('dark:text-blue-400', 'dark:text-slate-500');
+                
+                document.getElementById('btn-en').classList.replace('font-normal', 'font-bold');
+                document.getElementById('btn-en').classList.replace('text-slate-400', 'text-blue-600');
+                document.getElementById('btn-en').classList.replace('dark:text-slate-500', 'dark:text-blue-400');
+                
+                // Переключение языка для options в select
+                document.querySelectorAll('.lang-ru-opt').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('.lang-en-opt').forEach(el => el.classList.remove('hidden'));
+            } else {
+                document.body.classList.add('lang-ru');
+                document.body.classList.remove('lang-en');
+                document.getElementById('btn-en').classList.replace('font-bold', 'font-normal');
+                document.getElementById('btn-en').classList.replace('text-blue-600', 'text-slate-400');
+                document.getElementById('btn-en').classList.replace('dark:text-blue-400', 'dark:text-slate-500');
+                
+                document.getElementById('btn-ru').classList.replace('font-normal', 'font-bold');
+                document.getElementById('btn-ru').classList.replace('text-slate-400', 'text-blue-600');
+                document.getElementById('btn-ru').classList.replace('dark:text-slate-500', 'dark:text-blue-400');
 
-        // --- STREAMING_CHUNK:Dynamic UI Toggles... ---
-        document.getElementById('reinvestShare').addEventListener('input', e => { document.getElementById('reinvestShareVal').innerText = e.target.value + '%'; calculate(); });
-        document.getElementById('newReinvestShare').addEventListener('input', e => { document.getElementById('newReinvestShareVal').innerText = e.target.value + '%'; calculate(); });
-        
-        function toggleCreditFields() {
-            const useCredit = document.getElementById('useCredit').checked;
-            document.querySelectorAll('.credit-field').forEach(field => { useCredit ? field.classList.remove('hidden') : field.classList.add('hidden'); });
+                // Переключение языка для options в select
+                document.querySelectorAll('.lang-ru-opt').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('.lang-en-opt').forEach(el => el.classList.add('hidden'));
+            }
+            
+            if(chartInstance) {
+                chartInstance.data.datasets[0].label = currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout';
+                chartInstance.data.datasets[1].label = currentLang === 'ru' ? '\u00A0\u00A0Оборот (План)' : '\u00A0\u00A0Capital (Plan)';
+                if(baselineData) {
+                    chartInstance.data.datasets[2].label = currentLang === 'ru' ? '\u00A0\u00A0Вывод (План А)' : '\u00A0\u00A0Payout (Plan A)';
+                    chartInstance.data.datasets[3].label = currentLang === 'ru' ? '\u00A0\u00A0Оборот (План А)' : '\u00A0\u00A0Capital (Plan A)';
+                }
+            }
             calculate();
         }
         function toggleSeasonalityFields(doCalculate = true) {
