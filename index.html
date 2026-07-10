@@ -1,13 +1,13 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- SEO Мета-теги (Обновленные) -->
-    <title>Калькулятор капитализации PRO | Финансовая модель селлера</title>
-    <meta name="description" content="Интерактивная финансовая модель и калькулятор сложного процента для e-commerce. Рассчитайте сроки выхода на целевые дивиденды с учетом налогов, кредитов, инфляции и сезонности.">
-    <meta name="keywords" content="калькулятор капитализации, калькулятор сложного процента, финансовая модель селлера, юнит-экономика Ozon, масштабирование бизнеса, калькулятор ROI, расчет чистой прибыли маркетплейсы, Роман Солкин, кассовый разрыв">
+    <!-- SEO Мета-теги (Обновленные под новую концепцию) -->
+    <title>Калькулятор капитализации PRO | Финансовое планирование и масштабирование</title>
+    <meta name="description" content="Интерактивная финансовая модель и калькулятор сложного процента для e-commerce. Рассчитайте сроки выхода на масштабные финансовые цели с учетом налогов, кредитов, инфляции и сезонности.">
+    <meta name="keywords" content="калькулятор капитализации, калькулятор сложного процента, финансовая модель селлера, юнит-экономика Ozon, масштабирование бизнеса, калькулятор ROI, расчет чистой прибыли маркетплейсы, Роман Солкин, кассовый разрыв, планирование дивидендов">
     <meta name="author" content="Роман Солкин">
     <meta name="google-site-verification" content="HWiXwLRq7-eUjkvclx4z9hhZSoAxgSqS2VbRob0JU5c" />
     <meta name="yandex-verification" content="37c3c939a952a508" />
@@ -21,7 +21,7 @@
     <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>' type="image/svg+xml">
     
     <!-- Open Graph для соцсетей -->
-    <meta property="og:title" content="Калькулятор капитализации PRO: от стартового капитала до первых дивидендов">
+    <meta property="og:title" content="Калькулятор капитализации PRO: от стартового капитала до масштабных финансовых целей">
     <meta property="og:description" content="Смоделируйте рост оборотных средств. Узнайте, когда вы сможете безопасно забирать деньги из бизнеса, не останавливая его развитие.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
@@ -258,11 +258,11 @@
                 <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
                     <span class="lang-ru">
                         Калькулятор капитализации PRO<span class="hidden md:inline">:</span><br class="md:hidden"> 
-                        <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">от стартового капитала до первых дивидендов</span>
+                        <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">от стартового капитала до масштабных финансовых целей</span>
                     </span>
                     <span class="lang-en">
                         Capitalization Calculator PRO<span class="hidden md:inline">:</span><br class="md:hidden"> 
-                        <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">from starting capital to first dividends</span>
+                        <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">from starting capital to major financial goals</span>
                     </span>
                 </h1>
                 <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
@@ -564,13 +564,18 @@
                             <input type="text" inputmode="numeric" id="creditAmount" value="0" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200 text-center md:text-left">
                         </div>
 
-                         <div class="w-full credit-field hidden">
-                            <label class="flex items-center justify-center md:justify-start text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                                <span class="lang-ru">Ставка (%) / Срок (мес.)</span><span class="lang-en">Rate (%) / Term (mo.)</span>
-                            </label>
-                            <div class="flex gap-2">
-                                <input type="number" id="creditRate" value="15" step="0.1" placeholder="%" class="w-1/2 px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
-                                <input type="number" id="creditTerm" value="12" min="1" placeholder="мес" class="w-1/2 px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
+                        <div class="w-full credit-field hidden flex gap-3">
+                            <div class="w-1/2">
+                                <label class="flex items-center justify-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                    <span class="lang-ru">Ставка (%)</span><span class="lang-en">Rate (%)</span>
+                                </label>
+                                <input type="number" id="creditRate" value="15" step="0.1" placeholder="%" class="w-full px-2 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
+                            </div>
+                            <div class="w-1/2">
+                                <label class="flex items-center justify-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                    <span class="lang-ru">Срок (мес.)</span><span class="lang-en">Term (mo.)</span>
+                                </label>
+                                <input type="number" id="creditTerm" value="12" min="1" placeholder="мес" class="w-full px-2 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
                             </div>
                         </div>
                     </div>
