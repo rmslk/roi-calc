@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru" class="light">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +12,11 @@
     <meta name="google-site-verification" content="HWiXwLRq7-eUjkvclx4z9hhZSoAxgSqS2VbRob0JU5c" />
     <meta name="yandex-verification" content="37c3c939a952a508" />
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="apple-touch-icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'>
+
     <!-- Favicon: График роста с зеленой линией -->
     <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>' type="image/svg+xml">
     
@@ -102,6 +106,21 @@
         
         /* Исключаем график из глобальной транзиции чтобы не лагал */
         canvas { transition: none !important; }
+
+        /* Прогресс-бар */
+        .progress-bar-bg {
+            background-color: #e2e8f0; /* slate-200 */
+        }
+        .dark .progress-bar-bg {
+            background-color: #334155; /* slate-700 */
+        }
+        .progress-bar-fill {
+            background-color: #3b82f6; /* blue-500 */
+            transition: width 0.5s ease-in-out;
+        }
+        .dark .progress-bar-fill {
+            background-color: #60a5fa; /* blue-400 */
+        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 lang-ru relative">
@@ -153,41 +172,50 @@
             <!-- Заголовок и Инструкция -->
             <div class="flex flex-col mb-6 text-center">
                 <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
-                    <span class="lang-ru">Калькулятор капитализации PRO</span>
-                    <span class="lang-en">Capitalization Calculator PRO</span>
+                    <span class="lang-ru">Калькулятор капитализации</span>
+                    <span class="lang-en">Capitalization Calculator</span>
                 </h1>
                 
-                <div class="mt-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-6 rounded-3xl text-sm leading-relaxed text-left inline-block mx-auto max-w-4xl shadow-sm" data-html2canvas-ignore="true">
-                    <span class="lang-ru">
-                        <strong class="text-blue-600 dark:text-blue-400 text-base mb-3 block flex items-center gap-2">
+                <div class="mt-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-6 rounded-3xl text-sm leading-relaxed text-left mx-auto max-w-4xl shadow-sm transition-all duration-300" data-html2canvas-ignore="true">
+                    <!-- Заголовок аккордеона -->
+                    <div class="flex items-center justify-between cursor-pointer group" onclick="toggleInstruction()">
+                        <strong class="text-blue-600 dark:text-blue-400 text-base flex items-center gap-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Как использовать калькулятор:
+                            <span class="lang-ru">Как использовать калькулятор (PRO-версия)</span>
+                            <span class="lang-en">How to use the calculator (PRO Version)</span>
                         </strong>
-                        <ul class="space-y-2 text-slate-600 dark:text-slate-300">
-                            <li><strong class="text-slate-800 dark:text-slate-100">1. Базовые метрики:</strong> Введите стартовый капитал, средний ROI за цикл, горизонт планирования и регулярные довложения (если есть).</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">2. Рынок и Риски:</strong> Учтите налоги (вычитаются до распределения прибыли), инфляцию, сезонность (x2 к ROI в ноябре/декабре) или включите «Реалистичную модель» (снижение ROI при сильном росте капитала).</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">3. Стратегия вывода:</strong> Выберите, какую долю прибыли вы хотите реинвестировать (например, 80%), а какую забирать на себя. Задайте целевые суммы (Цели 1-4).</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">4. Сравнение:</strong> Нажмите «Сравнить с планом А», чтобы зафиксировать текущий график на экране, а затем измените данные для наглядного сравнения стратегий.</li>
-                        </ul>
-                        <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-xs md:text-sm">
-                            <em>Алгоритм: Прибыль формируется после вычета налогов. Часть реинвестируется (по настройке), остаток выводится «на себя». Если выведенной суммы хватает для достижения Цели, она фиксируется как выполненная.</em>
+                        <div class="p-1 rounded-full bg-slate-100 dark:bg-slate-700 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 transition-colors">
+                            <svg id="instructionChevron" class="w-5 h-5 text-blue-600 dark:text-blue-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
-                    </span>
-                    <span class="lang-en">
-                        <strong class="text-blue-600 dark:text-blue-400 text-base mb-3 block flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            How to use the calculator (PRO Version):
-                        </strong>
-                        <ul class="space-y-2 text-slate-600 dark:text-slate-300">
-                            <li><strong class="text-slate-800 dark:text-slate-100">1. Basic Metrics:</strong> Enter starting capital, average ROI, calculation period, and monthly top-ups.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">2. Market & Risks:</strong> Account for taxes, inflation, seasonality (x2 ROI in Nov/Dec) or enable "Realistic Model" (ROI drops as capital scales).</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">3. Payout Strategy:</strong> Choose reinvestment share (e.g. 80%) and set your target Goals 1-4 for personal payouts.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100">4. Compare:</strong> Click "Save as Plan A" to fix the current chart, then change values to compare strategies visually.</li>
-                        </ul>
-                        <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-xs md:text-sm">
-                            <em>Algorithm: Profit is calculated after tax. A portion is reinvested based on settings, the rest is your payout. If the payout reaches a Goal amount, the goal is marked as achieved.</em>
-                        </div>
-                    </span>
+                    </div>
+                    
+                    <!-- Содержимое аккордеона -->
+                    <div id="instructionBody" class="overflow-hidden transition-all duration-500 ease-in-out max-h-[1000px] opacity-100 mt-4">
+                        <span class="lang-ru">
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300 mb-4">
+                                <li><strong class="text-slate-800 dark:text-slate-100">1. Базовые метрики:</strong> Введите стартовый капитал, средний ROI за цикл, горизонт планирования и регулярные довложения (если есть).</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">2. Рынок и Риски:</strong> Учтите налоги (вычитаются до распределения прибыли), инфляцию, сезонность (x2 к ROI в ноябре/декабре) или включите "Реалистичную модель" (снижение ROI при сильном росте капитала).</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">3. Стратегия вывода:</strong> Выберите, какую долю прибыли вы хотите реинвестировать (например, 80%), а какую забирать на себя. Задайте целевые суммы (Цели 1-4).</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">4. Кредит и Обязательства:</strong> Укажите постоянные ежемесячные расходы и параметры кредита, если используете заемные средства.</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">5. Сравнение и Шеринг:</strong> Нажмите «Запомнить как План А», чтобы зафиксировать текущий график для сравнения. Делитесь ссылкой — все ваши настройки сохранятся в URL!</li>
+                            </ul>
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-xs md:text-sm">
+                                <em>Алгоритм: Прибыль формируется после вычета налогов. Затем вычитаются постоянные расходы и платежи по кредиту. Оставшаяся часть реинвестируется (по настройке), остаток выводится "на себя". Если выведенной суммы хватает для достижения Цели, она фиксируется как выполненная.</em>
+                            </div>
+                        </span>
+                        <span class="lang-en">
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300 mb-4">
+                                <li><strong class="text-slate-800 dark:text-slate-100">1. Basic Metrics:</strong> Enter starting capital, average ROI, calculation period, and monthly top-ups.</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">2. Market & Risks:</strong> Account for taxes, inflation, seasonality (x2 ROI in Nov/Dec) or enable "Realistic Model" (ROI drops as capital scales).</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">3. Payout Strategy:</strong> Choose reinvestment share (e.g. 80%) and set your target Goals 1-4 for personal payouts.</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">4. Credit & Liabilities:</strong> Specify fixed monthly expenses and loan parameters if using borrowed funds.</li>
+                                <li><strong class="text-slate-800 dark:text-slate-100">5. Compare & Share:</strong> Click "Save as Plan A" to fix the current chart. Share the calculator link — all your settings are saved in the URL!</li>
+                            </ul>
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-xs md:text-sm">
+                                <em>Algorithm: Profit is calculated after tax. Then fixed expenses and loan payments are deducted. The remaining part is reinvested based on settings, the rest is your payout. If the payout reaches a Goal amount, the goal is marked as achieved.</em>
+                            </div>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -365,25 +393,106 @@
                     </div>
                 </div>
 
+                <!-- БЛОК 4: Кредит и Обязательства -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
+                        <span class="lang-ru">4. Кредит и Обязательства</span><span class="lang-en">4. Credit & Liabilities</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+                        <div class="w-full">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Пост. расходы / мес.</span><span class="lang-en">Fixed Expenses / mo.</span>
+                                <svg class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="absolute bottom-full mb-2 left-0 hidden group-hover:block bg-slate-800 dark:bg-slate-700 text-white text-xs font-normal rounded-lg p-2.5 w-48 shadow-xl z-50">
+                                    <span class="lang-ru">Фиксированные траты (зарплата, аренда, сервисы), которые вычитаются ежемесячно.</span>
+                                    <span class="lang-en">Fixed costs (salary, rent, services) deducted monthly.</span>
+                                </div>
+                            </label>
+                            <input type="text" inputmode="numeric" id="fixedCost" value="0" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200">
+                        </div>
+
+                        <div class="w-full flex items-center justify-start h-[44px] md:mt-6">
+                             <label class="flex items-center cursor-pointer group relative">
+                                <div class="relative">
+                                    <input type="checkbox" id="useCredit" class="sr-only peer" onchange="toggleCreditFields()">
+                                    <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
+                                </div>
+                                <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    <span class="lang-ru">Я использую кредит</span><span class="lang-en">Use Credit</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="w-full credit-field hidden">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Сумма займа</span><span class="lang-en">Loan Amount</span>
+                            </label>
+                            <input type="text" inputmode="numeric" id="creditAmount" value="0" class="w-full px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200">
+                        </div>
+
+                         <div class="w-full credit-field hidden">
+                            <label class="flex items-center text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5 relative group">
+                                <span class="lang-ru">Ставка (%) / Срок (мес.)</span><span class="lang-en">Rate (%) / Term (mo.)</span>
+                            </label>
+                            <div class="flex gap-2">
+                                <input type="number" id="creditRate" value="15" step="0.1" placeholder="%" class="w-1/2 px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200">
+                                <input type="number" id="creditTerm" value="12" min="1" placeholder="мес" class="w-1/2 px-4 py-2.5 bg-slate-50/50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-slate-800 dark:text-slate-200">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Карточки достижения целей -->
+            <!-- Карточки достижения целей с Прогресс-барами -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 1</span><span class="lang-en">Goal 1</span></div>
-                    <div id="achieve-goal1" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
+                    <div id="achieve-goal1" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400 mb-2">-</div>
+                    <div class="w-full h-2 progress-bar-bg rounded-full overflow-hidden">
+                        <div id="progress-goal1" class="h-full progress-bar-fill w-0"></div>
+                    </div>
+                    <div id="progress-text-goal1" class="text-xs text-slate-500 dark:text-slate-400 mt-1">0%</div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 2</span><span class="lang-en">Goal 2</span></div>
-                    <div id="achieve-goal2" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
+                    <div id="achieve-goal2" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400 mb-2">-</div>
+                    <div class="w-full h-2 progress-bar-bg rounded-full overflow-hidden">
+                        <div id="progress-goal2" class="h-full progress-bar-fill w-0"></div>
+                    </div>
+                    <div id="progress-text-goal2" class="text-xs text-slate-500 dark:text-slate-400 mt-1">0%</div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 3</span><span class="lang-en">Goal 3</span></div>
-                    <div id="achieve-goal3" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
+                    <div id="achieve-goal3" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400 mb-2">-</div>
+                    <div class="w-full h-2 progress-bar-bg rounded-full overflow-hidden">
+                        <div id="progress-goal3" class="h-full progress-bar-fill w-0"></div>
+                    </div>
+                    <div id="progress-text-goal3" class="text-xs text-slate-500 dark:text-slate-400 mt-1">0%</div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow">
                     <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2"><span class="lang-ru">Цель 4</span><span class="lang-en">Goal 4</span></div>
-                    <div id="achieve-goal4" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400">-</div>
+                    <div id="achieve-goal4" class="text-sm md:text-base font-bold text-blue-600 dark:text-blue-400 mb-2">-</div>
+                    <div class="w-full h-2 progress-bar-bg rounded-full overflow-hidden">
+                        <div id="progress-goal4" class="h-full progress-bar-fill w-0"></div>
+                    </div>
+                    <div id="progress-text-goal4" class="text-xs text-slate-500 dark:text-slate-400 mt-1">0%</div>
+                </div>
+            </div>
+
+             <!-- Виджет "Время до первого миллиона" -->
+            <div id="millionWidget" class="hidden bg-gradient-to-r from-amber-400 to-orange-500 text-white p-6 rounded-3xl shadow-lg flex items-center justify-center gap-4 transform hover:scale-[1.01] transition-transform mb-8" data-html2canvas-ignore="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-1">
+                        <span class="lang-ru">Ваш первый миллион!</span><span class="lang-en">Your First Million!</span>
+                    </h3>
+                    <p class="text-white/90 text-sm md:text-base font-medium">
+                        <span class="lang-ru">При текущей стратегии ваш оборот превысит 1 000 000 ₽ через <span id="millionMonth" class="font-bold text-white text-lg"></span> мес.</span>
+                        <span class="lang-en">With current strategy, your capital will exceed 1,000,000 ₽ in <span id="millionMonth" class="font-bold text-white text-lg"></span> mo.</span>
+                    </p>
                 </div>
             </div>
 
@@ -473,7 +582,7 @@
             <!-- Лид Магнит Баннер (Скрыт по умолчанию) -->
             <div id="leadMagnet" class="hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transform hover:scale-[1.01] transition-transform" data-html2canvas-ignore="true">
                 <div class="text-center md:text-left">
-                    <h3 class="text-2xl font-bold mb-2">Вы достигли Цели 4!</h3>
+                    <h3 class="text-2xl font-bold mb-2">🔥 Вы достигли Цели 4!</h3>
                     <p class="text-blue-100 text-sm md:text-base leading-relaxed">Хотите узнать, как делать ROI 50%+ стабильно каждый месяц и превратить этот план в реальность? Читайте закрепленный пост в моем канале!</p>
                 </div>
                 <a href="https://t.me/OzonGreenROI" target="_blank" class="px-8 py-3.5 bg-white text-blue-600 font-bold rounded-xl whitespace-nowrap hover:bg-blue-50 hover:shadow-lg transition-all shadow-sm">
@@ -525,7 +634,7 @@
                             </button>
                             <!-- VK -->
                             <button onclick="shareSocial('vk')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0077FF] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0" title="VK">
-                                <svg class="w-5 h-5 fill-current" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
+                                <svg class="w-6 h-6 fill-current" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-29.8-21.7h-58.9c-24.5 0-35.6 12.5-41.5 26.6 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-22.5-6.8-33.1-26.2-33.1H197.6c-14.4 0-23.1 10.6-23.1 20.6 0 21.2 31.9 26.2 35 86.9v130.6c0 28.7-5 33.7-12.5 33.7-20 0-68.8-73.8-97.5-158.1-8.1-23.8-16.2-33.8-41.2-33.8H0c-28.7 0-35 13.8-35 26.9 0 20.6 26.9 125.6 126.9 264.4 66.2 92.5 158.8 143.1 243.8 143.1 50.6 0 56.9-11.2 56.9-30.6V400c0-24.4 5.2-29.4 22.5-29.4 12.5 0 34.4 6.2 73.1 41.9 44.4 44.4 52.5 64.4 80.6 64.4h58.9c28.7 0 43.1-14.4 34.4-42.5-10.6-32.5-51.2-80-104.4-135-29.4-31.2-73.8-66.2-81.2-77.5-10.6-14.4-7.5-22.5 0-35 0 0 116.2-164.4 126.2-206.9z"/></svg>
                             </button>
                             <!-- Копировать ссылку -->
                             <button onclick="shareSocial('copy')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-blue-500 hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0" title="Copy Text & Link">
@@ -555,26 +664,12 @@
                     <p class="mb-4">Успешный бизнес, особенно в сфере электронной коммерции и продаж на маркетплейсах, требует четкого понимания финансовой математики. Наш онлайн-калькулятор капитализации создан специально для предпринимателей, которые хотят визуализировать процесс роста оборотного капитала с помощью механизма сложного процента.</p>
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Почему важно реинвестировать прибыль?</h3>
                     <p class="mb-4">Секрет взрывного роста кроется в постоянном возврате заработанных средств обратно в товарооборот. Реинвестирование позволяет вашему капиталу работать на вас в геометрической прогрессии. Даже с небольшим стартовым капиталом и высоким показателем ROI (Return on Investment) можно достичь внушительных результатов уже в первый год работы.</p>
-                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-6 mb-3">Как использовать финансовую модель?</h3>
-                    <ul class="list-disc pl-5 mb-4 space-y-2">
-                        <li><strong>Укажите стартовый капитал:</strong> сумму, которую вы готовы вложить в первую закупку или цикл производства.</li>
-                        <li><strong>Определите Средний ROI:</strong> чистую рентабельность на вложенные средства за один цикл (обычно это 1 месяц).</li>
-                        <li><strong>Поставьте личные цели:</strong> введите суммы, которые вы хотите ежемесячно выводить "на себя" в качестве дивидендов.</li>
-                    </ul>
-                    <p class="mb-4">Интеллектуальный алгоритм калькулятора сам рассчитает, в какой момент ваш оборотный капитал достигнет достаточного уровня, чтобы вы могли выплачивать себе желаемую сумму, <em>не останавливая при этом рост магазина</em>. Часть чистой прибыли будет автоматически направляться в реинвест, защищая бизнес от стагнации.</p>
                 </div>
                 
                 <div class="lang-en">
                     <p class="mb-4">Successful business, especially in e-commerce, requires a clear understanding of financial mathematics. Our online capitalization calculator is designed specifically for entrepreneurs who want to visualize working capital growth through the mechanism of compound interest.</p>
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Why is Reinvesting Profit Important?</h3>
                     <p class="mb-4">The secret to explosive growth lies in constantly returning earned funds back into inventory turnover. Reinvesting allows your capital to work for you exponentially. Even with a small starting capital and a high ROI (Return on Investment), impressive results can be achieved in the very first year.</p>
-                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-6 mb-3">How to Use the Financial Model?</h3>
-                    <ul class="list-disc pl-5 mb-4 space-y-2">
-                        <li><strong>Enter Starting Capital:</strong> the amount you are willing to invest in the first cycle.</li>
-                        <li><strong>Set Average ROI:</strong> the net profitability on invested funds per cycle (usually 1 month).</li>
-                        <li><strong>Set Personal Goals:</strong> enter the amounts you want to withdraw monthly as dividends.</li>
-                    </ul>
-                    <p class="mb-4">The intelligent calculator algorithm will automatically determine the point at which your working capital reaches a sufficient level for you to pay yourself the desired amount <em>without stopping the store's growth</em>. A portion of the net profit will automatically be directed to reinvestment, protecting your business from stagnation.</p>
                 </div>
             </article>
         </div>
@@ -619,6 +714,42 @@
     </div>
 
     <script>
+        // --- ИНИЦИАЛИЗАЦИЯ ИНСТРУКЦИИ (АККОРДЕОН) ---
+        function initInstruction() {
+            const isCollapsed = localStorage.getItem('instructionCollapsed') === 'true';
+            const body = document.getElementById('instructionBody');
+            const chevron = document.getElementById('instructionChevron');
+            
+            if (isCollapsed) {
+                body.classList.replace('max-h-[1000px]', 'max-h-0');
+                body.classList.replace('opacity-100', 'opacity-0');
+                body.classList.replace('mt-4', 'mt-0');
+                chevron.classList.add('-rotate-90');
+            }
+        }
+
+        function toggleInstruction() {
+            const body = document.getElementById('instructionBody');
+            const chevron = document.getElementById('instructionChevron');
+            const isCurrentlyCollapsed = body.classList.contains('max-h-0');
+
+            if (isCurrentlyCollapsed) {
+                // Разворачиваем
+                body.classList.replace('max-h-0', 'max-h-[1000px]');
+                body.classList.replace('opacity-0', 'opacity-100');
+                body.classList.replace('mt-0', 'mt-4');
+                chevron.classList.remove('-rotate-90');
+                localStorage.setItem('instructionCollapsed', 'false');
+            } else {
+                // Сворачиваем
+                body.classList.replace('max-h-[1000px]', 'max-h-0');
+                body.classList.replace('opacity-100', 'opacity-0');
+                body.classList.replace('mt-4', 'mt-0');
+                chevron.classList.add('-rotate-90');
+                localStorage.setItem('instructionCollapsed', 'true');
+            }
+        }
+
         // --- ТЕМА (Светлая/Темная) ---
         function toggleTheme() {
             document.documentElement.classList.toggle('dark');
@@ -658,7 +789,7 @@
         let globalMonthlyData = [];
         let baselineData = null; // Для плана А
 
-        // --- LCOAL STORAGE ---
+        // --- LCOAL STORAGE & URL STATE ---
         function saveState() {
             const state = {
                 startCapital: getRawNumber('startCapital'),
@@ -668,46 +799,84 @@
                 tax: Number(document.getElementById('tax').value) || 0,
                 inflation: Number(document.getElementById('inflation').value) || 0,
                 reinvestShare: Number(document.getElementById('reinvestShare').value) || 100,
-                realisticRoi: document.getElementById('realisticRoi').checked,
-                seasonality: document.getElementById('seasonality').checked,
+                realisticRoi: document.getElementById('realisticRoi').checked ? 1 : 0,
+                seasonality: document.getElementById('seasonality').checked ? 1 : 0,
                 goal1: getRawNumber('goal1'),
                 goal2: getRawNumber('goal2'),
                 goal3: getRawNumber('goal3'),
                 goal4: getRawNumber('goal4'),
                 currency: document.getElementById('currency').value,
-                lang: currentLang
+                lang: currentLang,
+                fixedCost: getRawNumber('fixedCost'),
+                useCredit: document.getElementById('useCredit').checked ? 1 : 0,
+                creditAmount: getRawNumber('creditAmount'),
+                creditRate: Number(document.getElementById('creditRate').value) || 0,
+                creditTerm: Number(document.getElementById('creditTerm').value) || 12
             };
             localStorage.setItem('roiCalcStatePRO', JSON.stringify(state));
+            updateUrl(state);
+        }
+
+        function updateUrl(state) {
+            const params = new URLSearchParams();
+            for (const key in state) {
+                if (state.hasOwnProperty(key)) {
+                    params.set(key, state[key]);
+                }
+            }
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.history.replaceState({}, '', newUrl);
         }
 
         function loadState() {
-            const saved = localStorage.getItem('roiCalcStatePRO');
-            if (saved) {
-                try {
-                    const state = JSON.parse(saved);
-                    document.getElementById('startCapital').value = formatRawNumber(state.startCapital);
-                    document.getElementById('roi').value = state.roi;
-                    document.getElementById('months').value = state.months;
-                    document.getElementById('monthlyAdd').value = formatRawNumber(state.monthlyAdd || 0);
-                    document.getElementById('tax').value = state.tax || 0;
-                    document.getElementById('inflation').value = state.inflation || 0;
-                    document.getElementById('reinvestShare').value = state.reinvestShare ?? 100;
-                    document.getElementById('reinvestShareVal').innerText = (state.reinvestShare ?? 100) + '%';
-                    
-                    document.getElementById('realisticRoi').checked = !!state.realisticRoi;
-                    document.getElementById('seasonality').checked = !!state.seasonality;
-                    
-                    document.getElementById('goal1').value = formatRawNumber(state.goal1);
-                    document.getElementById('goal2').value = formatRawNumber(state.goal2);
-                    document.getElementById('goal3').value = formatRawNumber(state.goal3);
-                    document.getElementById('goal4').value = formatRawNumber(state.goal4);
-                    
-                    if(state.currency) {
-                        document.getElementById('currency').value = state.currency;
-                        currentCurrency = state.currency;
-                    }
-                    if(state.lang) currentLang = state.lang;
-                } catch(e) { console.error(e); }
+            const urlParams = new URLSearchParams(window.location.search);
+            let state = {};
+
+            if (urlParams.has('startCapital')) {
+                 // Загрузка из URL
+                urlParams.forEach((value, key) => {
+                    state[key] = value;
+                });
+            } else {
+                 // Загрузка из Local Storage
+                const saved = localStorage.getItem('roiCalcStatePRO');
+                if (saved) {
+                    try {
+                        state = JSON.parse(saved);
+                    } catch(e) { console.error(e); }
+                }
+            }
+
+            if (Object.keys(state).length > 0) {
+                document.getElementById('startCapital').value = formatRawNumber(state.startCapital);
+                document.getElementById('roi').value = state.roi;
+                document.getElementById('months').value = state.months;
+                document.getElementById('monthlyAdd').value = formatRawNumber(state.monthlyAdd || 0);
+                document.getElementById('tax').value = state.tax || 0;
+                document.getElementById('inflation').value = state.inflation || 0;
+                document.getElementById('reinvestShare').value = state.reinvestShare ?? 100;
+                document.getElementById('reinvestShareVal').innerText = (state.reinvestShare ?? 100) + '%';
+                
+                document.getElementById('realisticRoi').checked = state.realisticRoi == 1;
+                document.getElementById('seasonality').checked = state.seasonality == 1;
+                
+                document.getElementById('goal1').value = formatRawNumber(state.goal1);
+                document.getElementById('goal2').value = formatRawNumber(state.goal2);
+                document.getElementById('goal3').value = formatRawNumber(state.goal3);
+                document.getElementById('goal4').value = formatRawNumber(state.goal4);
+                
+                if(state.currency) {
+                    document.getElementById('currency').value = state.currency;
+                    currentCurrency = state.currency;
+                }
+                if(state.lang) currentLang = state.lang;
+
+                document.getElementById('fixedCost').value = formatRawNumber(state.fixedCost || 0);
+                document.getElementById('useCredit').checked = state.useCredit == 1;
+                document.getElementById('creditAmount').value = formatRawNumber(state.creditAmount || 0);
+                document.getElementById('creditRate').value = state.creditRate || 15;
+                document.getElementById('creditTerm').value = state.creditTerm || 12;
+                toggleCreditFields();
             }
         }
 
@@ -816,6 +985,19 @@
             calculate();
         });
 
+        function toggleCreditFields() {
+            const useCredit = document.getElementById('useCredit').checked;
+            const creditFields = document.querySelectorAll('.credit-field');
+            creditFields.forEach(field => {
+                if (useCredit) {
+                    field.classList.remove('hidden');
+                } else {
+                    field.classList.add('hidden');
+                }
+            });
+            calculate();
+        }
+
         const formatMoney = (num) => {
             const conf = currencies[currentCurrency];
             return new Intl.NumberFormat(conf.locale, { style: 'currency', currency: conf.curr, maximumFractionDigits: 0 }).format(num);
@@ -824,11 +1006,11 @@
         // --- ЭКСПОРТ (CSV / PDF) ---
         function exportCSV() {
             let csv = currentLang === 'ru'
-                ? "Месяц,Старт. капитал,Валовая Прибыль,Налог/Потери,Чистая Прибыль,Вливания,Вывод на себя,Итоговый оборот,С учетом инфляции\n"
-                : "Month,Start Capital,Gross Profit,Tax/Loss,Net Profit,Top-up,Payout,Ending Capital,Inflation Adjusted\n";
+                ? "Месяц,Старт. капитал,Валовая Прибыль,Налог/Потери,Пост. расходы,Кредит,Чистая Прибыль,Вливания,Вывод на себя,Итоговый оборот,С учетом инфляции\n"
+                : "Month,Start Capital,Gross Profit,Tax/Loss,Fixed Costs,Credit Payment,Net Profit,Top-up,Payout,Ending Capital,Inflation Adjusted\n";
 
             globalMonthlyData.forEach(d => {
-                csv += `${d.month},${d.startCapital.toFixed(2)},${d.grossProfit.toFixed(2)},${d.taxAmount.toFixed(2)},${d.profit.toFixed(2)},${d.monthlyAdd.toFixed(2)},${d.payout.toFixed(2)},${d.endCapital.toFixed(2)},${d.realEndCapital.toFixed(2)}\n`;
+                csv += `${d.month},${d.startCapital.toFixed(2)},${d.grossProfit.toFixed(2)},${d.taxAmount.toFixed(2)},${d.fixedCost.toFixed(2)},${d.creditPayment.toFixed(2)},${d.profit.toFixed(2)},${d.monthlyAdd.toFixed(2)},${d.payout.toFixed(2)},${d.endCapital.toFixed(2)},${d.realEndCapital.toFixed(2)}\n`;
             });
 
             const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' }); 
@@ -888,7 +1070,13 @@
         function shareSocial(platform) {
             let realUrl = window.location.href;
             if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) {
-                realUrl = 'https://rmslk.github.io/roi-calc/';
+                // Если это локальный запуск или blob, используем "канонический" URL для шеринга
+                realUrl = 'https://rmslk.github.io/roi-calc/'; 
+                 // Добавляем текущие параметры из URL
+                const urlParams = new URLSearchParams(window.location.search).toString();
+                if(urlParams) {
+                    realUrl += '?' + urlParams;
+                }
             }
 
             const fullText = generateShareText(realUrl);
@@ -1001,6 +1189,18 @@
             const isRealistic = document.getElementById('realisticRoi').checked;
             const isSeasonal = document.getElementById('seasonality').checked;
             
+            const fixedCost = getRawNumber('fixedCost');
+            const useCredit = document.getElementById('useCredit').checked;
+            const creditAmount = getRawNumber('creditAmount');
+            const creditRate = Number(document.getElementById('creditRate').value) || 0;
+            const creditTerm = Number(document.getElementById('creditTerm').value) || 12;
+
+            let creditMonthlyPayment = 0;
+            if (useCredit && creditAmount > 0 && creditRate > 0 && creditTerm > 0) {
+                const monthlyRate = creditRate / 100 / 12;
+                creditMonthlyPayment = creditAmount * (monthlyRate * Math.pow(1 + monthlyRate, creditTerm)) / (Math.pow(1 + monthlyRate, creditTerm) - 1);
+            }
+
             const goals = [
                 { id: 1, val: getRawNumber('goal1') },
                 { id: 2, val: getRawNumber('goal2') },
@@ -1009,9 +1209,14 @@
             ].sort((a, b) => a.val - b.val);
 
             let currentCapital = startCapital;
+            if(useCredit) {
+                currentCapital += creditAmount;
+            }
+
             let totalPayout = 0;
             globalMonthlyData = [];
             const achievements = { 1: null, 2: null, 3: null, 4: null };
+            let millionMonth = null;
             
             const moTxt = currentLang === 'ru' ? 'мес.' : 'mo.';
             const chartTitleEl = document.getElementById('chartTitle');
@@ -1028,8 +1233,19 @@
             }
 
             let threshold = 1000000;
-            if (currentCurrency === 'USD' || currentCurrency === 'EUR') threshold = 15000;
-            if (currentCurrency === 'BYN') threshold = 35000;
+            let millionThreshold = 1000000;
+            if (currentCurrency === 'USD' || currentCurrency === 'EUR') {
+                threshold = 15000;
+                millionThreshold = 1000000; // $1M / €1M
+            }
+            if (currentCurrency === 'BYN') {
+                threshold = 35000;
+                millionThreshold = 3000000; // ~1M USD
+            }
+            if (currentCurrency === 'KZT') {
+                 millionThreshold = 450000000; // ~1M USD
+            }
+
 
             for (let month = 1; month <= totalMonths; month++) {
                 let currentRoi = roi;
@@ -1045,10 +1261,16 @@
 
                 let grossProfit = currentCapital * currentRoi;
                 let taxAmount = grossProfit * (taxRate / 100);
-                let netProfit = grossProfit - taxAmount;
+                let profitAfterTax = grossProfit - taxAmount;
+
+                let currentCreditPayment = (useCredit && month <= creditTerm) ? creditMonthlyPayment : 0;
+                let netProfit = profitAfterTax - fixedCost - currentCreditPayment;
 
                 // Базовый вывод, если доля реинвеста < 100%
-                let payout = netProfit * (1 - reinvestShare);
+                let payout = 0;
+                if (netProfit > 0) {
+                    payout = netProfit * (1 - reinvestShare);
+                }
 
                 // Если базовая выплата недостаточна для выполнения достижимых целей,
                 // забираем больше денег (при наличии чистой прибыли).
@@ -1067,6 +1289,11 @@
 
                 let retained = netProfit - payout;
                 let endCapital = currentCapital + retained + monthlyAdd;
+                
+                if(endCapital >= millionThreshold && millionMonth === null) {
+                    millionMonth = month;
+                }
+
                 let realEndCapital = endCapital / Math.pow(1 + monthlyInf, month);
 
                 totalPayout += payout;
@@ -1076,6 +1303,8 @@
                     startCapital: currentCapital,
                     grossProfit: grossProfit,
                     taxAmount: taxAmount,
+                    fixedCost: fixedCost,
+                    creditPayment: currentCreditPayment,
                     profit: netProfit,
                     monthlyAdd: monthlyAdd,
                     payout: payout,
@@ -1087,18 +1316,42 @@
                 currentCapital = endCapital;
             }
 
-            // Обновляем карточки
+            // Обновляем карточки и прогресс-бары
             for (let i = 1; i <= 4; i++) {
                 const el = document.getElementById(`achieve-goal${i}`);
+                const progressEl = document.getElementById(`progress-goal${i}`);
+                const progressTextEl = document.getElementById(`progress-text-goal${i}`);
+                const goalVal = goals[i-1].val;
+
                 if (achievements[i]) {
                     el.textContent = currentLang === 'ru' ? `Достигнута после ${achievements[i]} мес.` : `Achieved after ${achievements[i]} mo.`;
                     el.classList.remove('text-slate-400', 'dark:text-slate-500', 'font-semibold');
                     el.classList.add('text-blue-600', 'dark:text-blue-400', 'font-bold');
+                    progressEl.style.width = '100%';
+                    progressTextEl.innerText = '100%';
                 } else {
                     el.textContent = currentLang === 'ru' ? `Более ${totalMonths} мес.` : `Over ${totalMonths} mo.`;
                     el.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-bold');
                     el.classList.add('text-slate-400', 'dark:text-slate-500', 'font-semibold');
+                    
+                    // Расчет прогресса для не достигнутых целей
+                    let maxProfit = 0;
+                    globalMonthlyData.forEach(d => { maxProfit = Math.max(maxProfit, d.profit); });
+                    let progress = goalVal > 0 ? (maxProfit / goalVal) * 100 : 0;
+                    progress = Math.min(Math.max(progress, 0), 99); // От 0 до 99%
+                    progressEl.style.width = `${progress}%`;
+                    progressTextEl.innerText = `${progress.toFixed(0)}%`;
                 }
+            }
+
+            // Виджет "Время до первого миллиона"
+            const millionWidget = document.getElementById('millionWidget');
+            const millionMonthEl = document.getElementById('millionMonth');
+            if (millionMonth !== null) {
+                millionMonthEl.innerText = millionMonth;
+                millionWidget.classList.remove('hidden');
+            } else {
+                millionWidget.classList.add('hidden');
             }
 
             // Лид-магнит
@@ -1166,14 +1419,26 @@
                 const isPayoutMonth = data.payout > 0;
                 const emptyMoney = formatMoney(0);
                 
-                let profitHtml = `<span class="text-slate-700 dark:text-slate-300 font-semibold">+ ${formatMoney(data.profit)}</span>`;
+                let profitHtml = `<span class="text-slate-700 dark:text-slate-300 font-semibold">${data.profit >= 0 ? '+' : ''} ${formatMoney(data.profit)}</span>`;
                 if (data.monthlyAdd > 0) {
                     const topupText = currentLang === 'ru' ? 'Вливания' : 'Top-up';
                     profitHtml += `<br><span class="text-xs text-slate-400 dark:text-slate-500">+ ${formatMoney(data.monthlyAdd)} ${topupText}</span>`;
                 }
-                if (data.taxAmount > 0) {
-                    const taxText = currentLang === 'ru' ? 'Налог' : 'Tax';
-                    profitHtml += `<br><span class="text-xs text-rose-500/80 dark:text-rose-400/80">- ${formatMoney(data.taxAmount)} ${taxText}</span>`;
+                if (data.taxAmount > 0 || data.fixedCost > 0 || data.creditPayment > 0) {
+                     profitHtml += `<div class="text-xs text-rose-500/80 dark:text-rose-400/80 mt-1">`;
+                    if (data.taxAmount > 0) {
+                        const taxText = currentLang === 'ru' ? 'Налог' : 'Tax';
+                        profitHtml += `<div>- ${formatMoney(data.taxAmount)} ${taxText}</div>`;
+                    }
+                    if (data.fixedCost > 0) {
+                        const fcText = currentLang === 'ru' ? 'Расходы' : 'Fixed Costs';
+                        profitHtml += `<div>- ${formatMoney(data.fixedCost)} ${fcText}</div>`;
+                    }
+                    if (data.creditPayment > 0) {
+                        const crText = currentLang === 'ru' ? 'Кредит' : 'Credit';
+                        profitHtml += `<div>- ${formatMoney(data.creditPayment)} ${crText}</div>`;
+                    }
+                    profitHtml += `</div>`;
                 }
 
                 let endCapHtml = `<span class="font-bold text-slate-800 dark:text-white">${formatMoney(data.endCapital)}</span>`;
@@ -1238,19 +1503,27 @@
                     interaction: { mode: 'index', intersect: false },
                     plugins: {
                         legend: { 
-                            position: 'top', 
+                            position: 'top',
+                            align: 'end', // Выравнивание легенды по правому краю
                             labels: { 
                                 usePointStyle: true, 
                                 boxWidth: 8,
+                                padding: 20, // Отступ между элементами легенды
                                 color: isDark ? '#f8fafc' : '#334155'
                             } 
                         },
                         tooltip: {
+                            usePointStyle: true, // Использовать кружочки вместо квадратиков в тултипе
+                            boxPadding: 8, // Отступ между кружочком цвета и текстом
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label || '';
-                                    if (label) label += ': ';
-                                    if (context.parsed.y !== null) label += formatMoney(context.parsed.y);
+                                    if (label) {
+                                        label += ': '; // добавляем пробел после двоеточия
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += formatMoney(context.parsed.y);
+                                    }
                                     return label;
                                 }
                             }
@@ -1274,21 +1547,27 @@
                             ticks: { color: tickColor, maxTicksLimit: 12, maxRotation: 0 },
                             grid: { display: false, drawBorder: false }
                         }
+                    },
+                    layout: {
+                        padding: {
+                            top: 20 // Отступ сверху для графика
+                        }
                     }
                 }
             });
         };
 
         // --- СЛУШАТЕЛИ И ЗАПУСК ---
-        const textInputs = ['startCapital', 'monthlyAdd', 'goal1', 'goal2', 'goal3', 'goal4'];
+        const textInputs = ['startCapital', 'monthlyAdd', 'goal1', 'goal2', 'goal3', 'goal4', 'fixedCost', 'creditAmount'];
         textInputs.forEach(id => document.getElementById(id).addEventListener('input', handleNumberInput));
 
-        const otherInputs = ['roi', 'months', 'tax', 'inflation', 'realisticRoi', 'seasonality'];
+        const otherInputs = ['roi', 'months', 'tax', 'inflation', 'realisticRoi', 'seasonality', 'creditRate', 'creditTerm'];
         otherInputs.forEach(id => document.getElementById(id).addEventListener('input', calculate));
 
         modal.addEventListener('click', (e) => { if (e.target === modal) closeFeedbackModal(); });
 
         window.onload = () => {
+            initInstruction();
             initChart();
             loadState(); 
             toggleLang(currentLang); 
