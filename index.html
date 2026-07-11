@@ -943,6 +943,7 @@
         let donutChartInstance = null;
         let currentLang = 'ru';
         let currentCurrency = 'RUB';
+        let isTourActive = false; // Флаг активности тура
         const currencies = {
             'RUB': { locale: 'ru-RU', curr: 'RUB', symbol: '₽' },
             'USD': { locale: 'en-US', curr: 'USD', symbol: '$' },
@@ -1133,26 +1134,26 @@
         function selectCurrency(value, text) { document.getElementById('currentCurrencyDisplay').innerText = text; currentCurrency = value; document.getElementById('currencyDropdown').classList.add('hidden'); calculate(); }
 
         function startTour() {
-            const driver = window.driver.js.driver;
-            const driverObj = driver({
+            isTourActive = true;
+            isPanelCollapsed = false;
+            updatePanelState();
+            clearTimeout(collapseTimeout);
+
+            const driverObj = window.driver.js.driver({
                 showProgress: true, 
                 animate: true,
                 progressText: '{{current}} из {{total}}',
                 nextBtnText: currentLang === 'ru' ? 'Далее' : 'Next', 
                 prevBtnText: currentLang === 'ru' ? 'Назад' : 'Prev', 
                 doneBtnText: currentLang === 'ru' ? 'Завершить' : 'Done',
+                onDestroyed: () => {
+                    isTourActive = false;
+                    if (window.scrollY > 150) {
+                        collapsePanelIfScrolled();
+                    }
+                },
                 steps: [
-                    { popover: { title: currentLang==='ru'?'Добро пожаловать!':'Welcome!', description: currentLang==='ru'?'Сейчас мы детально разберем каждое поле, чтобы вы могли использовать всю мощь калькулятора.':'Let\'s explore every field in detail so you can use the full power of the calculator.' } },
-                    { element: '#startCapital', popover: { title: currentLang==='ru'?'Стартовый капитал':'Starting Capital', description: currentLang==='ru'?'Сумма, с которой вы начинаете оборот. Это база, от которой начисляется прибыль.':'The initial amount injected into turnover. This is the base for calculating profit.' } },
-                    { element: '#roi', popover: { title: currentLang==='ru'?'ROI за цикл':'Cycle ROI', description: currentLang==='ru'?'Ваша чистая рентабельность. Показывает, сколько % прибыли приносит один полный оборот товара.':'Net profitability. Shows the % of profit generated from one full product turnover.' } },
-                    { element: '#tour-step-cycle', popover: { title: currentLang==='ru'?'Дней в цикле':'Days in Cycle', description: currentLang==='ru'?'Ключевой параметр! Указывает, за сколько дней деньги делают полный оборот (от закупки до выплаты). Чем быстрее оборот, тем мощнее сложный процент.':'Crucial parameter! Shows how many days it takes to complete a full cycle (from purchase to payout). Faster turnover equals stronger compound interest.' } },
-                    { element: '#months', popover: { title: currentLang==='ru'?'Период планирования':'Planning Period', description: currentLang==='ru'?'Горизонт прогноза. Вы можете рассчитать стратегию на срок от 1 месяца до 10 лет.':'Forecast horizon. You can calculate your strategy for up to 10 years.' } },
-                    { element: '#monthlyAdd', popover: { title: currentLang==='ru'?'Ежемесячные довложения':'Monthly Top-up', description: currentLang==='ru'?'Регулярные денежные вливания из внешних источников. Отлично ускоряют рост на старте бизнеса.':'Regular external cash injections to accelerate initial growth.' } },
-                    { element: '#tour-step-tax', popover: { title: currentLang==='ru'?'Налоги':'Taxes', description: currentLang==='ru'?'Укажите ставку и базу (с оборота или с прибыли). Алгоритм честно вычтет налог до реинвестирования.':'Set tax rate and base. The algorithm deducts tax before any profit is reinvested.' } },
-                    { element: '#tour-step-inflation', popover: { title: currentLang==='ru'?'Инфляция':'Inflation', description: currentLang==='ru'?'Обесценивание денег. Заполните, чтобы в итоговой таблице увидеть реальную покупательную способность вашего будущего капитала.':'Money depreciation. Fill this to see the real purchasing power of your future capital.' } },
-                    { element: '#tour-step-realistic', popover: { title: currentLang==='ru'?'Снижение ROI':'ROI Drop', description: currentLang==='ru'?'Симуляция емкости рынка. При включении ROI будет плавно снижаться по мере кратного роста вашего капитала (ведь делать 50% на 10 млн сложнее, чем на 100 тыс).':'Market capacity simulation. Smoothly decreases ROI as your capital scales drastically.' } },
-                    { element: '#tour-step-seasonality', popover: { title: currentLang==='ru'?'Особая сезонность':'Seasonality', description: currentLang==='ru'?'Задайте пиковые месяцы продаж (например, ноябрь) и множитель ROI для моделирования праздничного ажиотажа.':'Define peak sales months and an ROI multiplier to simulate holiday rush.' } },
-                    { element: '#tour-step-reinvest', popover: { title: currentLang==='ru'?'Базовая доля реинвеста':'Base Reinvest Share', description: currentLang==='ru'?'Ваша стратегия вывода. 100% — вся прибыль идет обратно в товар. 80% — пятую часть прибыли забираете себе как дивиденды.':'Payout strategy. 100% means all profit returns to business. 80% means you withdraw a fifth of it.' } },
+                    { popover: { title: currentLang==='ru'?'«Добро пожаловать!»':'Welcome!', description: currentLang==='ru'?'Краткий тур по профессиональным функциям модели.':'A quick tour of the PRO model features.' } },
                     { element: '#tour-step-dynamic', popover: { title: currentLang==='ru'?'Умный реинвест':'Dynamic Reinvest', description: currentLang==='ru'?'Автопилот вашей стратегии. Позволяет копить 100% прибыли до определенного порога капитала, а затем автоматически снизить долю реинвеста, начав выводить больше денег.':'Strategy autopilot. Reinvest 100% until a specific capital threshold, then automatically lower the reinvest share to withdraw more.' } },
                     { element: '#tour-step-goals', popover: { title: currentLang==='ru'?'Финансовые цели':'Financial Goals', description: currentLang==='ru'?'Впишите 4 желаемые суммы личного дохода в месяц. Калькулятор покажет, через сколько месяцев алгоритм достигнет каждой из них.':'Enter 4 desired monthly payout amounts. The calculator will show when you hit each target.' } },
                     { element: '#tour-step-fixedCost', popover: { title: currentLang==='ru'?'Постоянные расходы':'Fixed Expenses', description: currentLang==='ru'?'Ежемесячные траты (аренда, сервисы, ЗП), которые неизбежно вычитаются из чистой прибыли.':'Monthly operational costs (rent, salaries) deducted from net profit.' } },
@@ -1674,15 +1675,17 @@
         }
 
         window.addEventListener('scroll', () => {
+            if (isTourActive) return; // Запрещаем авто-сворачивание во время тура
             if (window.scrollY > 150 && !isPanelCollapsed) { isPanelCollapsed = true; updatePanelState(); } 
             else if (window.scrollY <= 150 && isPanelCollapsed) { isPanelCollapsed = false; updatePanelState(); }
         });
 
         function expandPanel() { if (window.scrollY > 150) { isPanelCollapsed = false; updatePanelState(); clearTimeout(collapseTimeout); } }
-        function collapsePanelIfScrolled() { if (window.scrollY > 150) { collapseTimeout = setTimeout(() => { isPanelCollapsed = true; updatePanelState(); }, 300); } }
+        function collapsePanelIfScrolled() { if (isTourActive) return; if (window.scrollY > 150) { collapseTimeout = setTimeout(() => { isPanelCollapsed = true; updatePanelState(); }, 300); } }
         function togglePanel() {
+            if (isTourActive) return; // Блокируем кнопку сворачивания во время тура
             isPanelCollapsed = !isPanelCollapsed; updatePanelState();
-            if(!isPanelCollapsed) { clearTimeout(collapseTimeout); collapseTimeout = setTimeout(() => { if (window.scrollY > 150) { isPanelCollapsed = true; updatePanelState(); } }, 4000); }
+            if(!isPanelCollapsed) { clearTimeout(collapseTimeout); collapseTimeout = setTimeout(() => { if (window.scrollY > 150 && !isTourActive) { isPanelCollapsed = true; updatePanelState(); } }, 4000); }
         }
     </script>
 </body>
