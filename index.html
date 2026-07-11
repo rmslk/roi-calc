@@ -119,7 +119,7 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                 </button>
                 <div class="w-px h-5 bg-slate-300 dark:bg-slate-600 flex-shrink-0"></div>
-                <button onclick="startTour()" class="text-slate-500 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 focus:outline-none flex items-center justify-center w-6 h-6 flex-shrink-0 active:scale-95 transition-transform" title="Обучение (Тур)">
+                <button id="tour-start-btn" onclick="startTour()" class="text-slate-500 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 focus:outline-none flex items-center justify-center w-6 h-6 flex-shrink-0 active:scale-95 transition-transform" title="Обучение (Тур)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
                 <div class="w-px h-5 bg-slate-300 dark:bg-slate-600 flex-shrink-0"></div>
@@ -316,7 +316,7 @@
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
                         
-                        <div class="w-full relative col-span-1 md:col-span-2 grid grid-cols-2 gap-3" id="tour-field-tax">
+                        <div class="w-full relative col-span-1 md:col-span-2 grid grid-cols-2 gap-3" id="tour-step-tax">
                             <div>
                                 <div class="flex items-center justify-start mb-1.5">
                                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Налог (%)</span><span class="lang-en">Tax (%)</span></label>
@@ -370,13 +370,13 @@
                             </div>
                         </div>
                         
-                        <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-seasonality">
+                        <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-step-seasonality">
                             <div class="flex flex-wrap items-center justify-start gap-4">
                                 <div class="flex items-center gap-1.5">
                                     <label class="flex items-center cursor-pointer">
                                         <div class="relative flex-shrink-0">
                                             <input type="checkbox" id="seasonality" class="sr-only peer" onchange="toggleSeasonalityFields()">
-                                            <div class="w-10 h-6 bg-blue-500 dark:bg-blue-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                                            <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
                                         </div>
                                         <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Особая сезонность</span><span class="lang-en">Seasonality</span></span>
                                     </label>
@@ -452,7 +452,7 @@
                             </div>
                         </div>
 
-                        <div class="w-full md:w-1/2 bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700" id="tour-field-reinvestSmart">
+                        <div class="w-full md:w-1/2 bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700" id="tour-step-dynamic">
                             <div class="flex items-center relative mb-3">
                                 <label class="flex items-center cursor-pointer">
                                     <div class="relative flex-shrink-0">
@@ -484,7 +484,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-2 relative" id="tour-field-goals">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-2 relative" id="tour-step-goals">
                         <div class="w-full relative bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
                             <input type="text" id="goal1Name" value="ЦЕЛЬ 1" class="w-full bg-transparent text-xs font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider text-center md:text-left focus:outline-none focus:border-b focus:border-blue-500 mb-2">
                             <input type="text" inputmode="numeric" id="goal1" value="100 000" class="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 text-center md:text-left transition-all">
@@ -879,6 +879,11 @@
         let baselineData = null; 
         let globalTotals = { tax: 0, cost: 0, credit: 0, payout: 0, retained: 0, gross: 0 };
 
+        function getSafeString(id, defaultVal) {
+            const el = document.getElementById(id);
+            return el ? el.value : defaultVal;
+        }
+
         function getStateObj() {
             return {
                 startCapital: getRawNumber('startCapital'),
@@ -887,23 +892,23 @@
                 months: Number(document.getElementById('months').value) || 12,
                 monthlyAdd: getRawNumber('monthlyAdd'),
                 tax: Number(document.getElementById('tax').value) || 0,
-                taxType: document.getElementById('taxType').value,
+                taxType: getSafeString('taxType', 'profit'),
                 inflation: Number(document.getElementById('inflation').value) || 0,
                 reinvestShare: Number(document.getElementById('reinvestShare').value) || 100,
                 realisticRoi: document.getElementById('realisticRoi').checked ? 1 : 0,
                 seasonality: document.getElementById('seasonality').checked ? 1 : 0,
-                seasonalityMonths: document.getElementById('seasonalityMonths') ? document.getElementById('seasonalityMonths').value : '11, 12',
-                seasonalityMultiplier: Number(document.getElementById('seasonalityMultiplier') ? document.getElementById('seasonalityMultiplier').value : 2) || 2,
-                useScenarios: document.getElementById('useScenarios') && document.getElementById('useScenarios').checked ? 1 : 0,
-                roiPessimistic: Number(document.getElementById('roiPessimistic') ? document.getElementById('roiPessimistic').value : 20) || 20,
-                roiOptimistic: Number(document.getElementById('roiOptimistic') ? document.getElementById('roiOptimistic').value : 80) || 80,
+                seasonalityMonths: getSafeString('seasonalityMonths', '11, 12'),
+                seasonalityMultiplier: Number(document.getElementById('seasonalityMultiplier').value) || 2,
+                useScenarios: document.getElementById('useScenarios') ? (document.getElementById('useScenarios').checked ? 1 : 0) : 0,
+                roiPessimistic: document.getElementById('roiPessimistic') ? (Number(document.getElementById('roiPessimistic').value) || 20) : 20,
+                roiOptimistic: document.getElementById('roiOptimistic') ? (Number(document.getElementById('roiOptimistic').value) || 80) : 80,
                 dynamicReinvest: document.getElementById('dynamicReinvest').checked ? 1 : 0,
                 reinvestThreshold: getRawNumber('reinvestThreshold'),
                 newReinvestShare: Number(document.getElementById('newReinvestShare').value) || 50,
-                goal1Name: document.getElementById('goal1Name') ? document.getElementById('goal1Name').value : 'ЦЕЛЬ 1',
-                goal2Name: document.getElementById('goal2Name') ? document.getElementById('goal2Name').value : 'ЦЕЛЬ 2',
-                goal3Name: document.getElementById('goal3Name') ? document.getElementById('goal3Name').value : 'ЦЕЛЬ 3',
-                goal4Name: document.getElementById('goal4Name') ? document.getElementById('goal4Name').value : 'ЦЕЛЬ 4',
+                goal1Name: getSafeString('goal1Name', 'ЦЕЛЬ 1'),
+                goal2Name: getSafeString('goal2Name', 'ЦЕЛЬ 2'),
+                goal3Name: getSafeString('goal3Name', 'ЦЕЛЬ 3'),
+                goal4Name: getSafeString('goal4Name', 'ЦЕЛЬ 4'),
                 goal1: getRawNumber('goal1'), goal2: getRawNumber('goal2'), goal3: getRawNumber('goal3'), goal4: getRawNumber('goal4'),
                 currency: currentCurrency, lang: currentLang, 
                 fixedCost: getRawNumber('fixedCost'),
@@ -923,7 +928,7 @@
             if(state.hasOwnProperty('months')) document.getElementById('months').value = state.months;
             if(state.hasOwnProperty('monthlyAdd')) document.getElementById('monthlyAdd').value = formatRawNumber(state.monthlyAdd || 0);
             if(state.hasOwnProperty('tax')) document.getElementById('tax').value = state.tax || 0;
-            if(state.hasOwnProperty('taxType')) document.getElementById('taxType').value = state.taxType;
+            if(state.hasOwnProperty('taxType')) document.getElementById('taxType').value = state.taxType || 'profit';
             if(state.hasOwnProperty('inflation')) document.getElementById('inflation').value = state.inflation || 0;
             
             if(state.hasOwnProperty('reinvestShare')) {
@@ -1004,7 +1009,11 @@
                 const saved = localStorage.getItem('roiCalcStatePRO');
                 if (saved) { try { state = JSON.parse(saved) || {}; } catch(e) {} }
             }
-            if (Object.keys(state).length > 0) { applyStateObj(state); }
+            
+            // Заполнение дефолтных значений для старых ссылок без новых параметров
+            const defaultState = getStateObj();
+            const mergedState = { ...defaultState, ...state };
+            applyStateObj(mergedState);
         }
 
         function toggleTooltip(event, element) {
@@ -1113,18 +1122,18 @@
                     { element: '#tour-field-cycle', popover: { title: currentLang==='ru'?'«Дней в цикле»':'Cycle Days', description: currentLang==='ru'?'Оборачиваемость. Переводит ROI в реальный процент в месяц.':'Converts ROI to effective monthly rate based on cycle days.' } },
                     { element: '#tour-field-months', popover: { title: currentLang==='ru'?'«Период»':'Period', description: currentLang==='ru'?'Горизонт планирования (например, 12 или 24 месяца).':'Forecast period in months.' } },
                     { element: '#tour-field-add', popover: { title: currentLang==='ru'?'«Довложения»':'Top-up', description: currentLang==='ru'?'Регулярные вливания из личного бюджета в оборот.':'Regular external monthly injections.' } },
-                    { element: '#tour-step-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
+                    { element: '#tour-field-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
                     { element: '#tour-field-inflation', popover: { title: currentLang==='ru'?'«Инфляция»':'Inflation', description: currentLang==='ru'?'Показывает реальную покупательную способность будущего капитала в таблице.':'Shows real purchasing power in the table below.' } },
                     { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'«Снижение ROI»':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности (потолок рынка): чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
-                    { element: '#tour-step-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
+                    { element: '#tour-field-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
                     { element: '#tour-field-scenarios', popover: { title: currentLang==='ru'?'«Вилка ROI»':'ROI Fork', description: currentLang==='ru'?'Сравнение пессимистичного и оптимистичного сценариев на одном графике.':'Compare pessimistic and optimistic scenarios directly on chart.' } },
                     { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'«Реинвест»':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в товар. Чем больше, тем быстрее рост, но меньше дивидендов.':'How much profit goes back to goods.' } },
-                    { element: '#tour-step-dynamic', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
-                    { element: '#tour-step-goals', popover: { title: currentLang==='ru'?'«Финансовые цели»':'Goals', description: currentLang==='ru'?'Переименуйте их (например, «Машина») и впишите суммы. Алгоритм попытается их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
+                    { element: '#tour-field-reinvestSmart', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
+                    { element: '#tour-field-goals', popover: { title: currentLang==='ru'?'«Финансовые цели»':'Goals', description: currentLang==='ru'?'Переименуйте их (например, «Машина») и впишите суммы. Алгоритм попытается их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
                     { element: '#tour-field-fixedCost', popover: { title: currentLang==='ru'?'«Пост. расходы»':'Fixed Costs', description: currentLang==='ru'?'Аренда, ЗП, сервисы. Вычитаются ежемесячно, повышая риск кассового разрыва.':'Monthly fixed expenses. Increases cash gap risk.' } },
                     { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'«Ступени расходов»':'Step Costs', description: currentLang==='ru'?'Расходы растут вместе с бизнесом. Укажите, сколько добавлять за каждый новый заработанный миллион.':'Expenses grow with business. Add extra costs per million earned.' } },
                     { element: '#tour-field-useCredit', popover: { title: currentLang==='ru'?'«Кредиты»':'Credit', description: currentLang==='ru'?'Добавьте кредит. Алгоритм сам посчитает аннуитет. Будьте осторожны с кассовым разрывом!':'Add credit. Algorithm calculates annuity payments.' } },
-                    { element: '#tour-step-compare', popover: { title: currentLang==='ru'?'«План А»':'Plan A', description: currentLang==='ru'?'Нажмите, чтобы сохранить текущие линии на графике, и меняйте настройки, чтобы сравнить стратегии.':'Freeze current chart lines to compare with new settings.' } }
+                    { element: '#tour-step-chart', popover: { title: currentLang==='ru'?'«Сводка и Экспорт»':'Summary', description: currentLang==='ru'?'Сравнивайте графики через «План А», анализируйте таблицу и скачивайте отчет в PDF/CSV.':'Compare charts via Plan A, analyze the table and download PDF/CSV report.' } }
                 ]
             });
             driverObj.drive();
@@ -1191,7 +1200,7 @@
                 document.getElementById('btn-ru').classList.replace('font-normal', 'font-bold'); document.getElementById('btn-ru').classList.replace('text-slate-400', 'text-blue-600'); document.getElementById('btn-ru').classList.replace('dark:text-slate-500', 'dark:text-blue-400');
                 const taxTypeSelect = document.getElementById('taxType'); taxTypeSelect.options[0].text = 'С прибыли'; taxTypeSelect.options[1].text = 'С оборота';
             }
-            calculate();
+            if(chartInstance) calculate();
         }
 
         function showToast(message) {
@@ -1297,6 +1306,7 @@
             if (isDark) {
                 document.documentElement.classList.remove('dark');
                 updateChartTheme(false);
+                if(chartInstance && chartInstance.data.datasets.length >= 2) { chartInstance.data.datasets[1].borderColor = 'rgba(15, 23, 42, 0.8)'; chartInstance.data.datasets[1].backgroundColor = 'rgba(15, 23, 42, 0.05)'; chartInstance.data.datasets[1].pointBackgroundColor = 'rgba(15, 23, 42, 1)'; chartInstance.update(); }
             }
 
             document.getElementById('pitch-chart-1').src = document.getElementById('growthChart').toDataURL('image/png', 1.0);
@@ -1316,6 +1326,7 @@
                 if (isDark) {
                     document.documentElement.classList.add('dark');
                     updateChartTheme(true);
+                    if(chartInstance && chartInstance.data.datasets.length >= 2) { chartInstance.data.datasets[1].borderColor = 'rgba(255, 255, 255, 0.8)'; chartInstance.data.datasets[1].backgroundColor = 'rgba(255, 255, 255, 0.05)'; chartInstance.data.datasets[1].pointBackgroundColor = 'rgba(255, 255, 255, 1)'; chartInstance.update(); }
                 }
                 showToast(currentLang === 'ru' ? 'Питч успешно скачан!' : 'Pitch Deck downloaded!');
             });
@@ -1516,22 +1527,6 @@
                 const alertBox = document.getElementById('cashGapAlert');
                 if(alertBox) { if (baseSim.hasGlobalCashGap) alertBox.classList.remove('hidden'); else alertBox.classList.add('hidden'); }
 
-                const millionWidget = document.getElementById('millionWidget');
-                const leadMagnet = document.getElementById('leadMagnet');
-                let millionThreshold = 1000000;
-                if (state.currency === 'USD' || state.currency === 'EUR') millionThreshold = 1000000;
-                if (state.currency === 'BYN') millionThreshold = 3000000;
-                if (state.currency === 'KZT') millionThreshold = 450000000;
-
-                let cumulativePayout = 0; let millionMonth = null;
-                globalMonthlyData.forEach(d => { cumulativePayout += d.payout; if(cumulativePayout >= millionThreshold && millionMonth === null) millionMonth = d.month; });
-
-                if (millionWidget) {
-                    if (millionMonth !== null) { document.querySelectorAll('.millionMonthVal').forEach(el => el.innerText = millionMonth); millionWidget.classList.remove('hidden'); } 
-                    else { millionWidget.classList.add('hidden'); }
-                }
-                if(leadMagnet) { if(baseSim.achievements[4] !== null) leadMagnet.classList.remove('hidden'); else leadMagnet.classList.add('hidden'); }
-
                 document.getElementById('totalPayoutDisplay').innerText = formatMoney(totalPayout);
 
                 if(!chartInstance) return;
@@ -1653,8 +1648,8 @@
                 const otherInputs = ['roi', 'cycleDays', 'months', 'tax', 'taxType', 'inflation', 'realisticRoi', 'seasonality', 'seasonalityMultiplier', 'useScenarios', 'roiPessimistic', 'roiOptimistic', 'creditRate', 'creditTerm', 'dynamicReinvest'];
                 otherInputs.forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', calculate); });
                 
-                document.getElementById('reinvestShare').addEventListener('input', function(e) { document.getElementById('reinvestShareVal').innerText = e.target.value + '%'; calculate(); });
-                if(document.getElementById('newReinvestShare')) document.getElementById('newReinvestShare').addEventListener('input', function(e) { document.getElementById('newReinvestShareVal').innerText = e.target.value + '%'; calculate(); });
+                const rsEl = document.getElementById('reinvestShare'); if(rsEl) rsEl.addEventListener('input', function(e) { document.getElementById('reinvestShareVal').innerText = e.target.value + '%'; calculate(); });
+                const nrsEl = document.getElementById('newReinvestShare'); if(nrsEl) nrsEl.addEventListener('input', function(e) { document.getElementById('newReinvestShareVal').innerText = e.target.value + '%'; calculate(); });
                 
                 loadState(); 
                 toggleLang(currentLang); 
