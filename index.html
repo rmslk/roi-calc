@@ -46,16 +46,46 @@
         input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.1s; }
         input[type="range"]::-webkit-slider-thumb:active { transform: scale(0.9); }
 
-        /* Driver.js Custom Styling */
-        .driver-popover { font-family: 'Inter', sans-serif !important; border-radius: 1rem !important; padding: 1.25rem !important; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1) !important; border: none !important; }
-        .driver-popover-title { font-weight: 700 !important; font-size: 1.125rem !important; color: #0f172a !important; margin-bottom: 0.5rem !important; }
-        .driver-popover-description { color: #475569 !important; font-size: 0.875rem !important; line-height: 1.6 !important; }
-        .driver-popover-footer button { border-radius: 0.5rem !important; font-weight: 600 !important; padding: 0.5rem 1rem !important; transition: all 0.2s ease !important; text-shadow: none !important;}
-        html.dark .driver-popover { background-color: #1e293b !important; }
+        /* Premium Driver.js Styling */
+        .driver-popover {
+            font-family: 'Inter', sans-serif !important;
+            border-radius: 1.25rem !important;
+            padding: 1.5rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2) !important;
+            border: 1px solid #e2e8f0 !important;
+            max-width: 360px !important;
+        }
+        .driver-popover-title {
+            font-weight: 700 !important;
+            font-size: 1.25rem !important;
+            color: #0f172a !important;
+            margin-bottom: 0.75rem !important;
+            line-height: 1.3 !important;
+        }
+        .driver-popover-description {
+            color: #475569 !important;
+            font-size: 0.95rem !important;
+            line-height: 1.5 !important;
+        }
+        .driver-popover-footer { margin-top: 1.25rem !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
+        .driver-popover-footer button {
+            border-radius: 0.5rem !important;
+            font-weight: 600 !important;
+            padding: 0.5rem 1.25rem !important;
+            transition: all 0.2s ease !important;
+            text-shadow: none !important;
+        }
+        .driver-popover-progress {
+            white-space: nowrap !important;
+            font-weight: 600 !important;
+            color: #64748b !important;
+            font-size: 0.85rem !important;
+        }
+        html.dark .driver-popover { background-color: #1e293b !important; border-color: #334155 !important; }
         html.dark .driver-popover-title { color: #f8fafc !important; }
         html.dark .driver-popover-description { color: #94a3b8 !important; }
         html.dark .driver-popover-footer button { background-color: #334155 !important; color: #f8fafc !important; border: 1px solid #475569 !important; }
-        html.dark .driver-popover-footer .driver-popover-next-btn { background-color: #3b82f6 !important; border-color: #3b82f6 !important; }
+        html.dark .driver-popover-footer .driver-popover-next-btn { background-color: #3b82f6 !important; border-color: #3b82f6 !important; color: white !important;}
 
         /* Mobile Tables */
         @media (max-width: 768px) {
@@ -151,7 +181,7 @@
                     <span class="lang-en">Capitalization Calculator PRO<span class="hidden md:inline"></span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">from starting capital to major financial goals</span></span>
                 </h1>
                 <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-                    <span class="lang-ru">Смоделируйте рост оборотных средств. Узнайте сроки достижения финансовых целей и количество безопасного вывода денег из бизнеса, не останавливая его развитие.</span>
+                    <span class="lang-ru">Смоделируйте рост оборотных средств. Узнайте, когда и в каком количестве сможете безопасно забирать деньги из бизнеса, не останавливая его развитие.</span>
                     <span class="lang-en">Model your working capital growth. Find out when you can safely withdraw money from the business without stopping its development.</span>
                 </p>
             </div>
@@ -161,7 +191,7 @@
                     <strong class="text-blue-600 dark:text-blue-400 text-base flex items-center gap-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <span class="lang-ru">Как использовать калькулятор</span>
-                        <span class="lang-en">How to use the calculator/span>
+                        <span class="lang-en">How to use the calculator</span>
                     </strong>
                     <div class="p-1 rounded-full bg-slate-100 dark:bg-slate-700 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 transition-colors flex-shrink-0">
                         <svg id="instructionChevron" class="w-5 h-5 text-blue-600 dark:text-blue-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -248,7 +278,7 @@
                             <input type="number" id="months" value="12" min="1" max="120" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-900 dark:text-white transition-all shadow-sm">
                         </div>
 
-                        <div class="w-full relative">
+                        <div class="w-full relative" id="tour-step-monthlyAdd">
                             <div class="flex items-center justify-start mb-1.5">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Довложения/мес.</span><span class="lang-en">Top-up/mo.</span></label>
                                 <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -295,7 +325,7 @@
                             </div>
                         </div>
 
-                        <div class="w-full relative">
+                        <div id="tour-step-inflation" class="w-full relative">
                             <div class="flex items-center justify-start mb-1.5">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Инфляция (%)</span><span class="lang-en">Inflation (%)</span></label>
                                 <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -307,7 +337,7 @@
                             <input type="number" id="inflation" value="0" step="0.1" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-medium transition-all">
                         </div>
 
-                        <div class="w-full flex items-center justify-start h-[44px] relative">
+                        <div id="tour-step-realistic" class="w-full flex items-center justify-start h-[44px] relative">
                             <label class="flex items-center cursor-pointer">
                                 <div class="relative">
                                     <input type="checkbox" id="realisticRoi" class="sr-only peer" onchange="calculate()">
@@ -363,7 +393,7 @@
                     </h3>
                     
                     <div class="flex flex-col md:flex-row gap-6 mb-6">
-                        <div class="w-full md:w-1/2 relative">
+                        <div id="tour-step-reinvest" class="w-full md:w-1/2 relative">
                             <div class="flex items-center mb-1.5">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">
                                     <span class="lang-ru">Базовая доля реинвеста (%)</span><span class="lang-en">Base Reinvest (%)</span>
@@ -446,7 +476,7 @@
                         <span class="lang-ru">4. Кредит и Обязательства</span><span class="lang-en">4. Credit & Liabilities</span>
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
-                        <div class="w-full relative">
+                        <div id="tour-step-fixedCost" class="w-full relative">
                             <div class="flex items-center justify-center md:justify-start mb-1.5">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">
                                     <span class="lang-ru">Пост. расходы / мес.</span><span class="lang-en">Fixed Expenses</span>
@@ -1103,18 +1133,34 @@
         function selectCurrency(value, text) { document.getElementById('currentCurrencyDisplay').innerText = text; currentCurrency = value; document.getElementById('currencyDropdown').classList.add('hidden'); calculate(); }
 
         function startTour() {
-            const driverObj = window.driver.js.driver({
-                showProgress: true, animate: true,
-                nextBtnText: currentLang === 'ru' ? 'Далее' : 'Next', prevBtnText: currentLang === 'ru' ? 'Назад' : 'Prev', doneBtnText: currentLang === 'ru' ? 'Завершить' : 'Done',
+            const driver = window.driver.js.driver;
+            const driverObj = driver({
+                showProgress: true, 
+                animate: true,
+                progressText: '{{current}} из {{total}}',
+                nextBtnText: currentLang === 'ru' ? 'Далее' : 'Next', 
+                prevBtnText: currentLang === 'ru' ? 'Назад' : 'Prev', 
+                doneBtnText: currentLang === 'ru' ? 'Завершить' : 'Done',
                 steps: [
-                    { popover: { title: currentLang==='ru'?'«Добро пожаловать!»':'Welcome!', description: currentLang==='ru'?'Краткий тур по профессиональным функциям модели.':'A quick tour of the PRO model features.' } },
-                    { element: '#tour-step-1', popover: { title: currentLang==='ru'?'«Оборачиваемость»':'Turnover', description: currentLang==='ru'?'Укажите длину цикла (например, товары из Китая едут 60 дней). Это пересчитает эффективный ROI в месяц.':'Set days per cycle to accurately calculate monthly effective ROI.' } },
-                    { element: '#tour-step-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Выберите базу: налог с оборота (сильно бьет по выручке) или с прибыли.':'Choose tax base: Turnover (Revenue) or Profit.' } },
-                    { element: '#tour-step-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите точные месяцы пикового спроса и точный множитель ROI для них.':'Set peak months and exactly how much ROI multiplies.' } },
-                    { element: '#tour-step-dynamic', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Скрипт автоматически изменит долю реинвеста, когда ваш капитал достигнет заданного потолка.':'Automatically change reinvest share when capital hits a specific threshold.' } },
-                    { element: '#tour-step-credit', popover: { title: currentLang==='ru'?'«Кредиты»':'Credit', description: currentLang==='ru'?'Добавьте ежемесячные платежи по займу, чтобы проверить модель на кассовые разрывы.':'Add loan payments to check model for cash gaps.' } },
-                    { element: '#tour-step-chart', popover: { title: currentLang==='ru'?'«Сводка»':'Summary', description: currentLang==='ru'?'График роста капитала и круговая диаграмма с точным распределением всех ваших средств.':'Capital growth chart and a Donut chart with full funds distribution.' } },
-                    { element: '#tour-projects', popover: { title: currentLang==='ru'?'«Проекты»':'Projects', description: currentLang==='ru'?'Сохраняйте разные финансовые сценарии и переключайтесь между ними в 1 клик.':'Save and switch between different financial scenarios easily.' } }
+                    { popover: { title: currentLang==='ru'?'Добро пожаловать!':'Welcome!', description: currentLang==='ru'?'Сейчас мы детально разберем каждое поле, чтобы вы могли использовать всю мощь калькулятора.':'Let\'s explore every field in detail so you can use the full power of the calculator.' } },
+                    { element: '#startCapital', popover: { title: currentLang==='ru'?'Стартовый капитал':'Starting Capital', description: currentLang==='ru'?'Сумма, с которой вы начинаете оборот. Это база, от которой начисляется прибыль.':'The initial amount injected into turnover. This is the base for calculating profit.' } },
+                    { element: '#roi', popover: { title: currentLang==='ru'?'ROI за цикл':'Cycle ROI', description: currentLang==='ru'?'Ваша чистая рентабельность. Показывает, сколько % прибыли приносит один полный оборот товара.':'Net profitability. Shows the % of profit generated from one full product turnover.' } },
+                    { element: '#tour-step-cycle', popover: { title: currentLang==='ru'?'Дней в цикле':'Days in Cycle', description: currentLang==='ru'?'Ключевой параметр! Указывает, за сколько дней деньги делают полный оборот (от закупки до выплаты). Чем быстрее оборот, тем мощнее сложный процент.':'Crucial parameter! Shows how many days it takes to complete a full cycle (from purchase to payout). Faster turnover equals stronger compound interest.' } },
+                    { element: '#months', popover: { title: currentLang==='ru'?'Период планирования':'Planning Period', description: currentLang==='ru'?'Горизонт прогноза. Вы можете рассчитать стратегию на срок от 1 месяца до 10 лет.':'Forecast horizon. You can calculate your strategy for up to 10 years.' } },
+                    { element: '#monthlyAdd', popover: { title: currentLang==='ru'?'Ежемесячные довложения':'Monthly Top-up', description: currentLang==='ru'?'Регулярные денежные вливания из внешних источников. Отлично ускоряют рост на старте бизнеса.':'Regular external cash injections to accelerate initial growth.' } },
+                    { element: '#tour-step-tax', popover: { title: currentLang==='ru'?'Налоги':'Taxes', description: currentLang==='ru'?'Укажите ставку и базу (с оборота или с прибыли). Алгоритм честно вычтет налог до реинвестирования.':'Set tax rate and base. The algorithm deducts tax before any profit is reinvested.' } },
+                    { element: '#tour-step-inflation', popover: { title: currentLang==='ru'?'Инфляция':'Inflation', description: currentLang==='ru'?'Обесценивание денег. Заполните, чтобы в итоговой таблице увидеть реальную покупательную способность вашего будущего капитала.':'Money depreciation. Fill this to see the real purchasing power of your future capital.' } },
+                    { element: '#tour-step-realistic', popover: { title: currentLang==='ru'?'Снижение ROI':'ROI Drop', description: currentLang==='ru'?'Симуляция емкости рынка. При включении ROI будет плавно снижаться по мере кратного роста вашего капитала (ведь делать 50% на 10 млн сложнее, чем на 100 тыс).':'Market capacity simulation. Smoothly decreases ROI as your capital scales drastically.' } },
+                    { element: '#tour-step-seasonality', popover: { title: currentLang==='ru'?'Особая сезонность':'Seasonality', description: currentLang==='ru'?'Задайте пиковые месяцы продаж (например, ноябрь) и множитель ROI для моделирования праздничного ажиотажа.':'Define peak sales months and an ROI multiplier to simulate holiday rush.' } },
+                    { element: '#tour-step-reinvest', popover: { title: currentLang==='ru'?'Базовая доля реинвеста':'Base Reinvest Share', description: currentLang==='ru'?'Ваша стратегия вывода. 100% — вся прибыль идет обратно в товар. 80% — пятую часть прибыли забираете себе как дивиденды.':'Payout strategy. 100% means all profit returns to business. 80% means you withdraw a fifth of it.' } },
+                    { element: '#tour-step-dynamic', popover: { title: currentLang==='ru'?'Умный реинвест':'Dynamic Reinvest', description: currentLang==='ru'?'Автопилот вашей стратегии. Позволяет копить 100% прибыли до определенного порога капитала, а затем автоматически снизить долю реинвеста, начав выводить больше денег.':'Strategy autopilot. Reinvest 100% until a specific capital threshold, then automatically lower the reinvest share to withdraw more.' } },
+                    { element: '#tour-step-goals', popover: { title: currentLang==='ru'?'Финансовые цели':'Financial Goals', description: currentLang==='ru'?'Впишите 4 желаемые суммы личного дохода в месяц. Калькулятор покажет, через сколько месяцев алгоритм достигнет каждой из них.':'Enter 4 desired monthly payout amounts. The calculator will show when you hit each target.' } },
+                    { element: '#tour-step-fixedCost', popover: { title: currentLang==='ru'?'Постоянные расходы':'Fixed Expenses', description: currentLang==='ru'?'Ежемесячные траты (аренда, сервисы, ЗП), которые неизбежно вычитаются из чистой прибыли.':'Monthly operational costs (rent, salaries) deducted from net profit.' } },
+                    { element: '#tour-step-credit', popover: { title: currentLang==='ru'?'Кредитное плечо':'Credit Leverage', description: currentLang==='ru'?'Укажите параметры бизнес-займа. Калькулятор сам рассчитает аннуитетные платежи и проверит вашу модель на риск кассового разрыва.':'Set business loan parameters. Calculates annuity payments and checks for cash gap risks.' } },
+                    { element: '#tour-step-chart', popover: { title: currentLang==='ru'?'Динамика роста':'Growth Dynamics', description: currentLang==='ru'?'Наглядный график. Используйте кнопку «Запомнить как План А», чтобы зафиксировать текущий расчет и сравнить его с другой стратегией на одном экране.':'Visual chart. Use "Save as Plan A" to lock the current calculation and compare it with another strategy.' } },
+                    { element: '#tour-step-donut', popover: { title: currentLang==='ru'?'Распределение средств':'Funds Distribution', description: currentLang==='ru'?'Круговая диаграмма покажет, куда ушел каждый заработанный рубль: налоги, расходы, кредиты, реинвест или вам в карман.':'Shows exactly where every earned penny went: taxes, expenses, credit, reinvestment, or your pocket.' } },
+                    { element: '#export-buttons', popover: { title: currentLang==='ru'?'Экспорт':'Export', description: currentLang==='ru'?'Скачайте подробную CSV-таблицу для Excel или сгенерируйте красивый PDF-отчет (Инвест-Питч) для партнеров.':'Download a detailed CSV table or generate a beautiful PDF Pitch Deck for partners.' } },
+                    { element: '#tour-projects', popover: { title: currentLang==='ru'?'Менеджер проектов':'Projects', description: currentLang==='ru'?'Сохраняйте свои финансовые модели и быстро переключайтесь между ними. Вы готовы к масштабированию!':'Save your financial models and switch between them. You are ready to scale!' } }
                 ]
             });
             driverObj.drive();
