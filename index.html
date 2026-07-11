@@ -878,6 +878,7 @@
         let globalMonthlyData = [];
         let baselineData = null; 
         let globalTotals = { tax: 0, cost: 0, credit: 0, payout: 0, retained: 0, gross: 0 };
+        let isTourActive = false;
 
         function getSafeString(id, defaultVal) {
             const el = document.getElementById(id);
@@ -928,7 +929,7 @@
             if(state.hasOwnProperty('months')) document.getElementById('months').value = state.months;
             if(state.hasOwnProperty('monthlyAdd')) document.getElementById('monthlyAdd').value = formatRawNumber(state.monthlyAdd || 0);
             if(state.hasOwnProperty('tax')) document.getElementById('tax').value = state.tax || 0;
-            if(state.hasOwnProperty('taxType')) document.getElementById('taxType').value = state.taxType || 'profit';
+            if(state.hasOwnProperty('taxType') && document.getElementById('taxType')) document.getElementById('taxType').value = state.taxType || 'profit';
             if(state.hasOwnProperty('inflation')) document.getElementById('inflation').value = state.inflation || 0;
             
             if(state.hasOwnProperty('reinvestShare')) {
@@ -967,7 +968,7 @@
                 const textMap = {'RUB':'₽ RUB', 'USD':'$ USD', 'EUR':'€ EUR', 'KZT':'₸ KZT', 'BYN':'Br BYN'};
                 document.getElementById('currentCurrencyDisplay').innerText = textMap[state.currency] || '₽ RUB';
             }
-            if(state.lang) { currentLang = state.lang; }
+            if(state.lang) { currentLang = state.lang; toggleLang(currentLang); }
 
             if(state.hasOwnProperty('fixedCost')) document.getElementById('fixedCost').value = formatRawNumber(state.fixedCost || 0);
             if(state.hasOwnProperty('stepCost') && document.getElementById('stepCost')) document.getElementById('stepCost').value = formatRawNumber(state.stepCost || 0);
@@ -1009,8 +1010,6 @@
                 const saved = localStorage.getItem('roiCalcStatePRO');
                 if (saved) { try { state = JSON.parse(saved) || {}; } catch(e) {} }
             }
-            
-            // Заполнение дефолтных значений для старых ссылок без новых параметров
             const defaultState = getStateObj();
             const mergedState = { ...defaultState, ...state };
             applyStateObj(mergedState);
@@ -1102,9 +1101,6 @@
         function toggleCurrencyDropdown(event) { event.stopPropagation(); document.getElementById('currencyDropdown').classList.toggle('hidden'); }
         function selectCurrency(value, text) { document.getElementById('currentCurrencyDisplay').innerText = text; currentCurrency = value; document.getElementById('currencyDropdown').classList.add('hidden'); calculate(); }
 
-        let isTourActive = false;
-        let isPanelCollapsed = false;
-
         function startTour() {
             isTourActive = true;
             isPanelCollapsed = false;
@@ -1125,15 +1121,16 @@
                     { element: '#tour-field-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
                     { element: '#tour-field-inflation', popover: { title: currentLang==='ru'?'«Инфляция»':'Inflation', description: currentLang==='ru'?'Показывает реальную покупательную способность будущего капитала в таблице.':'Shows real purchasing power in the table below.' } },
                     { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'«Снижение ROI»':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности (потолок рынка): чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
-                    { element: '#tour-field-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
+                    { element: '#tour-step-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
                     { element: '#tour-field-scenarios', popover: { title: currentLang==='ru'?'«Вилка ROI»':'ROI Fork', description: currentLang==='ru'?'Сравнение пессимистичного и оптимистичного сценариев на одном графике.':'Compare pessimistic and optimistic scenarios directly on chart.' } },
                     { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'«Реинвест»':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в товар. Чем больше, тем быстрее рост, но меньше дивидендов.':'How much profit goes back to goods.' } },
-                    { element: '#tour-field-reinvestSmart', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
-                    { element: '#tour-field-goals', popover: { title: currentLang==='ru'?'«Финансовые цели»':'Goals', description: currentLang==='ru'?'Переименуйте их (например, «Машина») и впишите суммы. Алгоритм попытается их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
+                    { element: '#tour-step-dynamic', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
+                    { element: '#tour-step-goals', popover: { title: currentLang==='ru'?'«Финансовые цели»':'Goals', description: currentLang==='ru'?'Переименуйте их (например, «Машина») и впишите суммы. Алгоритм попытается их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
                     { element: '#tour-field-fixedCost', popover: { title: currentLang==='ru'?'«Пост. расходы»':'Fixed Costs', description: currentLang==='ru'?'Аренда, ЗП, сервисы. Вычитаются ежемесячно, повышая риск кассового разрыва.':'Monthly fixed expenses. Increases cash gap risk.' } },
                     { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'«Ступени расходов»':'Step Costs', description: currentLang==='ru'?'Расходы растут вместе с бизнесом. Укажите, сколько добавлять за каждый новый заработанный миллион.':'Expenses grow with business. Add extra costs per million earned.' } },
                     { element: '#tour-field-useCredit', popover: { title: currentLang==='ru'?'«Кредиты»':'Credit', description: currentLang==='ru'?'Добавьте кредит. Алгоритм сам посчитает аннуитет. Будьте осторожны с кассовым разрывом!':'Add credit. Algorithm calculates annuity payments.' } },
-                    { element: '#tour-step-chart', popover: { title: currentLang==='ru'?'«Сводка и Экспорт»':'Summary', description: currentLang==='ru'?'Сравнивайте графики через «План А», анализируйте таблицу и скачивайте отчет в PDF/CSV.':'Compare charts via Plan A, analyze the table and download PDF/CSV report.' } }
+                    { element: '#tour-step-chart', popover: { title: currentLang==='ru'?'«Сводка и Экспорт»':'Summary', description: currentLang==='ru'?'Сравнивайте графики через «План А», анализируйте таблицу и скачивайте отчет в PDF/CSV.':'Compare charts via Plan A, analyze the table and download PDF/CSV report.' } },
+                    { element: '#tour-projects', popover: { title: currentLang==='ru'?'«Проекты»':'Projects', description: currentLang==='ru'?'Сохраняйте разные финансовые сценарии и переключайтесь между ними в 1 клик.':'Save and switch between different financial scenarios easily.' } }
                 ]
             });
             driverObj.drive();
@@ -1536,6 +1533,7 @@
                 const baseBgColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 23, 42, 0.05)';
                 const basePointColor = isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(15, 23, 42, 1)';
 
+                const mLabel = currentLang === 'ru' ? 'мес.' : 'mo.';
                 chartInstance.data.labels = globalMonthlyData.map(d => `${d.month} ${mLabel}`);
                 
                 let newDatasets = [
