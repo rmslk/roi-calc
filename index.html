@@ -627,6 +627,7 @@
 
             </div>
 
+            <!-- Карточки достижения целей с Прогресс-барами -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow border-t-4 border-t-blue-500">
                     <div id="cardGoalName1" class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">ЦЕЛЬ 1</div>
@@ -662,6 +663,7 @@
                 </div>
             </div>
 
+            <!-- Smart Hints -->
             <div id="tour-step-hints" class="bg-indigo-50/50 dark:bg-indigo-900/10 p-5 md:p-6 rounded-3xl border border-indigo-100 dark:border-indigo-800/30 flex flex-col md:flex-row gap-6 items-center shadow-sm">
                 <div class="flex-shrink-0 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
                     <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
@@ -671,27 +673,12 @@
                         <span class="lang-ru">Аналитика и советы</span><span class="lang-en">Smart Insights & Hints</span>
                     </h4>
                     <ul id="smartHintsList" class="space-y-2 text-sm text-indigo-700/80 dark:text-indigo-200/80 font-medium leading-relaxed list-disc pl-4">
-                        <!-- Сгенерируется через JS -->
+                        <!-- Generated via JS -->
                     </ul>
                 </div>
             </div>
 
-            <!-- Виджет "Время до первого миллиона" -->
-            <div id="millionWidget" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-6 rounded-3xl shadow-md flex items-center justify-center gap-5 transform hover:scale-[1.01] transition-transform mb-8" data-html2canvas-ignore="true">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 flex-shrink-0 text-blue-500 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div class="text-center md:text-left">
-                    <h3 class="text-xl md:text-2xl font-bold mb-1.5 text-blue-600 dark:text-blue-400">
-                        <span class="lang-ru">Ваш первый миллион!</span><span class="lang-en">Your First Million!</span>
-                    </h3>
-                    <p class="text-slate-700 dark:text-slate-300 text-sm md:text-base font-medium leading-relaxed">
-                        <span class="lang-ru">При текущей стратегии вы заработаете свой первый миллион чистыми через <span class="millionMonthVal font-bold text-white text-lg bg-blue-500 dark:bg-blue-600 px-2 py-0.5 rounded-lg border border-blue-600 dark:border-blue-500 shadow-sm"></span> мес.</span>
-                        <span class="lang-en">With current strategy, you will earn your first pure million in <span class="millionMonthVal font-bold text-white text-lg bg-blue-500 dark:bg-blue-600 px-2 py-0.5 rounded-lg border border-blue-600 dark:border-blue-500 shadow-sm"></span> mo.</span>
-                    </p>
-                </div>
-            </div>
-
+            <!-- График и Сравнение -->
             <div id="tour-step-chart" class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
                 
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
@@ -700,7 +687,7 @@
                             <span class="lang-ru">Динамика роста</span>
                             <span class="lang-en">Growth Dynamics</span>
                         </h3>
-                        <div class="flex flex-wrap gap-2" data-html2canvas-ignore="true" id="tour-step-compare">
+                        <div class="flex flex-wrap gap-2" data-html2canvas-ignore="true" id="tour-field-planA">
                             <button onclick="saveBaseline()" id="btnBaseline" class="text-xs font-semibold px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors active:scale-95">
                                 <span class="lang-ru">Запомнить как План А</span><span class="lang-en">Save as Plan A</span>
                             </button>
@@ -735,6 +722,7 @@
                 </div>
             </div>
 
+            <!-- Таблица -->
             <div id="tour-step-table" class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4">
                     <h3 id="tableTitle" class="text-lg font-bold text-slate-800 dark:text-white text-center md:text-left">
@@ -772,17 +760,6 @@
                 </div>
             </div>
 
-            <!-- Лид Магнит Баннер -->
-            <div id="leadMagnet" class="hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transform hover:scale-[1.01] transition-transform" data-html2canvas-ignore="true">
-                <div class="text-center md:text-left">
-                    <h3 class="text-2xl font-bold mb-2">🔥 Вы достигли Цели 4!</h3>
-                    <p class="text-blue-100 text-sm md:text-base leading-relaxed">Хотите узнать, как делать ROI 50%+ стабильно каждый месяц и превратить этот план в реальность? Читайте закрепленный пост в моем канале!</p>
-                </div>
-                <a href="https://t.me/OzonGreenROI" target="_blank" class="px-8 py-3.5 bg-white text-blue-600 font-bold rounded-xl whitespace-nowrap hover:bg-blue-50 hover:shadow-lg transition-all shadow-sm active:scale-95">
-                    Перейти в Telegram
-                </a>
-            </div>
-
             <!-- Нижний блок -->
             <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col gap-6" data-html2canvas-ignore="true">
                 
@@ -813,15 +790,6 @@
                         <div class="flex flex-wrap justify-center items-center gap-3">
                             <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Telegram">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
-                            </button>
-                            <button onclick="shareSocial('tw')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-black dark:hover:bg-slate-700 hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Twitter / X">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
-                            </button>
-                            <button onclick="shareSocial('fb')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#1877f2] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Facebook">
-                                <svg class="w-5 h-5 fill-current" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
-                            </button>
-                            <button onclick="shareSocial('vk')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0077FF] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="VK">
-                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.959 8.61c-.13-.42-.455-.66-.88-.66h-2.613c-.5 0-.79.256-.96.657 0 0-1.328 3.193-3.197 5.267-.61.6-1.02.787-1.32.787-.15 0-.34-.187-.34-.657V8.61c0-.5-.15-.81-.62-.81H9.866c-.35 0-.56.257-.56.5 0 .52.78.643.86 2.115v3.194c0 .64-.13.788-.43.788-.81 0-2.79-3.21-3.95-6.883-.24-.657-.48-.81-1.09-.81H2.083c-.68 0-.82.316-.82.656 0 .61 1.05 4.887 4.54 9.08 2.33 2.79 5.61 4.302 8.56 4.302 1.77 0 1.99-.395 1.99-1.076v-2.47c0-.61.13-.73.6-.73.34 0 .94.17 2.33 1.517 1.58 1.63 1.84 2.36 2.87 2.36h2.61c.68 0 1.02-.34.83-1.01-.23-.66-1.07-1.64-2.18-2.88-5.26-5.24-1.23-3.8-2.16-5.06-.61-.83-.43-1.21 0-1.89 0 0 2.54-3.567 2.78-4.757z"/></svg>
                             </button>
                             <button onclick="shareSocial('copy')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-blue-500 hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Copy Text & Link">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
@@ -1024,7 +992,7 @@
         let donutChartInstance = null;
         let currentLang = 'ru';
         let currentCurrency = 'RUB';
-        let currentTableMode = 'all'; // 'all' or 'personal'
+        let currentTableMode = 'all'; 
         const currencies = {
             'RUB': { locale: 'ru-RU', curr: 'RUB', symbol: '₽' },
             'USD': { locale: 'en-US', curr: 'USD', symbol: '$' },
@@ -1036,6 +1004,187 @@
         let baselineData = null; 
         let globalTotals = { tax: 0, cost: 0, credit: 0, payout: 0, retained: 0, gross: 0, breakEvenROI: 0 };
         let isTourActive = false;
+
+        function showToast(message) {
+            const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.remove('opacity-0', 'translate-y-4'); toast.classList.add('opacity-100', 'translate-y-0');
+            if(window.toastTimeout) clearTimeout(window.toastTimeout);
+            window.toastTimeout = setTimeout(() => { toast.classList.remove('opacity-100', 'translate-y-0'); toast.classList.add('opacity-0', 'translate-y-4'); }, 4000);
+        }
+
+        let baseVotes = 124, baseAvg = 4.8;
+        function updateStarsDisplay() {
+            let userRating = localStorage.getItem('calc_rating'); const stars = document.querySelectorAll('.star-btn'); const ratingValue = userRating ? Number(userRating) : 0;
+            stars.forEach((star, index) => {
+                if (index < ratingValue) { star.classList.replace('text-slate-300', 'text-amber-400'); star.classList.replace('dark:text-slate-600', 'dark:text-amber-400'); } 
+                else { star.classList.replace('text-amber-400', 'text-slate-300'); star.classList.replace('dark:text-amber-400', 'dark:text-slate-600'); }
+            });
+            let finalAvg = userRating ? ((baseAvg * baseVotes) + Number(userRating)) / (baseVotes + 1) : baseAvg; document.getElementById('avg-rating').innerText = finalAvg.toFixed(1) + ' / 5';
+        }
+        function rate(val) { localStorage.setItem('calc_rating', val); updateStarsDisplay(); showToast(currentLang === 'ru' ? 'Спасибо за вашу оценку!' : 'Thank you for your rating!'); }
+
+        function handleNumberInput(e) {
+            const input = e.target; let val = input.value.replace(/[^\d]/g, '');
+            if (val !== '') { input.value = new Intl.NumberFormat('ru-RU').format(val); } else { input.value = ''; }
+            calculate();
+        }
+
+        function getRawNumber(id) { 
+            const el = document.getElementById(id);
+            if(!el) return 0;
+            const val = el.value.replace(/[^\d]/g, ''); return Number(val) || 0; 
+        }
+        function formatRawNumber(num) { if(!num) return '0'; return new Intl.NumberFormat('ru-RU').format(num); }
+
+        function toggleCreditFields() {
+            const useCredit = document.getElementById('useCredit').checked;
+            document.querySelectorAll('.credit-field').forEach(field => { useCredit ? field.classList.remove('hidden') : field.classList.add('hidden'); });
+            calculate();
+        }
+
+        function toggleSeasonalityFields(doCalculate = true) {
+            const el = document.getElementById('seasonality');
+            if(!el) return;
+            const useSeasonality = el.checked;
+            useSeasonality ? document.getElementById('seasonalityWrapper').classList.remove('hidden') : document.getElementById('seasonalityWrapper').classList.add('hidden');
+            if(doCalculate) calculate();
+        }
+
+        function toggleScenarioFields(doCalculate = true) {
+            const el = document.getElementById('useScenarios');
+            if(!el) return;
+            const useScenarios = el.checked;
+            useScenarios ? document.getElementById('scenariosWrapper').classList.remove('hidden') : document.getElementById('scenariosWrapper').classList.add('hidden');
+            if(doCalculate) calculate();
+        }
+        
+        function toggleDynamicReinvest(doCalculate = true) {
+            const el = document.getElementById('dynamicReinvest');
+            if(!el) return;
+            const useDynamic = el.checked;
+            useDynamic ? document.getElementById('dynamicReinvestWrapper').classList.remove('hidden') : document.getElementById('dynamicReinvestWrapper').classList.add('hidden');
+            if(doCalculate) calculate();
+        }
+
+        function toggleCostSeasonalityFields(doCalculate = true) {
+            const el = document.getElementById('costSeasonality');
+            if(!el) return;
+            const useCostSeasonality = el.checked;
+            useCostSeasonality ? document.getElementById('costSeasonalityWrapper').classList.remove('hidden') : document.getElementById('costSeasonalityWrapper').classList.add('hidden');
+            if(doCalculate) calculate();
+        }
+
+        const formatMoney = (num) => { const conf = currencies[currentCurrency] || currencies['RUB']; return new Intl.NumberFormat(conf.locale, { style: 'currency', currency: conf.curr, maximumFractionDigits: 0 }).format(num); };
+
+        function exportCSV() {
+            const sep = currentLang === 'ru' ? ';' : ',';
+            let csv = currentLang === 'ru'
+                ? `Месяц${sep}Старт. капитал${sep}Валовая Прибыль${sep}Налог/Потери${sep}Пост. расходы${sep}Кредит${sep}Чистая Прибыль${sep}Вливания${sep}Вывод на себя${sep}Итоговый оборот${sep}С учетом инфляции\n`
+                : `Month${sep}Start Capital${sep}Gross Profit${sep}Tax/Loss${sep}Fixed Costs${sep}Credit Payment${sep}Net Profit${sep}Top-up${sep}Payout${sep}Ending Capital${sep}Inflation Adjusted\n`;
+
+            const formatCsvNum = (num) => { if (num === null || num === undefined) return 0; return currentLang === 'ru' ? num.toFixed(2).replace('.', ',') : num.toFixed(2); };
+
+            globalMonthlyData.forEach(d => {
+                csv += `${d.month}${sep}${formatCsvNum(d.startCapital)}${sep}${formatCsvNum(d.grossProfit)}${sep}${formatCsvNum(d.taxAmount)}${sep}${formatCsvNum(d.fixedCost)}${sep}${formatCsvNum(d.creditPayment)}${sep}${formatCsvNum(d.profit)}${sep}${formatCsvNum(d.monthlyAdd)}${sep}${formatCsvNum(d.payout)}${sep}${formatCsvNum(d.endCapital)}${sep}${formatCsvNum(d.realEndCapital)}\n`;
+            });
+
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' }); 
+            const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "roi-calc-export.csv";
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
+            showToast(currentLang === 'ru' ? 'Таблица успешно скачана!' : 'Table downloaded successfully!');
+        }
+
+        function exportPitchPDF() {
+            showToast(currentLang === 'ru' ? 'Генерация Инвест-Питча...' : 'Generating Pitch Deck...');
+            
+            const s = getStateObj();
+            document.getElementById('pitch-inputs').innerHTML = `
+                <li><strong>${currentLang === 'ru' ? 'Капитал:' : 'Capital:'}</strong> ${formatMoney(s.startCapital)}</li>
+                <li><strong>${currentLang === 'ru' ? 'ROI (база):' : 'ROI (base):'}</strong> ${s.roi}%</li>
+                <li><strong>${currentLang === 'ru' ? 'Период:' : 'Period:'}</strong> ${s.months} ${currentLang === 'ru' ? 'мес.' : 'mo.'}</li>
+                <li><strong>${currentLang === 'ru' ? 'Налоги:' : 'Taxes:'}</strong> ${s.tax}% (${s.taxType === 'profit' ? (currentLang === 'ru' ? 'С прибыли' : 'From Profit') : (currentLang === 'ru' ? 'С оборота' : 'From Turnover')})</li>
+            `;
+
+            const finalCap = globalMonthlyData.length > 0 ? globalMonthlyData[globalMonthlyData.length-1].endCapital : 0;
+            document.getElementById('pitch-summary').innerHTML = `
+                <li><strong>${currentLang === 'ru' ? 'Итоговый капитал:' : 'Ending Capital:'}</strong> ${formatMoney(finalCap)}</li>
+                <li><strong>${currentLang === 'ru' ? 'Всего выведено:' : 'Total Payouts:'}</strong> ${formatMoney(globalTotals.payout)}</li>
+                <li><strong>${currentLang === 'ru' ? 'Сумма налогов:' : 'Total Taxes:'}</strong> ${formatMoney(globalTotals.tax)}</li>
+                <li><strong>${currentLang === 'ru' ? 'Чистая прибыль:' : 'Net Profit:'}</strong> ${formatMoney(globalTotals.payout + Math.max(0, globalTotals.retained))}</li>
+            `;
+
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+                updateChartTheme(false);
+                if(chartInstance && chartInstance.data.datasets.length >= 2) { chartInstance.data.datasets[1].borderColor = 'rgba(15, 23, 42, 0.8)'; chartInstance.data.datasets[1].backgroundColor = 'rgba(15, 23, 42, 0.05)'; chartInstance.data.datasets[1].pointBackgroundColor = 'rgba(15, 23, 42, 1)'; chartInstance.update(); }
+            }
+
+            document.getElementById('pitch-chart-1').src = document.getElementById('growthChart').toDataURL('image/png', 1.0);
+            document.getElementById('pitch-chart-2').src = document.getElementById('donutChart').toDataURL('image/png', 1.0);
+            
+            let tableHTML = document.querySelector('#mainTable').innerHTML;
+            tableHTML = tableHTML.replace(/dark:[^\s"']+/g, '').replace(/bg-rose-50/g, 'bg-red-50'); 
+            document.getElementById('pitch-table-container').innerHTML = `<table class="min-w-full divide-y divide-slate-200 text-left border border-slate-200 mt-4">${tableHTML}</table>`;
+
+            const element = document.getElementById('pitch-template');
+            element.style.top = '0'; element.style.left = '0'; element.style.zIndex = '100'; 
+            
+            const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: 'Investment_Pitch.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#ffffff', windowWidth: 1200 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                element.style.top = '-9999px'; element.style.left = '-9999px'; element.style.zIndex = '-100'; 
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    updateChartTheme(true);
+                    if(chartInstance && chartInstance.data.datasets.length >= 2) { chartInstance.data.datasets[1].borderColor = 'rgba(255, 255, 255, 0.8)'; chartInstance.data.datasets[1].backgroundColor = 'rgba(255, 255, 255, 0.05)'; chartInstance.data.datasets[1].pointBackgroundColor = 'rgba(255, 255, 255, 1)'; chartInstance.update(); }
+                }
+                showToast(currentLang === 'ru' ? 'Питч успешно скачан!' : 'Pitch Deck downloaded!');
+            });
+        }
+
+        function generateShareText(url) {
+            const startCap = formatMoney(getRawNumber('startCapital')); const roiVal = document.getElementById('roi').value + '%';
+            let text = currentLang === 'ru' ? `Мои результаты масштабирования бизнеса!\nСтарт: ${startCap}, Средний ROI: ${roiVal}\n\n` : `My business scaling results!\nStart: ${startCap}, Average ROI: ${roiVal}\n\n`;
+            for (let i = 1; i <= 4; i++) {
+                const res = document.getElementById(`achieve-goal${i}`).innerText; const goalAmount = formatMoney(getRawNumber(`goal${i}`));
+                text += currentLang === 'ru' ? `Цель ${i} (${goalAmount}): ${res}\n` : `Goal ${i} (${goalAmount}): ${res}\n`;
+            }
+            text += currentLang === 'ru' ? `\nРассчитай свои цели: ${url}` : `\nCalculate your goals: ${url}`;
+            return text;
+        }
+
+        function shareSocial(platform) {
+            let realUrl = window.location.href;
+            if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) { realUrl = 'https://rmslk.github.io/roi-calc/'; const urlParams = new URLSearchParams(window.location.search).toString(); if(urlParams) realUrl += '?' + urlParams; }
+            const fullText = generateShareText(realUrl);
+            if (platform === 'copy') { navigator.clipboard.writeText(fullText).then(() => showToast(currentLang === 'ru' ? 'Текст и ссылка скопированы!' : 'Text and link copied!')).catch(() => showToast(currentLang === 'ru' ? 'Ошибка копирования.' : 'Copy error.')); } 
+            else {
+                let encodedUrl = encodeURIComponent(realUrl); let encodedText = encodeURIComponent(fullText); let shareUrl = '';
+                switch(platform) {
+                    case 'tg': shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`; break;
+                    case 'vk': shareUrl = `https://vk.com/share.php?url=${encodedUrl}&title=${encodedText}`; break;
+                    case 'tw': shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`; break;
+                    case 'fb': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`; break;
+                }
+                if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+            }
+        }
+
+        function openFeedbackModal() { document.getElementById('feedbackModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('feedbackModalContent').classList.remove('scale-95', 'opacity-0'); document.getElementById('feedbackModalContent').classList.add('scale-100', 'opacity-100'); }, 10); document.getElementById('feedbackText').focus(); }
+        function closeFeedbackModal() { document.getElementById('feedbackModalContent').classList.remove('scale-100', 'opacity-100'); document.getElementById('feedbackModalContent').classList.add('scale-95', 'opacity-0'); setTimeout(() => { document.getElementById('feedbackModal').classList.add('hidden'); }, 200); }
+
+        function sendFeedback() {
+            const text = document.getElementById('feedbackText').value.trim(); if(!text) return;
+            const target = "termitdream@gmail.com"; const subject = currentLang === 'ru' ? 'Идея для Калькулятора Капитализации' : 'Feedback on Capitalization Calculator';
+            const btn = document.getElementById('sendBtn'); const originalText = btn.innerHTML; btn.innerHTML = currentLang === 'ru' ? 'Отправка...' : 'Sending...'; btn.disabled = true;
+            fetch(`https://formsubmit.co/ajax/${target}`, { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ _subject: subject, _template: "box", message: text }) })
+            .then(res => res.json()).then(data => { if (data.success === "true" || data.success === true) { showToast(currentLang === 'ru' ? 'Успешно отправлено!' : 'Sent successfully!'); closeFeedbackModal(); document.getElementById('feedbackText').value = ''; } else throw new Error(); })
+            .catch(() => { window.location.href = `mailto:${target}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`; closeFeedbackModal(); })
+            .finally(() => { btn.innerHTML = originalText; btn.disabled = false; });
+        }
+
+        function saveBaseline() { baselineData = globalMonthlyData.map(d => ({ payout: d.payout, capital: d.endCapital })); document.getElementById('btnClearBaseline').classList.remove('hidden'); showToast(currentLang === 'ru' ? '«План А» сохранен! Измените настройки для сравнения.' : 'Plan A saved! Change settings to compare.'); calculate(); }
+        function clearBaseline() { baselineData = null; document.getElementById('btnClearBaseline').classList.add('hidden'); if(chartInstance && chartInstance.data.datasets.length > 2) { chartInstance.data.datasets.splice(2, 2); } calculate(); }
 
         function getSafeString(id, defaultVal) { const el = document.getElementById(id); return el ? el.value : defaultVal; }
 
@@ -1215,28 +1364,6 @@
             showToast(currentLang === 'ru' ? 'Расчет старта выполнен!' : 'Start Capital Calculated!');
         }
 
-        function toggleTooltip(event, element) {
-            event.stopPropagation();
-            document.querySelectorAll('.tooltip-content').forEach(el => {
-                if (el !== element.nextElementSibling) { el.classList.add('hidden'); el.classList.remove('opacity-100'); }
-            });
-            const tooltip = element.nextElementSibling;
-            if (tooltip) {
-                const isHidden = tooltip.classList.contains('hidden');
-                if (isHidden) { tooltip.classList.remove('hidden'); setTimeout(() => tooltip.classList.add('opacity-100'), 10); } 
-                else { tooltip.classList.remove('opacity-100'); setTimeout(() => tooltip.classList.add('hidden'), 200); }
-            }
-        }
-        
-        document.addEventListener('click', (event) => {
-            document.querySelectorAll('.tooltip-content').forEach(el => {
-                el.classList.remove('opacity-100'); setTimeout(() => el.classList.add('hidden'), 200);
-            });
-            const currencyDropdown = document.getElementById('currencyDropdown');
-            const currencyContainer = document.getElementById('customCurrencyContainer');
-            if(currencyContainer && !currencyContainer.contains(event.target)) { currencyDropdown.classList.add('hidden'); }
-        });
-
         function openProjectsModal() {
             renderProjectsList();
             document.getElementById('projectsModal').classList.remove('hidden');
@@ -1247,59 +1374,6 @@
             document.getElementById('projectsModalContent').classList.add('scale-95', 'opacity-0');
             setTimeout(() => { document.getElementById('projectsModal').classList.add('hidden'); }, 200);
         }
-
-        function saveNewProject() {
-            const name = document.getElementById('newProjectName').value.trim();
-            if(!name) { showToast(currentLang === 'ru' ? 'Введите название!' : 'Enter project name!'); return; }
-            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]');
-            const state = getStateObj();
-            state.projectName = name;
-            state.timestamp = new Date().getTime();
-            projects.push(state);
-            localStorage.setItem('roiCalcProjects', JSON.stringify(projects));
-            document.getElementById('newProjectName').value = '';
-            renderProjectsList();
-            showToast(currentLang === 'ru' ? 'Проект сохранен!' : 'Project saved!');
-        }
-
-        function renderProjectsList() {
-            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]').sort((a,b) => b.timestamp - a.timestamp);
-            const list = document.getElementById('projectsList');
-            list.innerHTML = '';
-            if(projects.length === 0) {
-                list.innerHTML = `<p class="text-sm text-slate-400 text-center py-4">${currentLang === 'ru' ? 'Нет сохраненных проектов' : 'No saved projects'}</p>`; return;
-            }
-            projects.forEach((p, idx) => {
-                const item = document.createElement('div');
-                item.className = "flex justify-between items-center bg-slate-50 dark:bg-slate-700/30 p-3 rounded-xl border border-slate-200 dark:border-slate-700";
-                item.innerHTML = `
-                    <div class="flex flex-col">
-                        <span class="font-bold text-sm text-slate-800 dark:text-white">${p.projectName}</span>
-                        <span class="text-xs text-slate-500">${new Date(p.timestamp).toLocaleDateString()} | Cap: ${formatRawNumber(p.startCapital)}</span>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="loadProject(${idx})" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 p-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-lg transition-colors active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg></button>
-                        <button onclick="deleteProject(${idx})" class="text-rose-600 hover:text-rose-800 dark:text-rose-400 p-1.5 bg-rose-50 dark:bg-rose-900/20 rounded-lg transition-colors active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                    </div>
-                `;
-                list.appendChild(item);
-            });
-        }
-
-        function loadProject(idx) {
-            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]');
-            if(projects[idx]) { applyStateObj(projects[idx]); calculate(); closeProjectsModal(); showToast(currentLang === 'ru' ? 'Проект загружен!' : 'Project loaded!'); }
-        }
-
-        function deleteProject(idx) {
-            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]');
-            projects.splice(idx, 1);
-            localStorage.setItem('roiCalcProjects', JSON.stringify(projects));
-            renderProjectsList();
-        }
-
-        function toggleCurrencyDropdown(event) { event.stopPropagation(); document.getElementById('currencyDropdown').classList.toggle('hidden'); }
-        function selectCurrency(value, text) { document.getElementById('currentCurrencyDisplay').innerText = text; currentCurrency = value; document.getElementById('currencyDropdown').classList.add('hidden'); calculate(); }
 
         function startTour() {
             isTourActive = true;
@@ -1344,7 +1418,7 @@
             id: 'milestones',
             afterDraw: (chart) => {
                 const ctx = chart.ctx;
-                const dsIndex = chart.data.datasets.findIndex(d => d.order === 2); // 'Capital (Base)'
+                const dsIndex = chart.data.datasets.findIndex(d => d.order === 2);
                 if(dsIndex === -1) return;
                 const meta = chart.getDatasetMeta(dsIndex);
 
@@ -1594,7 +1668,6 @@
                 const alertBox = document.getElementById('cashGapAlert');
                 if(alertBox) { if (baseSim.hasGlobalCashGap) alertBox.classList.remove('hidden'); else alertBox.classList.add('hidden'); }
 
-                // Smart Hints Generation
                 const hintsList = document.getElementById('smartHintsList');
                 hintsList.innerHTML = '';
                 let breakEvenROI = baseSim.breakEvenROI * 100;
@@ -1615,24 +1688,6 @@
                 if(hintsCount === 0) {
                     hintsList.innerHTML += `<li>${currentLang==='ru'?'У вас сбалансированная финансовая модель. Так держать!':'Your financial model looks well-balanced. Keep it up!'}</li>`;
                 }
-
-                // Millionaire check
-                let millionMonth = null;
-                let millionThreshold = 1000000;
-                if (currentCurrency === 'USD' || currentCurrency === 'EUR') millionThreshold = 1000000;
-                if (currentCurrency === 'BYN') millionThreshold = 3000000;
-                if (currentCurrency === 'KZT') millionThreshold = 450000000;
-                
-                globalMonthlyData.forEach(d => { if(d.cumulativePayout >= millionThreshold && millionMonth === null) millionMonth = d.month; });
-                const millionWidget = document.getElementById('millionWidget');
-                const millionMonthEls = document.querySelectorAll('.millionMonthVal');
-                if (millionMonth !== null) {
-                    millionMonthEls.forEach(el => el.innerText = millionMonth);
-                    millionWidget.classList.remove('hidden');
-                } else { millionWidget.classList.add('hidden'); }
-
-                const leadMagnet = document.getElementById('leadMagnet');
-                if(baseSim.achievements[4] !== null) leadMagnet.classList.remove('hidden'); else leadMagnet.classList.add('hidden');
 
                 document.getElementById('totalPayoutDisplay').innerText = formatMoney(totalPayout);
 
@@ -1773,7 +1828,6 @@
             }
         };
 
-        // --- БЕЗОПАСНАЯ ИНИЦИАЛИЗАЦИЯ И СЛУШАТЕЛИ ---
         window.onload = () => {
             try {
                 initInstruction();
@@ -1812,7 +1866,6 @@
         });
         observer.observe(document.documentElement, { attributes: true });
 
-        // --- УМНОЕ СКРЫТИЕ ПАНЕЛИ ---
         let isPanelCollapsed = false; let collapseTimeout;
 
         function updatePanelState() {
