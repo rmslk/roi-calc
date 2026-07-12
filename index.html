@@ -76,7 +76,7 @@
                         <span id="currentCurrencyDisplay">₽ RUB</span>
                         <svg class="-mr-1 ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
                     </button>
-                    <div id="currencyDropdown" class="origin-bottom-right md:origin-top-right absolute bottom-full md:bottom-auto md:top-full left-0 md:left-auto md:right-0 mb-3 md:mb-0 md:mt-3 w-32 rounded-xl shadow-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 focus:outline-none hidden overflow-hidden transition-all">
+                    <div id="currencyDropdown" class="origin-bottom-right md:origin-top-right absolute bottom-full md:bottom-auto md:top-full left-0 md:left-auto md:right-0 mb-3 md:mb-0 md:mt-3 w-32 rounded-xl shadow-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 focus:outline-none hidden overflow-hidden transition-all z-[100]">
                         <div class="py-1" role="menu">
                             <button onclick="selectCurrency('RUB', '₽ RUB')" class="text-slate-700 dark:text-slate-200 block px-4 py-2 text-sm w-full text-left hover:bg-slate-50 dark:hover:bg-slate-700 font-medium">₽ RUB</button>
                             <button onclick="selectCurrency('USD', '$ USD')" class="text-slate-700 dark:text-slate-200 block px-4 py-2 text-sm w-full text-left hover:bg-slate-50 dark:hover:bg-slate-700 font-medium">$ USD</button>
@@ -215,38 +215,42 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-5">
                         <div class="w-full relative" id="tour-field-startCap">
-                            <div class="flex items-center justify-start mb-1.5">
+                            <div class="flex items-center justify-start mb-1.5 relative">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Капитал</span><span class="lang-en">Capital</span></label>
-                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-48 shadow-xl z-50"><span class="lang-ru">Сумма средств для первого цикла.</span><span class="lang-en">Initial amount to start.</span></div>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Сумма средств для первого цикла.</span><span class="lang-en">Initial amount to start.</span></div>
                             </div>
                             <input type="text" inputmode="numeric" id="startCapital" value="100 000" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-900 dark:text-white transition-all shadow-sm">
                         </div>
                         <div class="w-full relative" id="tour-field-roi">
-                            <div class="flex items-center justify-start mb-1.5">
+                            <div class="flex items-center justify-start mb-1.5 relative">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">ROI за цикл(%)</span><span class="lang-en">Cycle ROI(%)</span></label>
-                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-48 shadow-xl z-50"><span class="lang-ru">Чистая рентабельность на вложенные средства за 1 цикл оборачиваемости.</span><span class="lang-en">Net return per 1 turnover cycle.</span></div>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Чистая рентабельность на вложенные средства за 1 цикл оборачиваемости.</span><span class="lang-en">Net return per 1 turnover cycle.</span></div>
                             </div>
                             <input type="number" id="roi" value="50" step="0.1" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-900 dark:text-white transition-all shadow-sm">
                         </div>
                         <div class="w-full relative" id="tour-field-cycle">
-                            <div class="flex items-center justify-start mb-1.5">
+                            <div class="flex items-center justify-start mb-1.5 relative">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Дней в цикле</span><span class="lang-en">Cycle Days</span></label>
-                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="tooltip-content absolute bottom-full mb-2 left-0 md:left-1/2 md:-translate-x-1/2 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-64 shadow-xl z-50 text-center"><span class="lang-ru">Сколько дней заморожены деньги. Переводит ROI в реальный процент в месяц.</span><span class="lang-en">Days from purchase to payout. Converts ROI to effective monthly rate.</span></div>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 md:left-1/2 md:-translate-x-1/2 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-64 shadow-xl z-[100] text-center"><span class="lang-ru">Сколько дней заморожены деньги. Переводит ROI в реальный процент в месяц.</span><span class="lang-en">Days from purchase to payout. Converts ROI to effective monthly rate.</span></div>
                             </div>
                             <input type="number" id="cycleDays" value="30" min="1" max="365" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-900 dark:text-white transition-all shadow-sm">
                         </div>
                         <div class="w-full relative" id="tour-field-months">
-                            <div class="flex items-center justify-start mb-1.5">
+                            <div class="flex items-center justify-start mb-1.5 relative">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Период (мес.)</span><span class="lang-en">Period (mo.)</span></label>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Горизонт планирования. На сколько месяцев вперед строить модель.</span><span class="lang-en">Forecast period in months.</span></div>
                             </div>
                             <input type="number" id="months" value="12" min="1" max="120" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-900 dark:text-white transition-all shadow-sm">
                         </div>
                         <div class="w-full relative" id="tour-field-add">
-                            <div class="flex items-center justify-start mb-1.5">
+                            <div class="flex items-center justify-start mb-1.5 relative">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Довложения/мес.</span><span class="lang-en">Top-up/mo.</span></label>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 right-0 md:left-auto md:right-auto hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Сумма, которую вы готовы ежемесячно докладывать в оборот извне.</span><span class="lang-en">External monthly injections.</span></div>
                             </div>
                             <input type="text" inputmode="numeric" id="monthlyAdd" value="0" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-900 dark:text-white transition-all shadow-sm">
                         </div>
@@ -260,11 +264,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
                         <div class="w-full relative col-span-1 md:col-span-2 grid grid-cols-2 gap-3" id="tour-field-tax">
                             <div>
-                                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block mb-1.5"><span class="lang-ru">Налог (%)</span><span class="lang-en">Tax (%)</span></label>
+                                <div class="flex items-center mb-1.5 relative">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block"><span class="lang-ru">Налог (%)</span><span class="lang-en">Tax (%)</span></label>
+                                    <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Налог вычитается ДО реинвестирования. Для УСН 6%+1% ставьте 7%.</span><span class="lang-en">Tax deducted before reinvestment.</span></div>
+                                </div>
                                 <input type="number" id="tax" value="0" step="0.1" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-medium transition-all">
                             </div>
                             <div id="tour-field-taxbase">
-                                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block mb-1.5"><span class="lang-ru">База налога</span><span class="lang-en">Tax Base</span></label>
+                                <div class="flex items-center mb-1.5 relative">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block"><span class="lang-ru">База налога</span><span class="lang-en">Tax Base</span></label>
+                                </div>
                                 <select id="taxType" onchange="calculate()" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-medium outline-none text-slate-800 dark:text-slate-200 text-sm transition-all">
                                     <option value="profit">С прибыли</option>
                                     <option value="turnover">С оборота</option>
@@ -272,27 +282,35 @@
                             </div>
                         </div>
                         <div class="w-full relative" id="tour-field-inflation">
-                            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block mb-1.5"><span class="lang-ru">Инфляция (%)</span><span class="lang-en">Inflation (%)</span></label>
+                            <div class="flex items-center mb-1.5 relative">
+                                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block"><span class="lang-ru">Инфляция (%)</span><span class="lang-en">Inflation (%)</span></label>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Показывает реальную покупательную способность будущего капитала в таблице.</span><span class="lang-en">Shows real purchasing power in the table.</span></div>
+                            </div>
                             <input type="number" id="inflation" value="0" step="0.1" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-medium transition-all">
                         </div>
                         <div class="w-full flex items-center justify-start h-[44px] relative" id="tour-field-roiDrop">
-                            <label class="flex items-center cursor-pointer">
+                            <label class="flex items-center cursor-pointer relative">
                                 <div class="relative">
                                     <input type="checkbox" id="realisticRoi" class="sr-only peer" onchange="calculate()">
                                     <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
                                 </div>
                                 <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Снижение ROI</span><span class="lang-en">ROI Drop</span></span>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 right-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Симуляция емкости рынка. Чем больше капитал, тем алгоритм сильнее занижает % рентабельности.</span><span class="lang-en">Simulates reality: larger capital usually means lower ROI.</span></div>
                             </label>
                         </div>
                         
                         <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-seasonality">
                             <div class="flex flex-wrap items-center justify-start gap-4">
-                                <label class="flex items-center cursor-pointer">
+                                <label class="flex items-center cursor-pointer relative">
                                     <div class="relative flex-shrink-0">
                                         <input type="checkbox" id="seasonality" class="sr-only peer" onchange="toggleSeasonalityFields()">
                                         <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
                                     </div>
                                     <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Особая сезонность</span><span class="lang-en">Seasonality</span></span>
+                                    <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Укажите пиковые месяцы продаж (напр. 11, 12) и множитель рентабельности.</span><span class="lang-en">Set peak months and ROI multiplier.</span></div>
                                 </label>
                                 <div id="seasonalityWrapper" class="hidden flex flex-wrap items-center gap-3 relative">
                                     <div class="flex items-center gap-2"><span class="text-xs text-slate-500"><span class="lang-ru">Месяцы:</span><span class="lang-en">Months:</span></span><input type="text" id="seasonalityMonths" value="11, 12" placeholder="11, 12" class="w-[80px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm transition-all"></div>
@@ -303,17 +321,17 @@
 
                         <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-scenarios">
                             <div class="flex flex-wrap items-center justify-start gap-4">
-                                <label class="flex items-center cursor-pointer">
+                                <label class="flex items-center cursor-pointer relative">
                                     <div class="relative flex-shrink-0">
                                         <input type="checkbox" id="useScenarios" class="sr-only peer" onchange="toggleScenarioFields()">
                                         <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
                                     </div>
                                     <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Сравнение 3-х сценариев (Вилка ROI)</span><span class="lang-en">Compare 3 Scenarios</span></span>
+                                    <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div class="tooltip-content absolute bottom-full mb-2 left-0 md:left-1/2 md:-translate-x-1/2 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-64 text-center shadow-xl z-[100]">
+                                        <span class="lang-ru">Сравните базовый сценарий с оптимистичным и пессимистичным прямо на графике.</span><span class="lang-en">Compare base scenario with optimistic and pessimistic directly on the chart.</span>
+                                    </div>
                                 </label>
-                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="tooltip-content absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-64 text-center shadow-xl z-50">
-                                    <span class="lang-ru">Сравните базовый сценарий с оптимистичным и пессимистичным прямо на графике.</span><span class="lang-en">Compare base scenario with optimistic and pessimistic directly on the chart.</span>
-                                </div>
                                 <div id="scenariosWrapper" class="hidden flex flex-wrap items-center gap-4 relative">
                                     <div class="flex items-center gap-2"><span class="text-xs text-slate-500"><span class="lang-ru">Пессимистичный (%):</span><span class="lang-en">Pessimistic (%):</span></span><input type="number" id="roiPessimistic" value="20" step="0.1" class="w-[70px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border border-rose-200 dark:border-rose-800 rounded-lg text-sm transition-all"></div>
                                     <div class="flex items-center gap-2"><span class="text-xs text-slate-500"><span class="lang-ru">Оптимистичный (%):</span><span class="lang-en">Optimistic (%):</span></span><input type="number" id="roiOptimistic" value="80" step="0.1" class="w-[70px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 rounded-lg text-sm transition-all"></div>
@@ -329,13 +347,19 @@
                     </h3>
                     <div class="flex flex-col md:flex-row gap-6 mb-6">
                         <div class="w-full md:w-1/2 relative" id="tour-field-reinvestBase">
-                            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block mb-1.5"><span class="lang-ru">Базовая доля реинвеста (%)</span><span class="lang-en">Base Reinvest (%)</span></label>
+                            <div class="flex items-center mb-1.5 relative">
+                                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block"><span class="lang-ru">Базовая доля реинвеста (%)</span><span class="lang-en">Base Reinvest (%)</span></label>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Какую часть чистой прибыли вы вкладываете обратно в товар. Оставшееся — ваши дивиденды.</span><span class="lang-en">Profit percentage returned to business.</span></div>
+                            </div>
                             <div class="flex items-center gap-3"><input type="range" id="reinvestShare" min="0" max="100" value="100"><span id="reinvestShareVal" class="text-sm font-bold w-12 text-blue-600">100%</span></div>
                         </div>
                         <div class="w-full md:w-1/2 bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700" id="tour-field-dynamicReinvest">
-                            <label class="flex items-center cursor-pointer mb-3">
+                            <label class="flex items-center cursor-pointer mb-3 relative">
                                 <div class="relative flex-shrink-0"><input type="checkbox" id="dynamicReinvest" class="sr-only peer" onchange="toggleDynamicReinvest()"><div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div></div>
                                 <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Умный (Каскадный) реинвест</span><span class="lang-en">Dynamic Reinvest</span></span>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 right-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Автоматически меняет долю реинвестирования после достижения заданного порога капитала.</span><span class="lang-en">Dynamically changes reinvestment share after reaching threshold.</span></div>
                             </label>
                             <div id="dynamicReinvestWrapper" class="hidden space-y-3">
                                 <div><label class="text-xs font-medium text-slate-500"><span class="lang-ru">Порог капитала:</span><span class="lang-en">Threshold:</span></label><input type="text" inputmode="numeric" id="reinvestThreshold" value="1 000 000" class="w-full px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm"></div>
@@ -343,7 +367,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-2 relative" id="tour-field-goals">
+                    
+                    <div class="flex items-center mb-2 relative">
+                        <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"><span class="lang-ru">Ваши финансовые цели (вывод в месяц)</span><span class="lang-en">Financial Goals (monthly payout)</span></label>
+                        <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Если месячная прибыль позволяет, алгоритм автоматически выведет нужную сумму под эти цели.</span><span class="lang-en">Algorithm automatically withdraws amount if profit allows.</span></div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 relative" id="tour-field-goals">
                         <div class="w-full relative bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700"><input type="text" id="goal1Name" value="ЦЕЛЬ 1" class="w-full bg-transparent text-xs font-bold text-blue-500 dark:text-blue-400 uppercase text-center md:text-left focus:outline-none mb-2"><input type="text" inputmode="numeric" id="goal1" value="100 000" class="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border rounded-lg text-center md:text-left"></div>
                         <div class="w-full relative bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700"><input type="text" id="goal2Name" value="ЦЕЛЬ 2" class="w-full bg-transparent text-xs font-bold text-blue-500 dark:text-blue-400 uppercase text-center md:text-left focus:outline-none mb-2"><input type="text" inputmode="numeric" id="goal2" value="300 000" class="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border rounded-lg text-center md:text-left"></div>
                         <div class="w-full relative bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700"><input type="text" id="goal3Name" value="ЦЕЛЬ 3" class="w-full bg-transparent text-xs font-bold text-blue-500 dark:text-blue-400 uppercase text-center md:text-left focus:outline-none mb-2"><input type="text" inputmode="numeric" id="goal3" value="500 000" class="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border rounded-lg text-center md:text-left"></div>
@@ -357,24 +387,30 @@
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
                         <div class="w-full relative" id="tour-field-fixedCost">
-                            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block mb-1.5"><span class="lang-ru">Пост. расходы / мес.</span><span class="lang-en">Fixed Expenses</span></label>
+                            <div class="flex items-center justify-center md:justify-start mb-1.5 relative">
+                                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 block"><span class="lang-ru">Пост. расходы / мес.</span><span class="lang-en">Fixed Expenses</span></label>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Ежемесячные траты, не зависящие от объема продаж (аренда склада, ЗП, сервисы).</span><span class="lang-en">Monthly fixed expenses.</span></div>
+                            </div>
                             <input type="text" inputmode="numeric" id="fixedCost" value="0" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-medium text-center md:text-left">
                         </div>
                         <div class="w-full relative" id="tour-field-stepCost">
-                            <div class="flex items-center justify-center md:justify-start mb-1.5">
+                            <div class="flex items-center justify-center md:justify-start mb-1.5 relative">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Рост расходов (на 1М)</span><span class="lang-en">Cost Growth</span></label>
-                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 text-center shadow-xl z-50">
-                                    <span class="lang-ru">Дополнительные ежемесячные расходы за каждый новый заработанный миллион капитала (масштабирование штата/склада).</span><span class="lang-en">Additional monthly expenses for each new million in capital earned.</span>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 text-center shadow-xl z-[100]">
+                                    <span class="lang-ru">Доп. ежемесячные расходы за каждый новый заработанный миллион капитала (масштабирование штата).</span><span class="lang-en">Additional monthly expenses for each new million earned.</span>
                                 </div>
                             </div>
                             <input type="text" inputmode="numeric" id="stepCost" value="0" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-medium text-center md:text-left">
                         </div>
                         <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-2" id="tour-field-costSeasonality">
                             <div class="flex flex-wrap items-center justify-start gap-4">
-                                <label class="flex items-center cursor-pointer">
+                                <label class="flex items-center cursor-pointer relative">
                                     <div class="relative flex-shrink-0"><input type="checkbox" id="costSeasonality" class="sr-only peer" onchange="toggleCostSeasonalityFields()"><div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div></div>
                                     <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Сезонность трат</span><span class="lang-en">Cost Seasonality</span></span>
+                                    <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Укажите месяцы, когда стоимость логистики или складов возрастает (например, 10, 11, 12).</span><span class="lang-en">Cost seasonality months and multiplier.</span></div>
                                 </label>
                                 <div id="costSeasonalityWrapper" class="hidden flex flex-wrap items-center gap-3 relative">
                                     <div class="flex items-center gap-2"><span class="text-xs text-slate-500"><span class="lang-ru">Месяцы:</span><span class="lang-en">Months:</span></span><input type="text" id="costSeasonalityMonths" value="10, 11, 12" class="w-[80px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border rounded-lg text-sm"></div>
@@ -384,9 +420,11 @@
                         </div>
 
                         <div class="w-full flex items-center justify-center md:justify-start h-[44px] relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-useCredit">
-                             <label class="flex items-center cursor-pointer">
+                             <label class="flex items-center cursor-pointer relative">
                                 <div class="relative"><input type="checkbox" id="useCredit" class="sr-only peer" onchange="toggleCreditFields()"><div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div></div>
                                 <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Я использую кредит</span><span class="lang-en">Use Credit</span></span>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-56 shadow-xl z-[100]"><span class="lang-ru">Симуляция аннуитетных платежей. Кредит пополняет капитал, но ежемесячно списывает платеж.</span><span class="lang-en">Loan simulation with annuity payments.</span></div>
                             </label>
                         </div>
                         <div class="w-full credit-field hidden relative">
@@ -619,7 +657,7 @@
             id: 'milestones',
             afterDatasetsDraw(chart) {
                 if (chart.config.type !== 'bar') return;
-                const { ctx, data, scales: { x, y } } = chart;
+                const { ctx, data } = chart;
                 const milestones = chart.options.plugins.milestonesData || [];
                 const dataset = data.datasets.find(d => d.label && (d.label.includes('Capital (Base)') || d.label.includes('Оборот (Базовый)')));
                 if (!dataset) return;
@@ -633,28 +671,28 @@
                         const point = meta.data[index];
                         ctx.save();
                         
-                        // Отрисовка полотна флага (Правильная ориентация, чуть меньше)
-                        ctx.fillStyle = '#f59e0b';
-                        ctx.beginPath();
-                        ctx.moveTo(point.x, point.y - 24); // Верх флага
-                        ctx.lineTo(point.x + 8, point.y - 20); // Острый конец вправо
-                        ctx.lineTo(point.x, point.y - 16); // Низ флага
-                        ctx.fill();
-                        
                         // Отрисовка флагштока (Короче)
                         ctx.strokeStyle = '#f59e0b';
                         ctx.lineWidth = 2;
                         ctx.beginPath();
-                        ctx.moveTo(point.x, point.y - 6);
-                        ctx.lineTo(point.x, point.y - 24);
+                        ctx.moveTo(point.x, point.y - 4);
+                        ctx.lineTo(point.x, point.y - 18);
                         ctx.stroke();
                         
-                        // Текст над флажком
+                        // Отрисовка полотна флага (Правильная ориентация вправо)
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.beginPath();
+                        ctx.moveTo(point.x, point.y - 18); // Вершина
+                        ctx.lineTo(point.x + 8, point.y - 14); // Острие вправо
+                        ctx.lineTo(point.x, point.y - 10); // Низ
+                        ctx.fill();
+                        
+                        // Текст над флажком (опущен ниже)
                         ctx.fillStyle = '#f59e0b';
                         ctx.font = 'bold 10px Inter, sans-serif';
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
-                        ctx.fillText(goal.id, point.x, point.y - 32);
+                        ctx.fillText(goal.id, point.x, point.y - 25);
                         ctx.restore();
                     }
                 });
@@ -673,26 +711,28 @@
                         const padY = (tooltip.options.padding && tooltip.options.padding.y) || tooltip.options.padding || 8;
                         
                         const x = tooltip.x + padX + 2; 
-                        let y = tooltip.y + padY + 13 + 6 + 6; 
+                        let y = tooltip.y + padY + 12; // Start position aligned with first text line
 
                         achievedGoals.forEach((goal) => {
                             ctx.save();
-                            ctx.fillStyle = '#f59e0b';
-                            ctx.beginPath();
-                            ctx.moveTo(x, y - 7);
-                            ctx.lineTo(x + 7, y - 3.5);
-                            ctx.lineTo(x, y);
-                            ctx.fill();
-                            
+                            // Шток
                             ctx.strokeStyle = '#f59e0b';
                             ctx.lineWidth = 1.5;
                             ctx.beginPath();
-                            ctx.moveTo(x, y + 4);
-                            ctx.lineTo(x, y - 7);
+                            ctx.moveTo(x, y - 5);
+                            ctx.lineTo(x, y + 5);
                             ctx.stroke();
+                            
+                            // Полотно флага
+                            ctx.fillStyle = '#f59e0b';
+                            ctx.beginPath();
+                            ctx.moveTo(x, y - 5);
+                            ctx.lineTo(x + 6, y - 2);
+                            ctx.lineTo(x, y + 1);
+                            ctx.fill();
                             ctx.restore();
                             
-                            y += 15; 
+                            y += 18; // Increment for next line if multiple
                         });
                     }
                 }
@@ -1067,7 +1107,7 @@
                     plugins: { 
                         legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8, padding: 20, color: textColor } }, 
                         tooltip: { 
-                            usePointStyle: true, boxPadding: 8, 
+                            usePointStyle: true, boxPadding: 8, bodySpacing: 4, titleMarginBottom: 6,
                             callbacks: { 
                                 beforeBody: function(context) {
                                     const dataIndex = context[0].dataIndex; const currentMonth = dataIndex + 1;
@@ -1075,8 +1115,7 @@
                                     let achievedGoals = [];
                                     milestones.forEach(goal => { 
                                         if (goal.achievedMonth === currentMonth) { 
-                                            const text = currentLang === 'ru' ? `    Финансовая цель ${goal.id} достигнута!` : `    Financial goal ${goal.id} achieved!`;
-                                            achievedGoals.push(text); 
+                                            achievedGoals.push(currentLang === 'ru' ? `     Финансовая цель ${goal.id} достигнута!` : `     Financial goal ${goal.id} achieved!`);
                                         } 
                                     });
                                     return achievedGoals.length > 0 ? achievedGoals : null;
