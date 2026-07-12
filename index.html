@@ -118,6 +118,7 @@
         </div>
     </div>
 
+    <!-- Modals for Projects -->
     <div id="projectsModal" class="hidden fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" data-html2canvas-ignore="true">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-200 dark:border-slate-700 relative transform transition-transform scale-95 opacity-0" id="projectsModalContent">
             <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">
@@ -138,6 +139,7 @@
         </div>
     </div>
 
+    <!-- Goal Seeker Modal -->
     <div id="goalSeekerModal" class="hidden fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" data-html2canvas-ignore="true">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-200 dark:border-slate-700 relative transform transition-transform scale-95 opacity-0" id="goalSeekerContent">
             <div class="flex items-center gap-3 mb-4">
@@ -637,6 +639,7 @@
 
             </div>
 
+            <!-- Карточки достижения целей с Прогресс-барами -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow border-t-4 border-t-blue-500">
                     <div id="cardGoalName1" class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">ЦЕЛЬ 1</div>
@@ -672,25 +675,6 @@
                 </div>
             </div>
 
-            <!-- Виджет 1 миллион -->
-            <div id="millionWidget" class="hidden bg-gradient-to-r from-amber-100 to-yellow-300 dark:from-amber-900/40 dark:to-yellow-700/40 p-5 md:p-6 rounded-3xl shadow-sm border border-amber-200 dark:border-amber-600/50 flex flex-col md:flex-row items-center justify-between gap-4 transform transition-all hover:scale-[1.01]">
-                <div class="flex items-center gap-4">
-                    <div class="flex-shrink-0 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm">
-                        <span class="text-3xl">🎉</span>
-                    </div>
-                    <div>
-                        <h4 class="text-amber-900 dark:text-amber-300 font-bold text-lg mb-1">
-                            <span class="lang-ru">Поздравляем! Ваш первый миллион!</span>
-                            <span class="lang-en">Congratulations! Your first million!</span>
-                        </h4>
-                        <p class="text-amber-800/80 dark:text-amber-200/80 text-sm font-medium">
-                            <span class="lang-ru">Вы вывели на себя суммарно более 1 000 000. Так держать!</span>
-                            <span class="lang-en">You have successfully withdrawn over 1,000,000. Keep it up!</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
             <!-- Smart Hints -->
             <div id="tour-step-hints" class="bg-indigo-50/50 dark:bg-indigo-900/10 p-5 md:p-6 rounded-3xl border border-indigo-100 dark:border-indigo-800/30 flex flex-col md:flex-row gap-6 items-center shadow-sm">
                 <div class="flex-shrink-0 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
@@ -706,6 +690,7 @@
                 </div>
             </div>
 
+            <!-- График и Сравнение -->
             <div id="tour-step-chart" class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
                 
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
@@ -724,6 +709,7 @@
                         </div>
                     </div>
 
+                    <!-- Total Payout -->
                     <div class="text-left md:text-right bg-blue-50 dark:bg-blue-500/10 px-5 py-3 rounded-2xl border border-blue-100 dark:border-blue-500/20">
                         <div class="text-xs font-semibold text-blue-600/70 dark:text-blue-400/80 uppercase tracking-wide mb-1">
                             <span class="lang-ru">Всего выведено за период</span><span class="lang-en">Total Payout</span>
@@ -785,7 +771,9 @@
                 </div>
             </div>
 
+            <!-- Нижний блок -->
             <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col gap-6" data-html2canvas-ignore="true">
+                
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700/50 pb-6">
                     <div class="flex items-center flex-wrap gap-3 w-full justify-center lg:justify-start">
                         <span class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mr-2">
@@ -809,6 +797,7 @@
                             <span class="lang-ru">Поделиться результатами:</span>
                             <span class="lang-en">Share results:</span>
                         </p>
+                        
                         <div class="flex flex-wrap justify-center items-center gap-3">
                             <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Telegram">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
@@ -818,7 +807,9 @@
                             </button>
                         </div>
                     </div>
+
                     <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block mx-2"></div>
+                    
                     <button onclick="openFeedbackModal()" class="px-6 py-2.5 bg-slate-100 dark:bg-slate-700/50 text-slate-800 dark:text-white font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200 flex-shrink-0 text-sm md:text-base w-full lg:w-auto border border-slate-200/60 dark:border-slate-600 active:scale-95">
                         <span class="lang-ru">Обратная связь</span>
                         <span class="lang-en">Send Feedback</span>
@@ -826,21 +817,25 @@
                 </div>
             </div>
 
+            <!-- SEO Статья (Новая маркетинговая) -->
             <article class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 mb-8 text-slate-600 dark:text-slate-400 leading-relaxed" data-html2canvas-ignore="true">
                 <div class="lang-ru space-y-4 text-[15px] md:text-base">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">Магия чисел: Как превратить расчет чистой прибыли в масштабирование бизнеса</h2>
                     <p>Выручка на маркетплейсах — это тщеславие. Чистая прибыль — это реальность. А оборотный капитал — это ваше топливо.</p>
                     <p>Большинство селлеров застревают на одном уровне выручки по одной простой причине: они вытаскивают деньги из бизнеса раньше времени или неправильно оценивают кредитную нагрузку. Чтобы избежать кассовых разрывов, вам не нужна ученая степень по экономике. Вам нужна прозрачная финансовая модель.</p>
                     <p>Наш профессиональный <strong>калькулятор сложного процента для бизнеса</strong> создан именно для этого. Это не просто таблица. Это инструмент визуализации вашего будущего.</p>
+                    
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Секрет взрывного роста: Сила реинвестирования</h3>
                     <p>Альберт Эйнштейн называл сложный процент восьмым чудом света. В e-commerce это правило работает безупречно. Постоянный возврат заработанных средств (реинвестирование прибыли) обратно в закупку товаров заставляет ваш капитал расти по экспоненте.</p>
                     <p>Даже с небольшим стартовым бюджетом и адекватным <strong>калькулятором ROI</strong>, вы можете спрогнозировать геометрический <strong>рост оборотного капитала</strong>. Но реальный бизнес — это не тепличные условия.</p>
+                    
                     <p>Именно поэтому наш алгоритм учитывает то, о чем молчат базовые калькуляторы:</p>
                     <ul class="list-disc pl-5 space-y-2 mb-6">
                         <li><strong>Реальные издержки:</strong> Автоматический вычет налогов и постоянных расходов до распределения дивидендов.</li>
                         <li><strong>Кредитное плечо:</strong> Оценка того, как проценты по займу «съедают» вашу маржу.</li>
                         <li><strong>Сезонность и потолок рынка:</strong> Функция «Снижение ROI» плавно уменьшит рентабельность, когда ваш капитал вырастет (масштабировать 100 тысяч рублей проще, чем 10 миллионов). Учет этих факторов — основа безопасности <strong>селлера маркетплейсов</strong>.</li>
                     </ul>
+
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Как использовать этот инструмент?</h3>
                     <ol class="list-decimal pl-5 space-y-2 mb-6">
                         <li>Введите базовые метрики старта (капитал и ожидаемую рентабельность).</li>
@@ -848,9 +843,11 @@
                         <li>Поставьте личные цели (суммы, которые вы хотите регулярно забирать «на жизнь»).</li>
                     </ol>
                     <p>Интеллектуальный алгоритм рассчитает идеальный баланс: сколько денег вернуть в оборот для <strong>масштабирования бизнеса</strong>, а сколько — положить в карман, не убив при этом рост магазина.</p>
+
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Ваш план готов. Что дальше?</h3>
                     <p>Цифры на графике показывают ваш потенциал. Но чтобы этот график стал реальностью на Ozon, одной математики мало. Нужен правильный выбор ниши, безупречная юнит-экономика, настройка рекламных кампаний и ежедневный контроль алгоритмов площадки.</p>
                     <p>Если вы хотите, чтобы ваш магазин рос так же быстро, как линии на этом графике — давайте работать вместе.</p>
+                    
                     <div class="bg-blue-50 dark:bg-slate-700/50 p-6 md:p-8 rounded-2xl mt-8 border border-blue-100 dark:border-slate-600">
                         <p class="mb-4 text-slate-900 dark:text-white"><strong>Меня зовут Роман Солкин.</strong> Я — практикующий эксперт и менеджер по комплексному сопровождению магазинов на Ozon.</p>
                         <p class="mb-3 text-slate-800 dark:text-slate-200">Я помогаю селлерам:</p>
@@ -868,15 +865,18 @@
                     <p>Revenue on marketplaces is vanity. Net profit is reality. And working capital is your fuel.</p>
                     <p>Most sellers get stuck at a certain revenue level for one simple reason: they pull money out of the business too early or incorrectly estimate their credit load. To avoid cash gaps, you don't need a degree in economics. You need a transparent financial model.</p>
                     <p>Our professional <strong>business compound interest calculator</strong> is designed exactly for this. It's not just a spreadsheet. It's a tool to visualize your future.</p>
+                    
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">The Secret of Explosive Growth: The Power of Reinvestment</h3>
                     <p>Albert Einstein called compound interest the eighth wonder of the world. In e-commerce, this rule works flawlessly. The constant return of earned funds (reinvesting profit) back into purchasing goods makes your capital grow exponentially.</p>
                     <p>Even with a small starting budget and an adequate <strong>ROI calculator</strong>, you can forecast geometric <strong>working capital growth</strong>. But real business isn't a greenhouse.</p>
+                    
                     <p>That is why our algorithm accounts for things basic calculators ignore:</p>
                     <ul class="list-disc pl-5 space-y-2 mb-6">
                         <li><strong>Real costs:</strong> Automatic deduction of taxes and fixed expenses before dividend distribution.</li>
                         <li><strong>Credit leverage:</strong> Evaluating how loan interest "eats" your margin.</li>
                         <li><strong>Seasonality and market ceiling:</strong> The "ROI Drop" function smoothly decreases profitability as your capital grows (scaling 100k is easier than 10 million). Accounting for these factors is the foundation of safety for a <strong>marketplace seller</strong>.</li>
                     </ul>
+
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">How to use this tool?</h3>
                     <ol class="list-decimal pl-5 space-y-2 mb-6">
                         <li>Enter the basic starting metrics (capital and expected profitability).</li>
@@ -884,9 +884,11 @@
                         <li>Set personal goals (amounts you want to regularly withdraw "for life").</li>
                     </ol>
                     <p>The intelligent algorithm will calculate the perfect balance: how much money to return to circulation for <strong>business scaling</strong>, and how much to put in your pocket without killing the store's growth.</p>
+
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Your plan is ready. What's next?</h3>
                     <p>The numbers on the chart show your potential. But for this chart to become reality on Ozon, math alone is not enough. You need the right niche selection, flawless unit economics, ad campaign setup, and daily control of the platform's algorithms.</p>
                     <p>If you want your store to grow as fast as the lines on this chart — let's work together.</p>
+                    
                     <div class="bg-blue-50 dark:bg-slate-700/50 p-6 md:p-8 rounded-2xl mt-8 border border-blue-100 dark:border-slate-600">
                         <p class="mb-4 text-slate-900 dark:text-white"><strong>My name is Roman Solkin.</strong> I am a practicing expert and manager for comprehensive support of Ozon stores.</p>
                         <p class="mb-3 text-slate-800 dark:text-slate-200">I help sellers:</p>
@@ -899,7 +901,8 @@
                     </div>
                 </div>
             </article>
-        </div> 
+
+        </div> <!-- End of #pdf-area -->
         
         <!-- Скрытый шаблон для PDF Инвест-Питча -->
         <div id="pitch-template" class="bg-white">
@@ -1013,38 +1016,39 @@
         let globalTotals = { tax: 0, cost: 0, credit: 0, payout: 0, retained: 0, gross: 0, breakEvenROI: 0 };
         let isTourActive = false;
 
-        // ВОССТАНОВЛЕННЫЕ ФУНКЦИИ ИНТЕРФЕЙСА (Инструкция, Тема, Водяной знак, Тур)
+        // ВОССТАНОВЛЕННЫЕ ФУНКЦИИ ИНТЕРФЕЙСА
+        function toggleLang(lang) {
+            currentLang = lang;
+            if (lang === 'en') {
+                document.body.classList.add('lang-en'); document.body.classList.remove('lang-ru');
+                document.getElementById('btn-ru').classList.replace('font-bold', 'font-normal'); document.getElementById('btn-ru').classList.replace('text-blue-600', 'text-slate-400'); document.getElementById('btn-ru').classList.replace('dark:text-blue-400', 'dark:text-slate-500');
+                document.getElementById('btn-en').classList.replace('font-normal', 'font-bold'); document.getElementById('btn-en').classList.replace('text-slate-400', 'text-blue-600'); document.getElementById('btn-en').classList.replace('dark:text-slate-500', 'dark:text-blue-400');
+                const taxTypeSelect = document.getElementById('taxType'); if(taxTypeSelect) { taxTypeSelect.options[0].text = 'Profit'; taxTypeSelect.options[1].text = 'Turnover'; }
+            } else {
+                document.body.classList.add('lang-ru'); document.body.classList.remove('lang-en');
+                document.getElementById('btn-en').classList.replace('font-bold', 'font-normal'); document.getElementById('btn-en').classList.replace('text-blue-600', 'text-slate-400'); document.getElementById('btn-en').classList.replace('dark:text-blue-400', 'dark:text-slate-500');
+                document.getElementById('btn-ru').classList.replace('font-normal', 'font-bold'); document.getElementById('btn-ru').classList.replace('text-slate-400', 'text-blue-600'); document.getElementById('btn-ru').classList.replace('dark:text-slate-500', 'dark:text-blue-400');
+                const taxTypeSelect = document.getElementById('taxType'); if(taxTypeSelect) { taxTypeSelect.options[0].text = 'С прибыли'; taxTypeSelect.options[1].text = 'С оборота'; }
+            }
+            if(chartInstance) calculate();
+        }
+
+        function toggleCurrencyDropdown(event) { event.stopPropagation(); document.getElementById('currencyDropdown').classList.toggle('hidden'); }
+        function selectCurrency(value, text) { document.getElementById('currentCurrencyDisplay').innerText = text; currentCurrency = value; document.getElementById('currencyDropdown').classList.add('hidden'); calculate(); }
+
         function initInstruction() {
             const isCollapsed = localStorage.getItem('instructionCollapsed') === 'true';
-            const body = document.getElementById('instructionBody'); 
-            const chevron = document.getElementById('instructionChevron');
+            const body = document.getElementById('instructionBody'); const chevron = document.getElementById('instructionChevron');
             if (!body || !chevron) return;
-            if (isCollapsed) { 
-                body.classList.replace('max-h-[1500px]', 'max-h-0'); 
-                body.classList.replace('opacity-100', 'opacity-0'); 
-                body.classList.replace('mt-4', 'mt-0'); 
-                chevron.classList.add('-rotate-90'); 
-            }
+            if (isCollapsed) { body.classList.replace('max-h-[1500px]', 'max-h-0'); body.classList.replace('opacity-100', 'opacity-0'); body.classList.replace('mt-4', 'mt-0'); chevron.classList.add('-rotate-90'); }
         }
 
         function toggleInstruction() {
-            const body = document.getElementById('instructionBody'); 
-            const chevron = document.getElementById('instructionChevron');
+            const body = document.getElementById('instructionBody'); const chevron = document.getElementById('instructionChevron');
             if (!body || !chevron) return;
             const isCurrentlyCollapsed = body.classList.contains('max-h-0');
-            if (isCurrentlyCollapsed) { 
-                body.classList.replace('max-h-0', 'max-h-[1500px]'); 
-                body.classList.replace('opacity-0', 'opacity-100'); 
-                body.classList.replace('mt-0', 'mt-4'); 
-                chevron.classList.remove('-rotate-90'); 
-                localStorage.setItem('instructionCollapsed', 'false'); 
-            } else { 
-                body.classList.replace('max-h-[1500px]', 'max-h-0'); 
-                body.classList.replace('opacity-100', 'opacity-0'); 
-                body.classList.replace('mt-4', 'mt-0'); 
-                chevron.classList.add('-rotate-90'); 
-                localStorage.setItem('instructionCollapsed', 'true'); 
-            }
+            if (isCurrentlyCollapsed) { body.classList.replace('max-h-0', 'max-h-[1500px]'); body.classList.replace('opacity-0', 'opacity-100'); body.classList.replace('mt-0', 'mt-4'); chevron.classList.remove('-rotate-90'); localStorage.setItem('instructionCollapsed', 'false'); } 
+            else { body.classList.replace('max-h-[1500px]', 'max-h-0'); body.classList.replace('opacity-100', 'opacity-0'); body.classList.replace('mt-4', 'mt-0'); chevron.classList.add('-rotate-90'); localStorage.setItem('instructionCollapsed', 'true'); }
         }
 
         function toggleTheme() {
@@ -1054,14 +1058,12 @@
             updateChartTheme(isDark);
         }
 
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { 
-            document.documentElement.classList.add('dark'); 
-        }
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); }
 
         const watermarkPlugin = {
             id: 'watermark',
             beforeDraw: (chart) => {
-                if (chart.config.type !== 'bar') return; // Только для основного графика
+                if (chart.config.type !== 'bar') return;
                 const ctx = chart.ctx; const width = chart.width; const height = chart.height;
                 ctx.save(); ctx.font = 'bold 3.5rem Inter';
                 ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.03)' : 'rgba(15, 23, 42, 0.03)';
@@ -1074,37 +1076,18 @@
 
         function updateChartTheme(isDark) {
             if(!chartInstance) return;
-            const gridColor = isDark ? '#334155' : '#f1f5f9'; 
-            const tickColor = isDark ? '#94a3b8' : '#64748b'; 
-            const textColor = isDark ? '#f8fafc' : '#334155';
-            
-            if (chartInstance.options.scales.x) {
-                chartInstance.options.scales.x.grid.color = gridColor; 
-                chartInstance.options.scales.x.ticks.color = tickColor; 
-            }
-            if (chartInstance.options.scales.y) {
-                chartInstance.options.scales.y.grid.color = gridColor; 
-                chartInstance.options.scales.y.ticks.color = tickColor; 
-                if (chartInstance.options.scales.y.title) chartInstance.options.scales.y.title.color = textColor;
-            }
-            if (chartInstance.options.scales.y1) {
-                chartInstance.options.scales.y1.grid.color = gridColor;
-            }
-            if (chartInstance.options.plugins.legend) {
-                chartInstance.options.plugins.legend.labels.color = textColor;
-            }
-            
+            const gridColor = isDark ? '#334155' : '#f1f5f9'; const tickColor = isDark ? '#94a3b8' : '#64748b'; const textColor = isDark ? '#f8fafc' : '#334155';
+            if (chartInstance.options.scales.x) { chartInstance.options.scales.x.grid.color = gridColor; chartInstance.options.scales.x.ticks.color = tickColor; }
+            if (chartInstance.options.scales.y) { chartInstance.options.scales.y.grid.color = gridColor; chartInstance.options.scales.y.ticks.color = tickColor; if (chartInstance.options.scales.y.title) chartInstance.options.scales.y.title.color = textColor; }
+            if (chartInstance.options.scales.y1) { chartInstance.options.scales.y1.grid.color = gridColor; }
+            if (chartInstance.options.plugins.legend) { chartInstance.options.plugins.legend.labels.color = textColor; }
             if (chartInstance.data.datasets && chartInstance.data.datasets.length >= 2) {
                 chartInstance.data.datasets[1].borderColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 23, 42, 0.8)';
                 chartInstance.data.datasets[1].backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 23, 42, 0.05)';
                 chartInstance.data.datasets[1].pointBackgroundColor = isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(15, 23, 42, 1)';
             }
-            
             chartInstance.update();
-            if(donutChartInstance) { 
-                donutChartInstance.options.plugins.legend.labels.color = textColor; 
-                donutChartInstance.update(); 
-            }
+            if(donutChartInstance) { donutChartInstance.options.plugins.legend.labels.color = textColor; donutChartInstance.update(); }
         }
 
         function startTour() {
@@ -1119,31 +1102,83 @@
                 nextBtnText: currentLang === 'ru' ? 'Далее' : 'Next', prevBtnText: currentLang === 'ru' ? 'Назад' : 'Prev', doneBtnText: currentLang === 'ru' ? 'Завершить' : 'Done',
                 onDestroyed: () => { isTourActive = false; if (window.scrollY > 150) collapsePanelIfScrolled(); },
                 steps: [
-                    { popover: { title: currentLang==='ru'?'«Добро пожаловать!»':'Welcome!', description: currentLang==='ru'?'Краткий тур по профессиональным функциям модели.':'A quick tour of the PRO model features.' } },
-                    { element: '#tour-step-goalseeker', popover: { title: currentLang==='ru'?'«Обратный расчет»':'Goal Seeker', description: currentLang==='ru'?'Укажите желаемый капитал, и мы рассчитаем, сколько нужно вложить сегодня.':'Calculate required start capital based on your target.' } },
-                    { element: '#tour-field-startCap', popover: { title: currentLang==='ru'?'«Стартовый капитал»':'Start Capital', description: currentLang==='ru'?'Сумма, с которой вы начинаете закупки.':'Your initial investment base.' } },
-                    { element: '#tour-field-roi', popover: { title: currentLang==='ru'?'«ROI за цикл»':'Cycle ROI', description: currentLang==='ru'?'Ваша чистая рентабельность на вложенные средства.':'Net return per 1 turnover cycle.' } },
-                    { element: '#tour-field-cycle', popover: { title: currentLang==='ru'?'«Дней в цикле»':'Cycle Days', description: currentLang==='ru'?'Оборачиваемость. Переводит ROI в реальный процент в месяц.':'Converts ROI to effective monthly rate based on cycle days.' } },
-                    { element: '#tour-field-months', popover: { title: currentLang==='ru'?'«Период»':'Period', description: currentLang==='ru'?'Горизонт планирования (например, 12 или 24 месяца).':'Forecast period in months.' } },
-                    { element: '#tour-field-add', popover: { title: currentLang==='ru'?'«Довложения»':'Top-up', description: currentLang==='ru'?'Регулярные вливания из личного бюджета в оборот.':'Regular external monthly injections.' } },
-                    { element: '#tour-field-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
-                    { element: '#tour-field-inflation', popover: { title: currentLang==='ru'?'«Инфляция»':'Inflation', description: currentLang==='ru'?'Показывает реальную покупательную способность будущего капитала в таблице.':'Shows real purchasing power in the table below.' } },
-                    { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'«Снижение ROI»':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности (потолок рынка): чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
-                    { element: '#tour-field-seasonality', popover: { title: currentLang==='ru'?'«Сезонность продаж»':'Sales Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
-                    { element: '#tour-field-scenarios', popover: { title: currentLang==='ru'?'«Вилка ROI»':'ROI Fork', description: currentLang==='ru'?'Сравнение пессимистичного и оптимистичного сценариев на одном графике.':'Compare pessimistic and optimistic scenarios directly on chart.' } },
-                    { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'«Реинвест»':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в бизнес. Остаток — ваши дивиденды.':'How much profit goes back to business.' } },
-                    { element: '#tour-field-dynamicReinvest', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
-                    { element: '#tour-field-goals', popover: { title: currentLang==='ru'?'«Финансовые цели»':'Goals', description: currentLang==='ru'?'Переименуйте их (например, «Машина») и впишите суммы. Алгоритм будет стремиться их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
-                    { element: '#tour-field-fixedCost', popover: { title: currentLang==='ru'?'«Пост. расходы»':'Fixed Costs', description: currentLang==='ru'?'Аренда, ЗП, сервисы. Вычитаются ежемесячно, повышая риск кассового разрыва.':'Monthly fixed expenses. Increases cash gap risk.' } },
-                    { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'«Ступени расходов»':'Step Costs', description: currentLang==='ru'?'Расходы растут вместе с бизнесом. Укажите, сколько добавлять за каждый новый заработанный миллион.':'Expenses grow with business. Add extra costs per million earned.' } },
-                    { element: '#tour-field-useCredit', popover: { title: currentLang==='ru'?'«Кредиты»':'Credit', description: currentLang==='ru'?'Добавьте кредит. Алгоритм сам посчитает ежемесячный аннуитетный платеж.':'Add credit. Algorithm calculates annuity payments.' } },
-                    { element: '#tour-field-costSeasonality', popover: { title: currentLang==='ru'?'«Сезонность трат»':'Cost Seasonality', description: currentLang==='ru'?'Удорожание логистики и складов в сезон (укажите месяцы и множитель).':'Increase fixed costs during expensive months.' } },
-                    { element: '#tour-step-hints', popover: { title: currentLang==='ru'?'«Аналитика и советы»':'Smart Hints', description: currentLang==='ru'?'Интеллектуальная система укажет на риски и рассчитает точку безубыточности.':'Intelligent system highlights risks and calculates break-even point.' } },
-                    { element: '#tour-field-planA', popover: { title: currentLang==='ru'?'«Сравнение»':'Compare', description: currentLang==='ru'?'Сохраните график как План А, измените метрики и сравните два сценария.':'Save chart as Plan A, change metrics and compare two scenarios.' } },
-                    { element: '#tour-projects', popover: { title: currentLang==='ru'?'«Проекты»':'Projects', description: currentLang==='ru'?'Сохраняйте разные финансовые сценарии и переключайтесь между ними в 1 клик.':'Save and switch between different financial scenarios easily.' } }
+                    { popover: { title: currentLang==='ru'?'Добро пожаловать!':'Welcome!', description: currentLang==='ru'?'Краткий тур по профессиональным функциям модели.':'A quick tour of the PRO model features.' } },
+                    { element: '#tour-step-goalseeker', popover: { title: currentLang==='ru'?'Обратный расчет':'Goal Seeker', description: currentLang==='ru'?'Укажите желаемый капитал, и мы рассчитаем, сколько нужно вложить сегодня.':'Calculate required start capital based on your target.' } },
+                    { element: '#tour-field-startCap', popover: { title: currentLang==='ru'?'Стартовый капитал':'Start Capital', description: currentLang==='ru'?'Сумма, с которой вы начинаете закупки.':'Your initial investment base.' } },
+                    { element: '#tour-field-roi', popover: { title: currentLang==='ru'?'ROI за цикл':'Cycle ROI', description: currentLang==='ru'?'Ваша чистая рентабельность на вложенные средства.':'Net return per 1 turnover cycle.' } },
+                    { element: '#tour-field-cycle', popover: { title: currentLang==='ru'?'Дней в цикле':'Cycle Days', description: currentLang==='ru'?'Оборачиваемость. Переводит ROI в реальный процент в месяц.':'Converts ROI to effective monthly rate based on cycle days.' } },
+                    { element: '#tour-field-months', popover: { title: currentLang==='ru'?'Период':'Period', description: currentLang==='ru'?'Горизонт планирования (например, 12 или 24 месяца).':'Forecast period in months.' } },
+                    { element: '#tour-field-add', popover: { title: currentLang==='ru'?'Довложения':'Top-up', description: currentLang==='ru'?'Регулярные вливания из личного бюджета в оборот.':'Regular external monthly injections.' } },
+                    { element: '#tour-field-tax', popover: { title: currentLang==='ru'?'Налоги':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
+                    { element: '#tour-field-inflation', popover: { title: currentLang==='ru'?'Инфляция':'Inflation', description: currentLang==='ru'?'Показывает реальную покупательную способность будущего капитала в таблице.':'Shows real purchasing power in the table below.' } },
+                    { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'Снижение ROI':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности (потолок рынка): чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
+                    { element: '#tour-field-seasonality', popover: { title: currentLang==='ru'?'Сезонность продаж':'Sales Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
+                    { element: '#tour-field-scenarios', popover: { title: currentLang==='ru'?'Вилка ROI':'ROI Fork', description: currentLang==='ru'?'Сравнение пессимистичного и оптимистичного сценариев на одном графике.':'Compare pessimistic and optimistic scenarios directly on chart.' } },
+                    { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'Реинвест':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в бизнес. Остаток — ваши дивиденды.':'How much profit goes back to business.' } },
+                    { element: '#tour-field-dynamicReinvest', popover: { title: currentLang==='ru'?'Умный реинвест':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
+                    { element: '#tour-field-goals', popover: { title: currentLang==='ru'?'Финансовые цели':'Goals', description: currentLang==='ru'?'Переименуйте их (например, «Машина») и впишите суммы. Алгоритм будет стремиться их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
+                    { element: '#tour-field-fixedCost', popover: { title: currentLang==='ru'?'Пост. расходы':'Fixed Costs', description: currentLang==='ru'?'Аренда, ЗП, сервисы. Вычитаются ежемесячно, повышая риск кассового разрыва.':'Monthly fixed expenses. Increases cash gap risk.' } },
+                    { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'Ступени расходов':'Step Costs', description: currentLang==='ru'?'Расходы растут вместе с бизнесом. Укажите, сколько добавлять за каждый новый заработанный миллион.':'Expenses grow with business. Add extra costs per million earned.' } },
+                    { element: '#tour-field-useCredit', popover: { title: currentLang==='ru'?'Кредиты':'Credit', description: currentLang==='ru'?'Добавьте кредит. Алгоритм сам посчитает ежемесячный аннуитетный платеж.':'Add credit. Algorithm calculates annuity payments.' } },
+                    { element: '#tour-field-costSeasonality', popover: { title: currentLang==='ru'?'Сезонность трат':'Cost Seasonality', description: currentLang==='ru'?'Удорожание логистики и складов в сезон (укажите месяцы и множитель).':'Increase fixed costs during expensive months.' } },
+                    { element: '#tour-step-hints', popover: { title: currentLang==='ru'?'Аналитика и советы':'Smart Hints', description: currentLang==='ru'?'Интеллектуальная система укажет на риски и рассчитает точку безубыточности.':'Intelligent system highlights risks and calculates break-even point.' } },
+                    { element: '#tour-field-planA', popover: { title: currentLang==='ru'?'Сравнение':'Compare', description: currentLang==='ru'?'Сохраните график как План А, измените метрики и сравните два сценария.':'Save chart as Plan A, change metrics and compare two scenarios.' } },
+                    { element: '#tour-projects', popover: { title: currentLang==='ru'?'Проекты':'Projects', description: currentLang==='ru'?'Сохраняйте разные финансовые сценарии и переключайтесь между ними в 1 клик.':'Save and switch between different financial scenarios easily.' } }
                 ]
             });
             driverObj.drive();
+        }
+
+        // --- МЕНЕДЖЕР ПРОЕКТОВ ---
+        function renderProjectsList() {
+            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]').sort((a,b) => b.timestamp - a.timestamp);
+            const list = document.getElementById('projectsList');
+            if(!list) return;
+            list.innerHTML = '';
+            if(projects.length === 0) {
+                list.innerHTML = `<p class="text-sm text-slate-400 text-center py-4">${currentLang === 'ru' ? 'Нет сохраненных проектов' : 'No saved projects'}</p>`; return;
+            }
+            projects.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = "flex justify-between items-center bg-slate-50 dark:bg-slate-700/30 p-3 rounded-xl border border-slate-200 dark:border-slate-700";
+                item.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="font-bold text-sm text-slate-800 dark:text-white">${p.projectName}</span>
+                        <span class="text-xs text-slate-500">${new Date(p.timestamp).toLocaleDateString()} | Cap: ${formatRawNumber(p.startCapital)}</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="loadProject(${idx})" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 p-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-lg transition-colors active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg></button>
+                        <button onclick="deleteProject(${idx})" class="text-rose-600 hover:text-rose-800 dark:text-rose-400 p-1.5 bg-rose-50 dark:bg-rose-900/20 rounded-lg transition-colors active:scale-95"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function saveNewProject() {
+            const name = document.getElementById('newProjectName').value.trim();
+            if(!name) { showToast(currentLang === 'ru' ? 'Введите название!' : 'Enter project name!'); return; }
+            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]');
+            const state = getStateObj();
+            state.projectName = name;
+            state.timestamp = new Date().getTime();
+            projects.push(state);
+            localStorage.setItem('roiCalcProjects', JSON.stringify(projects));
+            document.getElementById('newProjectName').value = '';
+            renderProjectsList();
+            showToast(currentLang === 'ru' ? 'Проект сохранен!' : 'Project saved!');
+        }
+
+        function loadProject(idx) {
+            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]');
+            if(projects[idx]) { applyStateObj(projects[idx]); calculate(); closeProjectsModal(); showToast(currentLang === 'ru' ? 'Проект загружен!' : 'Project loaded!'); }
+        }
+
+        function deleteProject(idx) {
+            let projects = JSON.parse(localStorage.getItem('roiCalcProjects') || '[]');
+            projects.splice(idx, 1);
+            localStorage.setItem('roiCalcProjects', JSON.stringify(projects));
+            renderProjectsList();
         }
 
         function showToast(message) {
@@ -1268,14 +1303,7 @@
             document.getElementById('pitch-table-container').innerHTML = `<table class="min-w-full divide-y divide-slate-200 text-left border border-slate-200 mt-4">${tableHTML}</table>`;
 
             const element = document.getElementById('pitch-template');
-            
-            // Надежный способ скрыть PDF-контейнер, не ломая html2canvas
-            element.style.position = 'absolute';
-            element.style.top = '0px';
-            element.style.left = '0px';
-            element.style.zIndex = '-9999';
-            element.style.opacity = '0.01';
-            element.style.pointerEvents = 'none';
+            element.style.position = 'absolute'; element.style.top = '0px'; element.style.left = '0px'; element.style.zIndex = '-9999'; element.style.opacity = '0.01'; element.style.pointerEvents = 'none';
 
             const opt = { 
                 margin: [0.5, 0.5, 0.5, 0.5], 
@@ -1307,16 +1335,37 @@
             return text;
         }
 
-        function shareSocial(platform) {
+        // TinyURL API (CORS friendly, returns text directly)
+        async function getShortUrl(longUrl) {
+            try {
+                const response = await fetch('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(longUrl));
+                if (response.ok) {
+                    return await response.text();
+                }
+            } catch (e) {
+                console.error("Shortener API failed", e);
+            }
+            return longUrl; // Fallback
+        }
+
+        async function shareSocial(platform) {
             let realUrl = window.location.href.split('?')[0];
             const urlParams = new URLSearchParams(window.location.search).toString(); 
             if(urlParams) realUrl += '?' + urlParams;
-            if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) { realUrl = 'https://rmslk.github.io/roi-calc/'; if(urlParams) realUrl += '?' + urlParams; }
+            if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) { 
+                realUrl = 'https://rmslk.github.io/roi-calc/'; 
+                if(urlParams) realUrl += '?' + urlParams; 
+            }
             
-            const fullText = generateShareText(realUrl);
-            if (platform === 'copy') { navigator.clipboard.writeText(fullText).then(() => showToast(currentLang === 'ru' ? 'Текст и ссылка скопированы!' : 'Text and link copied!')).catch(() => showToast(currentLang === 'ru' ? 'Ошибка копирования.' : 'Copy error.')); } 
+            showToast(currentLang === 'ru' ? 'Создаем короткую ссылку...' : 'Generating short link...');
+            const shortUrl = await getShortUrl(realUrl);
+            const fullText = generateShareText(shortUrl);
+            
+            if (platform === 'copy') { 
+                navigator.clipboard.writeText(fullText).then(() => showToast(currentLang === 'ru' ? 'Текст и ссылка скопированы!' : 'Text and link copied!')).catch(() => showToast(currentLang === 'ru' ? 'Ошибка копирования.' : 'Copy error.')); 
+            } 
             else {
-                let encodedUrl = encodeURIComponent(realUrl); let encodedText = encodeURIComponent(fullText); let shareUrl = '';
+                let encodedUrl = encodeURIComponent(shortUrl); let encodedText = encodeURIComponent(fullText); let shareUrl = '';
                 switch(platform) {
                     case 'tg': shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`; break;
                     case 'vk': shareUrl = `https://vk.com/share.php?url=${encodedUrl}&title=${encodedText}`; break;
@@ -1545,69 +1594,6 @@
             showToast(currentLang === 'ru' ? 'Расчет старта выполнен!' : 'Start Capital Calculated!');
         }
 
-        function openProjectsModal() {
-            renderProjectsList(); document.getElementById('projectsModal').classList.remove('hidden');
-            setTimeout(() => { document.getElementById('projectsModalContent').classList.remove('scale-95', 'opacity-0'); }, 10);
-        }
-        function closeProjectsModal() {
-            document.getElementById('projectsModalContent').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => { document.getElementById('projectsModal').classList.add('hidden'); }, 200);
-        }
-
-        function toggleTooltip(event, element) {
-            event.stopPropagation();
-            document.querySelectorAll('.tooltip-content').forEach(el => {
-                if (el !== element.nextElementSibling) { el.classList.add('hidden'); el.classList.remove('opacity-100'); }
-            });
-            const tooltip = element.nextElementSibling;
-            if (tooltip) {
-                const isHidden = tooltip.classList.contains('hidden');
-                if (isHidden) { tooltip.classList.remove('hidden'); setTimeout(() => tooltip.classList.add('opacity-100'), 10); } 
-                else { tooltip.classList.remove('opacity-100'); setTimeout(() => tooltip.classList.add('hidden'), 200); }
-            }
-        }
-        
-        document.addEventListener('click', (event) => {
-            document.querySelectorAll('.tooltip-content').forEach(el => {
-                el.classList.remove('opacity-100'); setTimeout(() => el.classList.add('hidden'), 200);
-            });
-            const currencyDropdown = document.getElementById('currencyDropdown');
-            const currencyContainer = document.getElementById('customCurrencyContainer');
-            if(currencyContainer && !currencyContainer.contains(event.target)) { currencyDropdown.classList.add('hidden'); }
-        });
-
-        const milestonePlugin = {
-            id: 'milestones',
-            afterDraw: (chart) => {
-                if (chart.config.type !== 'bar') return;
-                const ctx = chart.ctx;
-                const dsIndex = chart.data.datasets.findIndex(d => d.order === 2);
-                if(dsIndex === -1) return;
-                const meta = chart.getDatasetMeta(dsIndex);
-
-                if(!chart.options.plugins.milestonesData) return;
-                const achievements = chart.options.plugins.milestonesData;
-
-                ctx.save();
-                ctx.font = '14px Inter'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-
-                for (let i = 1; i <= 4; i++) {
-                    const month = achievements[i];
-                    if (month) {
-                        const index = month - 1; 
-                        if(index >= 0 && index < meta.data.length && meta.data[index]) {
-                            const point = meta.data[index];
-                            const x = point.x; const y = point.y;
-                            ctx.fillStyle = document.documentElement.classList.contains('dark') ? '#fcd34d' : '#f59e0b';
-                            ctx.fillText('🏆 ' + i, x, y - 8);
-                        }
-                    }
-                }
-                ctx.restore();
-            }
-        };
-        Chart.register(milestonePlugin);
-
         const initChart = () => {
             const ctx = document.getElementById('growthChart').getContext('2d');
             const isDark = document.documentElement.classList.contains('dark');
@@ -1824,16 +1810,6 @@
                     }
                 }
 
-                // Million Widget Control
-                const millionWidget = document.getElementById('millionWidget');
-                if (millionWidget) {
-                    let threshold = 1000000;
-                    if (currentCurrency === 'USD' || currentCurrency === 'EUR') threshold = 10000;
-                    if (currentCurrency === 'BYN') threshold = 35000;
-                    if (currentCurrency === 'KZT') threshold = 5000000;
-                    if (totalPayout >= threshold) { millionWidget.classList.remove('hidden'); } else { millionWidget.classList.add('hidden'); }
-                }
-
                 const alertBox = document.getElementById('cashGapAlert');
                 if(alertBox) { if (baseSim.hasGlobalCashGap) alertBox.classList.remove('hidden'); else alertBox.classList.add('hidden'); }
 
@@ -2027,35 +2003,6 @@
                 }
             } catch (e) { console.error("Initialization Error:", e); }
         };
-
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === 'class') { const isDark = document.documentElement.classList.contains('dark'); updateChartTheme(isDark); }
-            });
-        });
-        observer.observe(document.documentElement, { attributes: true });
-
-        let isPanelCollapsed = false; let collapseTimeout;
-
-        function updatePanelState() {
-            const topPanel = document.getElementById('topPanel'); const wrapper = document.getElementById('panelContentWrapper'); const btn = document.getElementById('panelToggleBtn');
-            if (isPanelCollapsed) { wrapper.classList.remove('max-w-lg', 'opacity-100'); wrapper.classList.add('max-w-0', 'opacity-0'); btn.classList.remove('hidden'); topPanel.classList.remove('px-4', 'md:px-4'); topPanel.classList.add('px-3'); } 
-            else { wrapper.classList.remove('max-w-0', 'opacity-0'); wrapper.classList.add('max-w-lg', 'opacity-100'); btn.classList.add('hidden'); topPanel.classList.add('px-4', 'md:px-4'); topPanel.classList.remove('px-3'); }
-        }
-
-        window.addEventListener('scroll', () => {
-            if (isTourActive) return;
-            if (window.scrollY > 150 && !isPanelCollapsed) { isPanelCollapsed = true; updatePanelState(); } 
-            else if (window.scrollY <= 150 && isPanelCollapsed) { isPanelCollapsed = false; updatePanelState(); }
-        });
-
-        function expandPanel() { if (window.scrollY > 150) { isPanelCollapsed = false; updatePanelState(); clearTimeout(collapseTimeout); } }
-        function collapsePanelIfScrolled() { if (isTourActive) return; if (window.scrollY > 150) { collapseTimeout = setTimeout(() => { isPanelCollapsed = true; updatePanelState(); }, 300); } }
-        function togglePanel() {
-            if (isTourActive) return;
-            isPanelCollapsed = !isPanelCollapsed; updatePanelState();
-            if(!isPanelCollapsed) { clearTimeout(collapseTimeout); collapseTimeout = setTimeout(() => { if (window.scrollY > 150 && !isTourActive) { isPanelCollapsed = true; updatePanelState(); } }, 4000); }
-        }
     </script>
 </body>
 </html>
