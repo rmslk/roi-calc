@@ -186,20 +186,6 @@
                     <span class="lang-en">Model your working capital growth. Find out when you can safely withdraw money from the business without stopping its development.</span>
                 </p>
             </div>
-            
-            <div id="cashGapAlert" class="hidden bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 p-5 rounded-2xl flex items-start gap-4 transition-all duration-300 transform hover:scale-[1.01]">
-                <svg class="w-6 h-6 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                <div>
-                    <h4 class="text-rose-800 dark:text-rose-300 font-bold text-base mb-1">
-                        <span class="lang-ru">Внимание: Риск кассового разрыва!</span>
-                        <span class="lang-en">Warning: Cash Gap Risk!</span>
-                    </h4>
-                    <p class="text-rose-600 dark:text-rose-400 text-sm leading-relaxed">
-                        <span class="lang-ru">В некоторых месяцах ваши постоянные расходы и платежи по кредитам превышают доступный капитал и прибыль. Увеличьте долю реинвеста, снизьте расходы или привлеките больше инвестиций.</span>
-                        <span class="lang-en">In some months, your fixed costs and loan payments exceed your available capital and profit. Increase reinvestment share, lower costs, or attract more investments.</span>
-                    </p>
-                </div>
-            </div>
 
             <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-6 rounded-3xl text-sm leading-relaxed text-left mx-auto max-w-4xl shadow-sm transition-all duration-300" data-html2canvas-ignore="true">
                 <div class="flex items-center justify-between cursor-pointer group" onclick="toggleInstruction()">
@@ -403,7 +389,6 @@
                             </div>
                         </div>
 
-                        <!-- 3 Scenarios Toggle -->
                         <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-scenarios">
                             <div class="flex flex-wrap items-center justify-start gap-4">
                                 <label class="flex items-center cursor-pointer">
@@ -542,7 +527,6 @@
                             <input type="text" inputmode="numeric" id="stepCost" value="0" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-center md:text-left">
                         </div>
 
-                        <!-- Сезонность трат -->
                         <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-2" id="tour-field-costSeasonality">
                             <div class="flex flex-wrap items-center justify-start gap-4">
                                 <div class="flex items-center gap-1.5">
@@ -1515,7 +1499,11 @@
                 let currentCreditPayment = (useCredit && month <= creditTerm) ? creditMonthlyPayment : 0;
                 
                 let isCashGap = false;
-                if (currentCapital + profitAfterTax + monthlyAdd < currentFixedCost + currentCreditPayment) { isCashGap = true; hasGlobalCashGap = true; }
+                let deficit = 0;
+                if (currentCapital + profitAfterTax + monthlyAdd < currentFixedCost + currentCreditPayment) { 
+                    isCashGap = true; hasGlobalCashGap = true; 
+                    deficit = (currentFixedCost + currentCreditPayment) - (currentCapital + profitAfterTax + monthlyAdd);
+                }
 
                 let netProfit = profitAfterTax - currentFixedCost - currentCreditPayment;
                 let currentReinvestShare = reinvestShare;
@@ -1535,7 +1523,7 @@
                 if(taxAmount > 0) totals.tax += taxAmount; if(currentFixedCost > 0) totals.cost += currentFixedCost;
                 if(currentCreditPayment > 0) totals.credit += currentCreditPayment; if(payout > 0) totals.payout += payout;
 
-                data.push({ month, startCapital: currentCapital, grossProfit, taxAmount, fixedCost: currentFixedCost, creditPayment: currentCreditPayment, profit: netProfit, monthlyAdd, payout, cumulativePayout, retained, endCapital, realEndCapital, isCashGap });
+                data.push({ month, startCapital: currentCapital, grossProfit, taxAmount, fixedCost: currentFixedCost, creditPayment: currentCreditPayment, profit: netProfit, monthlyAdd, payout, cumulativePayout, retained, endCapital, realEndCapital, isCashGap, deficit });
                 currentCapital = endCapital;
             }
             totals.retained = currentCapital - startCapital - (monthlyAdd * totalMonths);
@@ -1582,12 +1570,14 @@
                     }
                 }
 
-                const alertBox = document.getElementById('cashGapAlert');
-                if(alertBox) { if (baseSim.hasGlobalCashGap) alertBox.classList.remove('hidden'); else alertBox.classList.add('hidden'); }
-
                 const hintsList = document.getElementById('smartHintsList'); hintsList.innerHTML = '';
                 let breakEvenROI = baseSim.breakEvenROI * 100; let hintsCount = 0;
                 
+                if (baseSim.hasGlobalCashGap) {
+                    hintsList.innerHTML = `<li class="text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-500/10 p-3 rounded-xl border border-rose-200 dark:border-rose-500/20 mb-3 shadow-sm"><strong>${currentLang==='ru'?'⚠️ Внимание: Риск кассового разрыва!':'⚠️ Warning: Cash Gap Risk!'}</strong> ${currentLang==='ru'?'В некоторых месяцах вам не хватит денег на оплату фиксированных расходов или кредита. Посмотрите красные столбцы на графике ниже.':'In some months you will lack funds to cover fixed costs or credit. Check the red bars on the chart below.'}</li>` + hintsList.innerHTML;
+                    hintsCount++;
+                }
+
                 if(breakEvenROI > 0) { hintsList.innerHTML += `<li>${currentLang==='ru'?'Точка безубыточности в 1-й месяц':'Break-even ROI in month 1'}: <strong class="text-indigo-900 dark:text-indigo-200">${breakEvenROI.toFixed(1)}%</strong>. ${currentLang==='ru'?'Если ROI упадет ниже, вы уйдете в минус из-за расходов.':'If ROI drops below this, fixed costs will cause losses.'}</li>`; hintsCount++; }
                 if(state.reinvestShare === 100 && state.dynamicReinvest === 0 && totalPayout === 0) { hintsList.innerHTML += `<li>${currentLang==='ru'?'Вы реинвестируете 100% прибыли. Рост будет взрывным, но высокий риск выгорания из-за отсутствия личного дохода.':'100% reinvestment provides explosive growth, but carries high burnout risk without personal payout.'}</li>`; hintsCount++; }
                 if(state.useCredit === 1 && globalTotals.credit > globalTotals.gross * 0.3) { hintsList.innerHTML += `<li class="text-rose-600 dark:text-rose-400">${currentLang==='ru'?'Кредитная нагрузка съедает более 30% валовой прибыли. Рассмотрите рефинансирование.':'Credit load consumes >30% of gross profit. Consider refinancing.'}</li>`; hintsCount++; }
@@ -1604,19 +1594,44 @@
                 chartInstance.options.plugins.milestonesData = baseSim.achievements;
                 
                 let newDatasets = [
-                    { type: 'bar', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout', data: globalMonthlyData.map(d => d.payout), backgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 0.3)' : 'rgba(59, 130, 246, 0.3)'), hoverBackgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 1)' : 'rgba(59, 130, 246, 1)'), borderRadius: 4, order: 3, yAxisID: 'y1' },
-                    { type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Базовый)' : '\u00A0\u00A0Capital (Base)', data: globalMonthlyData.map(d => d.endCapital), borderColor: baseLineColor, backgroundColor: baseBgColor, borderWidth: 3, pointRadius: 2, pointBackgroundColor: basePointColor, fill: true, tension: 0.4, order: 2, yAxisID: 'y' }
+                    { 
+                        type: 'bar', 
+                        label: currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout', 
+                        data: globalMonthlyData.map(d => d.payout), 
+                        backgroundColor: 'rgba(59, 130, 246, 0.3)', hoverBackgroundColor: 'rgba(59, 130, 246, 1)', 
+                        borderRadius: 4, order: 3, yAxisID: 'y1' 
+                    },
+                    { 
+                        type: 'line', 
+                        label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Базовый)' : '\u00A0\u00A0Capital (Base)', 
+                        data: globalMonthlyData.map(d => d.endCapital), 
+                        borderColor: baseLineColor, backgroundColor: baseBgColor, borderWidth: 3, 
+                        pointRadius: globalMonthlyData.map(d => d.isCashGap ? 6 : 2),
+                        pointBackgroundColor: globalMonthlyData.map(d => d.isCashGap ? '#f43f5e' : basePointColor),
+                        pointBorderColor: globalMonthlyData.map(d => d.isCashGap ? '#f43f5e' : baseLineColor),
+                        fill: true, tension: 0.4, order: 2, yAxisID: 'y' 
+                    }
                 ];
+
+                if (baseSim.hasGlobalCashGap) {
+                    newDatasets.push({
+                        type: 'bar',
+                        label: currentLang === 'ru' ? '\u00A0\u00A0Дефицит (Нехватка)' : '\u00A0\u00A0Cash Deficit',
+                        data: globalMonthlyData.map(d => d.isCashGap ? -d.deficit : 0),
+                        backgroundColor: 'rgba(244, 63, 94, 0.8)',
+                        borderRadius: 4, order: 4, yAxisID: 'y'
+                    });
+                }
 
                 if (state.useScenarios) {
                     const pessSim = runSim(state.roiPessimistic, state); const optSim = runSim(state.roiOptimistic, state);
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Пессим.)' : '\u00A0\u00A0Capital (Pessimistic)', data: pessSim.data.map(d => d.endCapital), borderColor: 'rgba(244, 63, 94, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 4, yAxisID: 'y' });
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Оптим.)' : '\u00A0\u00A0Capital (Optimistic)', data: optSim.data.map(d => d.endCapital), borderColor: 'rgba(16, 185, 129, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 5, yAxisID: 'y' });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Пессим.)' : '\u00A0\u00A0Capital (Pessimistic)', data: pessSim.data.map(d => d.endCapital), borderColor: 'rgba(244, 63, 94, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 5, yAxisID: 'y' });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Оптим.)' : '\u00A0\u00A0Capital (Optimistic)', data: optSim.data.map(d => d.endCapital), borderColor: 'rgba(16, 185, 129, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 6, yAxisID: 'y' });
                 }
 
                 if (baselineData) {
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод (План А)' : '\u00A0\u00A0Payout (Plan A)', data: baselineData.map(d => d.payout), borderColor: 'rgba(16, 185, 129, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 6, yAxisID: 'y1' });
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (План А)' : '\u00A0\u00A0Capital (Plan A)', data: baselineData.map(d => d.capital), borderColor: 'rgba(59, 130, 246, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 7, yAxisID: 'y' });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод (План А)' : '\u00A0\u00A0Payout (Plan A)', data: baselineData.map(d => d.payout), borderColor: 'rgba(16, 185, 129, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 7, yAxisID: 'y1' });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (План А)' : '\u00A0\u00A0Capital (Plan A)', data: baselineData.map(d => d.capital), borderColor: 'rgba(59, 130, 246, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 8, yAxisID: 'y' });
                 }
 
                 chartInstance.options.scales.y.title.text = currentLang==='ru'?'Оборот':'Capital'; chartInstance.options.scales.y1.title.text = currentLang==='ru'?'Вывод на себя':'Payout';
