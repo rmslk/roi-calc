@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>Калькулятор капитализации PRO | Финансовое планирование и масштабирование</title>
     <meta name="description" content="Интерактивная финансовая модель и калькулятор сложного процента для e-commerce. Рассчитайте сроки выхода на масштабные финансовые цели с учетом налогов, кредитов, инфляции и сезонности.">
     <meta name="keywords" content="калькулятор капитализации, калькулятор сложного процента, финансовая модель селлера, юнит-экономика Ozon, масштабирование бизнеса, калькулятор ROI, расчет чистой прибыли маркетплейсы, Роман Солкин, кассовый разрыв, планирование дивидендов">
@@ -68,7 +67,6 @@
         .dark .progress-bar-bg { background-color: #334155; }
         .progress-bar-fill { background-color: #3b82f6; transition: width 0.5s ease-in-out; }
         .dark .progress-bar-fill { background-color: #60a5fa; }
-        
         #pitch-template { position: absolute; top: 0; left: 0; width: 800px; background: white; color: black; z-index: -9999; opacity: 0.01; pointer-events: none; padding: 40px; font-family: 'Inter', sans-serif; }
     </style>
 </head>
@@ -245,7 +243,6 @@
 
             <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 space-y-8">
                 
-                <!-- БЛОК 1: Базовые метрики -->
                 <div id="tour-step-1">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
                         <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
@@ -314,7 +311,6 @@
                     </div>
                 </div>
 
-                <!-- БЛОК 2: Рынок и Риски -->
                 <div id="tour-step-2">
                     <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
                         <span class="lang-ru">2. Рынок и Риски</span><span class="lang-en">2. Market & Risks</span>
@@ -439,7 +435,6 @@
                     </div>
                 </div>
 
-                <!-- БЛОК 3: Стратегия вывода (Цели) -->
                 <div id="tour-step-3">
                     <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
                         <span class="lang-ru">3. Стратегия вывода</span><span class="lang-en">3. Payout Strategy</span>
@@ -514,7 +509,6 @@
                     </div>
                 </div>
 
-                <!-- БЛОК 4: Кредит и Обязательства -->
                 <div id="tour-step-credit">
                     <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
                         <span class="lang-ru">4. Кредит и Обязательства</span><span class="lang-en">4. Credit & Liabilities</span>
@@ -636,7 +630,6 @@
 
             </div>
 
-            <!-- Карточки достижения целей с Прогресс-барами -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow border-t-4 border-t-blue-500">
                     <div id="cardGoalName1" class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">ЦЕЛЬ 1</div>
@@ -672,7 +665,6 @@
                 </div>
             </div>
 
-            <!-- Smart Hints -->
             <div id="tour-step-hints" class="bg-indigo-50/50 dark:bg-indigo-900/10 p-5 md:p-6 rounded-3xl border border-indigo-100 dark:border-indigo-800/30 flex flex-col md:flex-row gap-6 items-center shadow-sm">
                 <div class="flex-shrink-0 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
                     <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
@@ -687,9 +679,7 @@
                 </div>
             </div>
 
-            <!-- График и Сравнение -->
             <div id="tour-step-chart" class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
-                
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                     <div>
                         <h3 id="chartTitle" class="text-lg font-bold text-slate-800 dark:text-white mb-2">
@@ -706,7 +696,6 @@
                         </div>
                     </div>
 
-                    <!-- Total Payout -->
                     <div class="text-left md:text-right bg-blue-50 dark:bg-blue-500/10 px-5 py-3 rounded-2xl border border-blue-100 dark:border-blue-500/20">
                         <div class="text-xs font-semibold text-blue-600/70 dark:text-blue-400/80 uppercase tracking-wide mb-1">
                             <span class="lang-ru">Всего выведено за период</span><span class="lang-en">Total Payout</span>
@@ -731,7 +720,6 @@
                 </div>
             </div>
 
-            <!-- Таблица -->
             <div id="tour-step-table" class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4">
                     <h3 id="tableTitle" class="text-lg font-bold text-slate-800 dark:text-white text-center md:text-left">
@@ -768,9 +756,7 @@
                 </div>
             </div>
 
-            <!-- Нижний блок -->
             <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col gap-6" data-html2canvas-ignore="true">
-                
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700/50 pb-6">
                     <div class="flex items-center flex-wrap gap-3 w-full justify-center lg:justify-start">
                         <span class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mr-2">
@@ -794,7 +780,6 @@
                             <span class="lang-ru">Поделиться результатами:</span>
                             <span class="lang-en">Share results:</span>
                         </p>
-                        
                         <div class="flex flex-wrap justify-center items-center gap-3">
                             <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Telegram">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
@@ -804,9 +789,7 @@
                             </button>
                         </div>
                     </div>
-
                     <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block mx-2"></div>
-                    
                     <button onclick="openFeedbackModal()" class="px-6 py-2.5 bg-slate-100 dark:bg-slate-700/50 text-slate-800 dark:text-white font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200 flex-shrink-0 text-sm md:text-base w-full lg:w-auto border border-slate-200/60 dark:border-slate-600 active:scale-95">
                         <span class="lang-ru">Обратная связь</span>
                         <span class="lang-en">Send Feedback</span>
@@ -814,27 +797,32 @@
                 </div>
             </div>
 
-            <!-- SEO Статья -->
             <article class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 mb-8 text-slate-600 dark:text-slate-400 leading-relaxed" data-html2canvas-ignore="true">
                 <div class="lang-ru space-y-4 text-[15px] md:text-base">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">Магия чисел: Как превратить расчет чистой прибыли в масштабирование бизнеса</h2>
                     <p>Выручка на маркетплейсах — это тщеславие. Чистая прибыль — это реальность. А оборотный капитал — это ваше топливо.</p>
                     <p>Большинство селлеров застревают на одном уровне выручки по одной простой причине: они вытаскивают деньги из бизнеса раньше времени или неправильно оценивают кредитную нагрузку. Чтобы избежать кассовых разрывов, вам не нужна ученая степень по экономике. Вам нужна прозрачная финансовая модель.</p>
                     <p>Наш профессиональный <strong>калькулятор сложного процента для бизнеса</strong> создан именно для этого. Это не просто таблица. Это инструмент визуализации вашего будущего.</p>
-                    
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Секрет взрывного роста: Сила реинвестирования</h3>
                     <p>Альберт Эйнштейн называл сложный процент восьмым чудом света. В e-commerce это правило работает безупречно. Постоянный возврат заработанных средств (реинвестирование прибыли) обратно в закупку товаров заставляет ваш капитал расти по экспоненте.</p>
-                    
                     <div class="bg-blue-50 dark:bg-slate-700/50 p-6 md:p-8 rounded-2xl mt-8 border border-blue-100 dark:border-slate-600">
                         <p class="mb-4 text-slate-900 dark:text-white"><strong>Меня зовут Роман Солкин.</strong> Я — практикующий эксперт и менеджер по комплексному сопровождению магазинов на Ozon.</p>
                         <p class="text-slate-900 dark:text-white font-medium">Перестаньте угадывать. Начните зарабатывать. <br class="md:hidden"><a href="https://t.me/OzonGreenROI" target="_blank" class="text-blue-600 dark:text-blue-400 font-bold hover:underline transition-all">Подписывайтесь на мой Telegram-канал «Прибыльный OZON»</a>, чтобы узнать, как мы можем масштабировать ваш бизнес уже в этом месяце.</p>
                     </div>
                 </div>
+                <div class="lang-en space-y-4 text-[15px] md:text-base">
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">The Magic of Numbers: How to Turn Net Profit Calculation into Business Scaling</h2>
+                    <p>Revenue on marketplaces is vanity. Net profit is reality. And working capital is your fuel.</p>
+                    <p>Our professional <strong>business compound interest calculator</strong> is designed exactly for this. It's not just a spreadsheet. It's a tool to visualize your future.</p>
+                    <div class="bg-blue-50 dark:bg-slate-700/50 p-6 md:p-8 rounded-2xl mt-8 border border-blue-100 dark:border-slate-600">
+                        <p class="mb-4 text-slate-900 dark:text-white"><strong>My name is Roman Solkin.</strong> I am a practicing expert and manager for comprehensive support of Ozon stores.</p>
+                        <p class="text-slate-900 dark:text-white font-medium">Stop guessing. Start earning. <br class="md:hidden"><a href="https://t.me/OzonGreenROI" target="_blank" class="text-blue-600 dark:text-blue-400 font-bold hover:underline transition-all">Subscribe to my Telegram channel "Profitable OZON"</a> to learn how we can scale your business this month.</p>
+                    </div>
+                </div>
             </article>
 
-        </div> <!-- End of #pdf-area -->
+        </div>
         
-        <!-- Скрытый шаблон для PDF Инвест-Питча -->
         <div id="pitch-template" class="bg-white">
             <div class="text-center border-b-4 border-blue-600 pb-6 mb-8">
                 <h1 class="text-4xl font-bold text-slate-900 uppercase tracking-widest mb-2">
@@ -845,6 +833,10 @@
                     <span class="lang-ru">Финансовая модель и прогноз капитализации</span>
                     <span class="lang-en">Financial Model & Capitalization Forecast</span>
                 </p>
+                <div class="mt-4 text-sm font-semibold text-blue-600">
+                    <span class="lang-ru">Сгенерировано: Калькулятор Капитализации PRO</span>
+                    <span class="lang-en">Generated by: Capitalization Calculator PRO</span>
+                </div>
             </div>
             <div class="grid grid-cols-2 gap-8 mb-10">
                 <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -879,10 +871,13 @@
                 </h3>
                 <div id="pitch-table-container" class="text-[11px]"></div>
             </div>
+            <div class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-400">
+                <span class="lang-ru">Документ не является публичной офертой или гарантией доходности. Прогноз основан на математической модели сложного процента с учетом введенных параметров риска.</span>
+                <span class="lang-en">This document is not a public offer or guarantee of profitability. The forecast is based on a compound interest mathematical model factoring in the provided risk parameters.</span>
+            </div>
         </div>
     </main>
 
-    <!-- Футер -->
     <footer class="mt-auto bg-slate-900 dark:bg-black py-8 flex justify-center border-t border-slate-800" data-html2canvas-ignore="true">
         <a href="https://t.me/OzonGreenROI" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-slate-300 hover:text-white transition-colors group">
             <svg class="w-6 h-6 fill-current text-[#0088cc]" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
@@ -894,17 +889,12 @@
 
     <div id="feedbackModal" class="hidden fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" data-html2canvas-ignore="true">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-200 dark:border-slate-700 relative transform transition-transform scale-95 opacity-0" id="feedbackModalContent">
-            <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">
-                <span class="lang-ru">Обратная связь</span><span class="lang-en">Feedback</span>
-            </h3>
-            <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">
-                <span class="lang-ru">Есть идеи для доработки калькулятора или вы нашли ошибку? Напишите нам.</span>
-                <span class="lang-en">Have ideas to improve the calculator or found a bug? Let us know.</span>
-            </p>
+            <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white"><span class="lang-ru">Обратная связь</span><span class="lang-en">Feedback</span></h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-6"><span class="lang-ru">Есть идеи для доработки калькулятора или вы нашли ошибку? Напишите нам.</span><span class="lang-en">Have ideas to improve the calculator or found a bug? Let us know.</span></p>
             <textarea id="feedbackText" rows="5" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 mb-6 resize-none shadow-inner" placeholder="..."></textarea>
             <div class="flex justify-end space-x-3">
-                <button onclick="closeFeedbackModal()" class="px-5 py-2.5 text-slate-600 dark:text-slate-400 font-medium hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors active:scale-95">Отмена</button>
-                <button id="sendBtn" onclick="sendFeedback()" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-md active:scale-95">Отправить</button>
+                <button onclick="closeFeedbackModal()" class="px-5 py-2.5 text-slate-600 dark:text-slate-400 font-medium hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors active:scale-95"><span class="lang-ru">Отмена</span><span class="lang-en">Cancel</span></button>
+                <button id="sendBtn" onclick="sendFeedback()" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors shadow-md active:scale-95"><span class="lang-ru">Отправить</span><span class="lang-en">Send</span></button>
             </div>
         </div>
     </div>
@@ -967,6 +957,61 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
             updateChartTheme(isDark);
         }
+
+        const watermarkPlugin = {
+            id: 'watermark',
+            beforeDraw: (chart) => {
+                if (chart.config.type !== 'bar') return;
+                const ctx = chart.ctx; const width = chart.width; const height = chart.height;
+                ctx.save(); ctx.font = 'bold 3.5rem Inter';
+                ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.03)' : 'rgba(15, 23, 42, 0.03)';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.translate(width / 2, height / 2); ctx.rotate(-Math.PI / 6);
+                ctx.fillText('t.me/OzonGreenROI', 0, 0); ctx.restore();
+            }
+        };
+
+        const milestonesPlugin = {
+            id: 'milestones',
+            afterDatasetsDraw(chart) {
+                if (chart.config.type !== 'bar') return;
+                const { ctx, data, scales: { x, y } } = chart;
+                const milestones = chart.options.plugins.milestonesData || {};
+                const dataset = data.datasets.find(d => d.label && (d.label.includes('Capital (Base)') || d.label.includes('Оборот (Базовый)')));
+                if (!dataset) return;
+                const meta = chart.getDatasetMeta(data.datasets.indexOf(dataset));
+                
+                Object.keys(milestones).forEach(goalId => {
+                    const month = milestones[goalId];
+                    if (!month) return;
+                    const index = month - 1;
+                    if (index >= 0 && index < meta.data.length) {
+                        const point = meta.data[index];
+                        ctx.save();
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.beginPath();
+                        ctx.moveTo(point.x, point.y - 10);
+                        ctx.lineTo(point.x + 8, point.y - 15);
+                        ctx.lineTo(point.x, point.y - 20);
+                        ctx.fill();
+                        ctx.strokeStyle = '#f59e0b';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.moveTo(point.x, point.y - 10);
+                        ctx.lineTo(point.x, point.y - 25);
+                        ctx.stroke();
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = 'bold 10px Inter, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillStyle = '#f59e0b';
+                        ctx.fillText(goalId, point.x, point.y - 32);
+                        ctx.restore();
+                    }
+                });
+            }
+        };
+        Chart.register(watermarkPlugin, milestonesPlugin);
 
         function updateChartTheme(isDark) {
             if(!chartInstance) return;
@@ -1253,14 +1298,17 @@
                     }
                 }
                 const jsonStr = JSON.stringify(minState);
-                return LZString.compressToEncodedURIComponent(jsonStr); 
+                if (window.LZString) return LZString.compressToEncodedURIComponent(jsonStr);
+                return btoa(unescape(encodeURIComponent(jsonStr)));
             } catch(e) { return ''; }
         }
 
         function decodeState(encoded) {
             try { 
-                const jsonStr = LZString.decompressFromEncodedURIComponent(encoded);
-                if (jsonStr) return JSON.parse(jsonStr);
+                if (window.LZString) {
+                    const jsonStr = LZString.decompressFromEncodedURIComponent(encoded);
+                    if (jsonStr) return JSON.parse(jsonStr);
+                }
                 return JSON.parse(decodeURIComponent(escape(atob(encoded)))); 
             } catch(e) { 
                 try { return JSON.parse(decodeURIComponent(escape(atob(encoded)))); } catch(err) { return null; }
@@ -1361,7 +1409,7 @@
             document.getElementById('pitch-table-container').innerHTML = `<table class="min-w-full divide-y divide-slate-200 text-left border border-slate-200 mt-4">${tableHTML}</table>`;
 
             const element = document.getElementById('pitch-template');
-            element.style.position = 'absolute'; element.style.top = '0px'; element.style.left = '0px'; element.style.zIndex = '-9999'; element.style.opacity = '0.01'; element.style.pointerEvents = 'none';
+            element.style.top = '0px'; element.style.zIndex = '-9999'; element.style.opacity = '0.01'; element.style.position = 'absolute'; element.style.pointerEvents = 'none'; element.style.left = '0px';
             const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: 'Investment_Pitch.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#ffffff', useCORS: true, windowWidth: 1200 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
             
             html2pdf().set(opt).from(element).save().then(() => {
@@ -1676,6 +1724,8 @@
                 if (!localStorage.getItem('tourCompletedPRO3')) { setTimeout(startTour, 1000); localStorage.setItem('tourCompletedPRO3', 'true'); }
             } catch (e) { console.error("Initialization Error:", e); }
         };
+        const observer = new MutationObserver((mutations) => { mutations.forEach((mutation) => { if (mutation.attributeName === 'class') { const isDark = document.documentElement.classList.contains('dark'); updateChartTheme(isDark); } }); });
+        observer.observe(document.documentElement, { attributes: true });
     </script>
 </body>
 </html>
