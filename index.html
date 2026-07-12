@@ -633,20 +633,20 @@
                         const point = meta.data[index];
                         ctx.save();
                         
-                        // Отрисовка полотна флага (Правильная ориентация)
+                        // Отрисовка полотна флага (Правильная ориентация, чуть меньше)
                         ctx.fillStyle = '#f59e0b';
                         ctx.beginPath();
-                        ctx.moveTo(point.x, point.y - 30); // Верх флага на древке
-                        ctx.lineTo(point.x + 10, point.y - 25); // Острый конец вправо
-                        ctx.lineTo(point.x, point.y - 20); // Низ флага на древке
+                        ctx.moveTo(point.x, point.y - 24); // Верх флага
+                        ctx.lineTo(point.x + 8, point.y - 20); // Острый конец вправо
+                        ctx.lineTo(point.x, point.y - 16); // Низ флага
                         ctx.fill();
                         
-                        // Отрисовка флагштока
+                        // Отрисовка флагштока (Короче)
                         ctx.strokeStyle = '#f59e0b';
                         ctx.lineWidth = 2;
                         ctx.beginPath();
-                        ctx.moveTo(point.x, point.y - 5);
-                        ctx.lineTo(point.x, point.y - 30);
+                        ctx.moveTo(point.x, point.y - 6);
+                        ctx.lineTo(point.x, point.y - 24);
                         ctx.stroke();
                         
                         // Текст над флажком
@@ -654,10 +654,48 @@
                         ctx.font = 'bold 10px Inter, sans-serif';
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
-                        ctx.fillText(goal.id, point.x, point.y - 38);
+                        ctx.fillText(goal.id, point.x, point.y - 32);
                         ctx.restore();
                     }
                 });
+            },
+            afterDraw(chart) {
+                if (chart.config.type !== 'bar') return;
+                const tooltip = chart.tooltip;
+                if (tooltip && tooltip.opacity > 0 && tooltip.dataPoints && tooltip.dataPoints.length > 0) {
+                    const currentMonth = tooltip.dataPoints[0].dataIndex + 1;
+                    const milestones = chart.options.plugins.milestonesData || [];
+                    const achievedGoals = milestones.filter(g => g.achievedMonth === currentMonth);
+                    
+                    if (achievedGoals.length > 0) {
+                        const ctx = chart.ctx;
+                        const padX = (tooltip.options.padding && tooltip.options.padding.x) || tooltip.options.padding || 8;
+                        const padY = (tooltip.options.padding && tooltip.options.padding.y) || tooltip.options.padding || 8;
+                        
+                        const x = tooltip.x + padX + 2; 
+                        let y = tooltip.y + padY + 13 + 6 + 6; 
+
+                        achievedGoals.forEach((goal) => {
+                            ctx.save();
+                            ctx.fillStyle = '#f59e0b';
+                            ctx.beginPath();
+                            ctx.moveTo(x, y - 7);
+                            ctx.lineTo(x + 7, y - 3.5);
+                            ctx.lineTo(x, y);
+                            ctx.fill();
+                            
+                            ctx.strokeStyle = '#f59e0b';
+                            ctx.lineWidth = 1.5;
+                            ctx.beginPath();
+                            ctx.moveTo(x, y + 4);
+                            ctx.lineTo(x, y - 7);
+                            ctx.stroke();
+                            ctx.restore();
+                            
+                            y += 15; 
+                        });
+                    }
+                }
             }
         };
         Chart.register(watermarkPlugin, milestonesPlugin);
@@ -1035,8 +1073,12 @@
                                     const dataIndex = context[0].dataIndex; const currentMonth = dataIndex + 1;
                                     const chart = context[0].chart; const milestones = chart.options.plugins.milestonesData || [];
                                     let achievedGoals = [];
-                                    milestones.forEach(goal => { if (goal.achievedMonth === currentMonth) { achievedGoals.push(`🚩 ${goal.name} достигнута!`); } });
-                                    if (achievedGoals.length > 0) { achievedGoals.push(''); }
+                                    milestones.forEach(goal => { 
+                                        if (goal.achievedMonth === currentMonth) { 
+                                            const text = currentLang === 'ru' ? `    Финансовая цель ${goal.id} достигнута!` : `    Financial goal ${goal.id} achieved!`;
+                                            achievedGoals.push(text); 
+                                        } 
+                                    });
                                     return achievedGoals.length > 0 ? achievedGoals : null;
                                 },
                                 label: function(context) { let label = context.dataset.label || ''; if (label) { label = label.trim() + ': '; } if (context.parsed.y !== null) { label += formatMoney(context.parsed.y); } return label; } 
