@@ -750,6 +750,9 @@
                             <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Telegram">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
                             </button>
+                            <button onclick="shareSocial('vk')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0077FF] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="VK">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.959 8.61c-.13-.42-.455-.66-.88-.66h-2.613c-.5 0-.79.256-.96.657 0 0-1.328 3.193-3.197 5.267-.61.6-1.02.787-1.32.787-.15 0-.34-.187-.34-.657V8.61c0-.5-.15-.81-.62-.81H9.866c-.35 0-.56.257-.56.5 0 .52.78.643.86 2.115v3.194c0 .64-.13.788-.43.788-.81 0-2.79-3.21-3.95-6.883-.24-.657-.48-.81-1.09-.81H2.083c-.68 0-.82.316-.82.656 0 .61 1.05 4.887 4.54 9.08 2.33 2.79 5.61 4.302 8.56 4.302 1.77 0 1.99-.395 1.99-1.076v-2.47c0-.61.13-.73.6-.73.34 0 .94.17 2.33 1.517 1.58 1.63 1.84 2.36 2.87 2.36h2.61c.68 0 1.02-.34.83-1.01-.23-.66-1.07-1.64-2.18-2.88-5.26-5.24-1.23-3.8-2.16-5.06-.61-.83-.43-1.21 0-1.89 0 0 2.54-3.567 2.78-4.757z"/></svg>
+                            </button>
                             <button onclick="shareSocial('copy')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-blue-500 hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Copy Text & Link">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                             </button>
@@ -1396,12 +1399,16 @@
             document.getElementById('pitch-table-container').innerHTML = `<table class="min-w-full divide-y divide-slate-200 text-left border border-slate-200 mt-4">${tableHTML}</table>`;
 
             const element = document.getElementById('pitch-template');
-            element.style.top = '0'; element.style.zIndex = '100'; 
+            element.style.top = '0';
+            element.style.left = '0'; // FIX: Ensures the element is in the viewport bounds horizontally 
+            element.style.zIndex = '100'; 
             
             const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: 'Investment_Pitch.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#ffffff', windowWidth: 1200 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
             
             html2pdf().set(opt).from(element).save().then(() => {
-                element.style.top = '-9999px'; element.style.zIndex = '-100'; 
+                element.style.top = '-9999px';
+                element.style.left = '-9999px'; // Restoring hidden state
+                element.style.zIndex = '-100'; 
                 if (isDark) {
                     document.documentElement.classList.add('dark');
                     updateChartTheme(true);
@@ -1620,7 +1627,7 @@
                 
                 let newDatasets = [
                     { type: 'bar', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout', data: globalMonthlyData.map(d => d.payout), backgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 0.8)' : 'rgba(59, 130, 246, 0.8)'), borderRadius: 4, order: 3 },
-                    { type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (База)' : '\u00A0\u00A0Capital (Base)', data: globalMonthlyData.map(d => d.endCapital), borderColor: baseLineColor, backgroundColor: baseBgColor, borderWidth: 3, pointRadius: 2, pointBackgroundColor: basePointColor, fill: true, tension: 0.4, order: 2 }
+                    { type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Базовый)' : '\u00A0\u00A0Capital (Base)', data: globalMonthlyData.map(d => d.endCapital), borderColor: baseLineColor, backgroundColor: baseBgColor, borderWidth: 3, pointRadius: 2, pointBackgroundColor: basePointColor, fill: true, tension: 0.4, order: 2 }
                 ];
 
                 if (state.useScenarios) {
@@ -1713,7 +1720,6 @@
             });
         };
 
-        // --- БЕЗОПАСНАЯ ИНИЦИАЛИЗАЦИЯ И СЛУШАТЕЛИ ---
         window.onload = () => {
             try {
                 initInstruction();
@@ -1752,7 +1758,6 @@
         });
         observer.observe(document.documentElement, { attributes: true });
 
-        // --- УМНОЕ СКРЫТИЕ ПАНЕЛИ ---
         let isPanelCollapsed = false; let collapseTimeout;
 
         function updatePanelState() {
