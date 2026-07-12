@@ -24,7 +24,6 @@
         }
     </script>
     
-    <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
@@ -69,7 +68,8 @@
         .dark .progress-bar-bg { background-color: #334155; }
         .progress-bar-fill { background-color: #3b82f6; transition: width 0.5s ease-in-out; }
         .dark .progress-bar-fill { background-color: #60a5fa; }
-        #pitch-template { position: fixed; top: -9999px; left: -9999px; width: 800px; background: white; color: black; z-index: -100; padding: 40px; font-family: 'Inter', sans-serif; }
+        
+        #pitch-template { position: absolute; top: 0; left: 0; width: 800px; background: white; color: black; z-index: -9999; opacity: 0.01; pointer-events: none; padding: 40px; font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 lang-ru relative">
@@ -118,7 +118,6 @@
         </div>
     </div>
 
-    <!-- Modals for Projects -->
     <div id="projectsModal" class="hidden fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" data-html2canvas-ignore="true">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-200 dark:border-slate-700 relative transform transition-transform scale-95 opacity-0" id="projectsModalContent">
             <h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">
@@ -139,7 +138,6 @@
         </div>
     </div>
 
-    <!-- Goal Seeker Modal -->
     <div id="goalSeekerModal" class="hidden fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" data-html2canvas-ignore="true">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-200 dark:border-slate-700 relative transform transition-transform scale-95 opacity-0" id="goalSeekerContent">
             <div class="flex items-center gap-3 mb-4">
@@ -180,8 +178,8 @@
             
             <div class="flex flex-col mb-6 text-center px-2">
                 <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-                    <span class="lang-ru">Калькулятор капитализации PRO<span class="hidden md:inline">:</span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">от стартового капитала до масштабных финансовых целей</span></span>
-                    <span class="lang-en">Capitalization Calculator PRO<span class="hidden md:inline">:</span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">from starting capital to major financial goals</span></span>
+                    <span class="lang-ru">Калькулятор капитализации PRO<span class="hidden md:inline"></span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">от стартового капитала до масштабных финансовых целей</span></span>
+                    <span class="lang-en">Capitalization Calculator PRO<span class="hidden md:inline"></span><br class="md:hidden"> <span class="text-2xl md:text-4xl text-blue-600 dark:text-blue-400 mt-1 md:mt-0 inline-block">from starting capital to major financial goals</span></span>
                 </h1>
                 <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
                     <span class="lang-ru">Смоделируйте рост оборотных средств. Узнайте, когда вы сможете безопасно забирать деньги из бизнеса, не останавливая его развитие.</span>
@@ -419,6 +417,11 @@
                                     </div>
                                     <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Сравнение 3-х сценариев (Вилка ROI)</span><span class="lang-en">Compare 3 Scenarios (ROI Fork)</span></span>
                                 </label>
+                                <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="tooltip-content absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-64 text-center shadow-xl z-50">
+                                    <span class="lang-ru">Сравните базовый сценарий с оптимистичным и пессимистичным прямо на графике.</span>
+                                    <span class="lang-en">Compare base scenario with optimistic and pessimistic directly on the chart.</span>
+                                </div>
                                 
                                 <div id="scenariosWrapper" class="hidden flex flex-wrap items-center gap-4 relative">
                                     <div class="flex items-center gap-2">
@@ -582,7 +585,7 @@
                                     </label>
                                     <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     <div class="tooltip-content absolute bottom-full mb-2 left-0 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-48 text-center shadow-xl z-50">
-                                        <span class="lang-ru">Горизонт планирования для визуализации.</span>
+                                        <span class="lang-ru">Годовая процентная ставка.</span>
                                         <span class="lang-en">Annual interest rate.</span>
                                     </div>
                                 </div>
@@ -597,12 +600,43 @@
                                 <input type="number" id="creditTerm" value="12" min="1" placeholder="мес" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
                             </div>
                         </div>
+
+                        <!-- Сезонность трат -->
+                        <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-costSeasonality">
+                            <div class="flex flex-wrap items-center justify-start gap-4">
+                                <div class="flex items-center gap-1.5">
+                                    <label class="flex items-center cursor-pointer">
+                                        <div class="relative flex-shrink-0">
+                                            <input type="checkbox" id="costSeasonality" class="sr-only peer" onchange="toggleCostSeasonalityFields()">
+                                            <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
+                                        </div>
+                                        <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Сезонность трат</span><span class="lang-en">Cost Seasonality</span></span>
+                                    </label>
+                                    <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-help transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <div class="tooltip-content absolute bottom-full mb-2 left-0 md:left-1/2 md:-translate-x-1/2 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-64 text-center shadow-xl z-50">
+                                        <span class="lang-ru">Удорожание логистики и складов в сезон (например, ноябрь-декабрь). Укажите множитель.</span>
+                                        <span class="lang-en">Increase fixed costs during expensive months.</span>
+                                    </div>
+                                </div>
+                                
+                                <div id="costSeasonalityWrapper" class="hidden flex flex-wrap items-center gap-3 relative">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs text-slate-500 dark:text-slate-400"><span class="lang-ru">Месяцы:</span><span class="lang-en">Months:</span></span>
+                                        <input type="text" id="costSeasonalityMonths" value="10, 11, 12" placeholder="10, 11, 12" class="w-[80px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium text-slate-800 dark:text-slate-200 transition-all">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs text-slate-500 dark:text-slate-400"><span class="lang-ru">Множитель:</span><span class="lang-en">Multiplier:</span></span>
+                                        <input type="number" id="costSeasonalityMultiplier" value="1.5" step="0.1" min="0.1" class="w-[70px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium text-slate-800 dark:text-slate-200 transition-all">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
 
-            <!-- Карточки достижения целей с Прогресс-барами -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow border-t-4 border-t-blue-500">
                     <div id="cardGoalName1" class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">ЦЕЛЬ 1</div>
@@ -638,6 +672,25 @@
                 </div>
             </div>
 
+            <!-- Виджет 1 миллион -->
+            <div id="millionWidget" class="hidden bg-gradient-to-r from-amber-100 to-yellow-300 dark:from-amber-900/40 dark:to-yellow-700/40 p-5 md:p-6 rounded-3xl shadow-sm border border-amber-200 dark:border-amber-600/50 flex flex-col md:flex-row items-center justify-between gap-4 transform transition-all hover:scale-[1.01]">
+                <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm">
+                        <span class="text-3xl">🎉</span>
+                    </div>
+                    <div>
+                        <h4 class="text-amber-900 dark:text-amber-300 font-bold text-lg mb-1">
+                            <span class="lang-ru">Поздравляем! Ваш первый миллион!</span>
+                            <span class="lang-en">Congratulations! Your first million!</span>
+                        </h4>
+                        <p class="text-amber-800/80 dark:text-amber-200/80 text-sm font-medium">
+                            <span class="lang-ru">Вы вывели на себя суммарно более 1 000 000. Так держать!</span>
+                            <span class="lang-en">You have successfully withdrawn over 1,000,000. Keep it up!</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Smart Hints -->
             <div id="tour-step-hints" class="bg-indigo-50/50 dark:bg-indigo-900/10 p-5 md:p-6 rounded-3xl border border-indigo-100 dark:border-indigo-800/30 flex flex-col md:flex-row gap-6 items-center shadow-sm">
                 <div class="flex-shrink-0 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
@@ -653,7 +706,6 @@
                 </div>
             </div>
 
-            <!-- График и Сравнение -->
             <div id="tour-step-chart" class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
                 
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
@@ -672,7 +724,6 @@
                         </div>
                     </div>
 
-                    <!-- Total Payout -->
                     <div class="text-left md:text-right bg-blue-50 dark:bg-blue-500/10 px-5 py-3 rounded-2xl border border-blue-100 dark:border-blue-500/20">
                         <div class="text-xs font-semibold text-blue-600/70 dark:text-blue-400/80 uppercase tracking-wide mb-1">
                             <span class="lang-ru">Всего выведено за период</span><span class="lang-en">Total Payout</span>
@@ -705,7 +756,6 @@
                         <span class="lang-en">Monthly Breakdown</span>
                     </h3>
                     
-                    <!-- Table Mode Toggle -->
                     <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700/50 p-1 rounded-xl">
                         <button onclick="setTableMode('all')" id="btnTableAll" class="px-4 py-2 text-sm font-semibold rounded-lg bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400 transition-all">
                             <span class="lang-ru">Вся бухгалтерия</span><span class="lang-en">Full Accounting</span>
@@ -735,9 +785,7 @@
                 </div>
             </div>
 
-            <!-- Нижний блок -->
             <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col gap-6" data-html2canvas-ignore="true">
-                
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700/50 pb-6">
                     <div class="flex items-center flex-wrap gap-3 w-full justify-center lg:justify-start">
                         <span class="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mr-2">
@@ -761,7 +809,6 @@
                             <span class="lang-ru">Поделиться результатами:</span>
                             <span class="lang-en">Share results:</span>
                         </p>
-                        
                         <div class="flex flex-wrap justify-center items-center gap-3">
                             <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Telegram">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
@@ -771,9 +818,7 @@
                             </button>
                         </div>
                     </div>
-
                     <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block mx-2"></div>
-                    
                     <button onclick="openFeedbackModal()" class="px-6 py-2.5 bg-slate-100 dark:bg-slate-700/50 text-slate-800 dark:text-white font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200 flex-shrink-0 text-sm md:text-base w-full lg:w-auto border border-slate-200/60 dark:border-slate-600 active:scale-95">
                         <span class="lang-ru">Обратная связь</span>
                         <span class="lang-en">Send Feedback</span>
@@ -781,25 +826,21 @@
                 </div>
             </div>
 
-            <!-- SEO Статья (Новая маркетинговая) -->
             <article class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 mb-8 text-slate-600 dark:text-slate-400 leading-relaxed" data-html2canvas-ignore="true">
                 <div class="lang-ru space-y-4 text-[15px] md:text-base">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">Магия чисел: Как превратить расчет чистой прибыли в масштабирование бизнеса</h2>
                     <p>Выручка на маркетплейсах — это тщеславие. Чистая прибыль — это реальность. А оборотный капитал — это ваше топливо.</p>
                     <p>Большинство селлеров застревают на одном уровне выручки по одной простой причине: они вытаскивают деньги из бизнеса раньше времени или неправильно оценивают кредитную нагрузку. Чтобы избежать кассовых разрывов, вам не нужна ученая степень по экономике. Вам нужна прозрачная финансовая модель.</p>
                     <p>Наш профессиональный <strong>калькулятор сложного процента для бизнеса</strong> создан именно для этого. Это не просто таблица. Это инструмент визуализации вашего будущего.</p>
-                    
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Секрет взрывного роста: Сила реинвестирования</h3>
                     <p>Альберт Эйнштейн называл сложный процент восьмым чудом света. В e-commerce это правило работает безупречно. Постоянный возврат заработанных средств (реинвестирование прибыли) обратно в закупку товаров заставляет ваш капитал расти по экспоненте.</p>
                     <p>Даже с небольшим стартовым бюджетом и адекватным <strong>калькулятором ROI</strong>, вы можете спрогнозировать геометрический <strong>рост оборотного капитала</strong>. Но реальный бизнес — это не тепличные условия.</p>
-                    
                     <p>Именно поэтому наш алгоритм учитывает то, о чем молчат базовые калькуляторы:</p>
                     <ul class="list-disc pl-5 space-y-2 mb-6">
                         <li><strong>Реальные издержки:</strong> Автоматический вычет налогов и постоянных расходов до распределения дивидендов.</li>
                         <li><strong>Кредитное плечо:</strong> Оценка того, как проценты по займу «съедают» вашу маржу.</li>
                         <li><strong>Сезонность и потолок рынка:</strong> Функция «Снижение ROI» плавно уменьшит рентабельность, когда ваш капитал вырастет (масштабировать 100 тысяч рублей проще, чем 10 миллионов). Учет этих факторов — основа безопасности <strong>селлера маркетплейсов</strong>.</li>
                     </ul>
-
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Как использовать этот инструмент?</h3>
                     <ol class="list-decimal pl-5 space-y-2 mb-6">
                         <li>Введите базовые метрики старта (капитал и ожидаемую рентабельность).</li>
@@ -807,11 +848,9 @@
                         <li>Поставьте личные цели (суммы, которые вы хотите регулярно забирать «на жизнь»).</li>
                     </ol>
                     <p>Интеллектуальный алгоритм рассчитает идеальный баланс: сколько денег вернуть в оборот для <strong>масштабирования бизнеса</strong>, а сколько — положить в карман, не убив при этом рост магазина.</p>
-
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Ваш план готов. Что дальше?</h3>
                     <p>Цифры на графике показывают ваш потенциал. Но чтобы этот график стал реальностью на Ozon, одной математики мало. Нужен правильный выбор ниши, безупречная юнит-экономика, настройка рекламных кампаний и ежедневный контроль алгоритмов площадки.</p>
                     <p>Если вы хотите, чтобы ваш магазин рос так же быстро, как линии на этом графике — давайте работать вместе.</p>
-                    
                     <div class="bg-blue-50 dark:bg-slate-700/50 p-6 md:p-8 rounded-2xl mt-8 border border-blue-100 dark:border-slate-600">
                         <p class="mb-4 text-slate-900 dark:text-white"><strong>Меня зовут Роман Солкин.</strong> Я — практикующий эксперт и менеджер по комплексному сопровождению магазинов на Ozon.</p>
                         <p class="mb-3 text-slate-800 dark:text-slate-200">Я помогаю селлерам:</p>
@@ -829,18 +868,15 @@
                     <p>Revenue on marketplaces is vanity. Net profit is reality. And working capital is your fuel.</p>
                     <p>Most sellers get stuck at a certain revenue level for one simple reason: they pull money out of the business too early or incorrectly estimate their credit load. To avoid cash gaps, you don't need a degree in economics. You need a transparent financial model.</p>
                     <p>Our professional <strong>business compound interest calculator</strong> is designed exactly for this. It's not just a spreadsheet. It's a tool to visualize your future.</p>
-                    
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">The Secret of Explosive Growth: The Power of Reinvestment</h3>
                     <p>Albert Einstein called compound interest the eighth wonder of the world. In e-commerce, this rule works flawlessly. The constant return of earned funds (reinvesting profit) back into purchasing goods makes your capital grow exponentially.</p>
                     <p>Even with a small starting budget and an adequate <strong>ROI calculator</strong>, you can forecast geometric <strong>working capital growth</strong>. But real business isn't a greenhouse.</p>
-                    
                     <p>That is why our algorithm accounts for things basic calculators ignore:</p>
                     <ul class="list-disc pl-5 space-y-2 mb-6">
                         <li><strong>Real costs:</strong> Automatic deduction of taxes and fixed expenses before dividend distribution.</li>
                         <li><strong>Credit leverage:</strong> Evaluating how loan interest "eats" your margin.</li>
                         <li><strong>Seasonality and market ceiling:</strong> The "ROI Drop" function smoothly decreases profitability as your capital grows (scaling 100k is easier than 10 million). Accounting for these factors is the foundation of safety for a <strong>marketplace seller</strong>.</li>
                     </ul>
-
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">How to use this tool?</h3>
                     <ol class="list-decimal pl-5 space-y-2 mb-6">
                         <li>Enter the basic starting metrics (capital and expected profitability).</li>
@@ -848,11 +884,9 @@
                         <li>Set personal goals (amounts you want to regularly withdraw "for life").</li>
                     </ol>
                     <p>The intelligent algorithm will calculate the perfect balance: how much money to return to circulation for <strong>business scaling</strong>, and how much to put in your pocket without killing the store's growth.</p>
-
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8 mb-3">Your plan is ready. What's next?</h3>
                     <p>The numbers on the chart show your potential. But for this chart to become reality on Ozon, math alone is not enough. You need the right niche selection, flawless unit economics, ad campaign setup, and daily control of the platform's algorithms.</p>
                     <p>If you want your store to grow as fast as the lines on this chart — let's work together.</p>
-                    
                     <div class="bg-blue-50 dark:bg-slate-700/50 p-6 md:p-8 rounded-2xl mt-8 border border-blue-100 dark:border-slate-600">
                         <p class="mb-4 text-slate-900 dark:text-white"><strong>My name is Roman Solkin.</strong> I am a practicing expert and manager for comprehensive support of Ozon stores.</p>
                         <p class="mb-3 text-slate-800 dark:text-slate-200">I help sellers:</p>
@@ -865,8 +899,7 @@
                     </div>
                 </div>
             </article>
-
-        </div> <!-- End of #pdf-area -->
+        </div> 
         
         <!-- Скрытый шаблон для PDF Инвест-Питча -->
         <div id="pitch-template" class="bg-white">
@@ -1102,12 +1135,25 @@
             document.getElementById('pitch-table-container').innerHTML = `<table class="min-w-full divide-y divide-slate-200 text-left border border-slate-200 mt-4">${tableHTML}</table>`;
 
             const element = document.getElementById('pitch-template');
-            element.style.top = '0'; element.style.left = '0'; element.style.zIndex = '-100'; 
             
-            const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: 'Investment_Pitch.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#ffffff', windowWidth: 1200 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
+            // Надежный способ скрыть PDF-контейнер, не ломая html2canvas
+            element.style.position = 'absolute';
+            element.style.top = '0px';
+            element.style.left = '0px';
+            element.style.zIndex = '-9999';
+            element.style.opacity = '0.01';
+            element.style.pointerEvents = 'none';
+
+            const opt = { 
+                margin: [0.5, 0.5, 0.5, 0.5], 
+                filename: 'Investment_Pitch.pdf', 
+                image: { type: 'jpeg', quality: 0.98 }, 
+                html2canvas: { scale: 2, backgroundColor: '#ffffff', useCORS: true, windowWidth: 1200 }, 
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
+            };
             
             html2pdf().set(opt).from(element).save().then(() => {
-                element.style.top = '-9999px'; element.style.left = '-9999px'; element.style.zIndex = '-100'; 
+                element.style.top = '-9999px'; element.style.left = '-9999px'; element.style.opacity = '1';
                 if (isDark) {
                     document.documentElement.classList.add('dark');
                     updateChartTheme(true);
@@ -1129,8 +1175,11 @@
         }
 
         function shareSocial(platform) {
-            let realUrl = window.location.href;
-            if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) { realUrl = 'https://rmslk.github.io/roi-calc/'; const urlParams = new URLSearchParams(window.location.search).toString(); if(urlParams) realUrl += '?' + urlParams; }
+            let realUrl = window.location.href.split('?')[0];
+            const urlParams = new URLSearchParams(window.location.search).toString(); 
+            if(urlParams) realUrl += '?' + urlParams;
+            if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) { realUrl = 'https://rmslk.github.io/roi-calc/'; if(urlParams) realUrl += '?' + urlParams; }
+            
             const fullText = generateShareText(realUrl);
             if (platform === 'copy') { navigator.clipboard.writeText(fullText).then(() => showToast(currentLang === 'ru' ? 'Текст и ссылка скопированы!' : 'Text and link copied!')).catch(() => showToast(currentLang === 'ru' ? 'Ошибка копирования.' : 'Copy error.')); } 
             else {
@@ -1343,12 +1392,8 @@
             const targetMonth = Number(document.getElementById('goalSeekerMonths').value) || 12;
             if(targetCapital <= 0 || targetMonth <= 0) return;
 
-            let low = 1;
-            let high = targetCapital * 3;
-            let best = 100000;
-            
-            const state = getStateObj();
-            state.months = targetMonth;
+            let low = 1; let high = targetCapital * 3; let best = 100000;
+            const state = getStateObj(); state.months = targetMonth;
             
             for(let i=0; i<60; i++) {
                 let mid = (low + high) / 2;
@@ -1363,60 +1408,40 @@
             }
             
             document.getElementById('startCapital').value = formatRawNumber(Math.round(best));
-            closeGoalSeekerModal();
-            calculate();
+            closeGoalSeekerModal(); calculate();
             showToast(currentLang === 'ru' ? 'Расчет старта выполнен!' : 'Start Capital Calculated!');
         }
 
         function openProjectsModal() {
-            renderProjectsList();
-            document.getElementById('projectsModal').classList.remove('hidden');
+            renderProjectsList(); document.getElementById('projectsModal').classList.remove('hidden');
             setTimeout(() => { document.getElementById('projectsModalContent').classList.remove('scale-95', 'opacity-0'); }, 10);
         }
-
         function closeProjectsModal() {
             document.getElementById('projectsModalContent').classList.add('scale-95', 'opacity-0');
             setTimeout(() => { document.getElementById('projectsModal').classList.add('hidden'); }, 200);
         }
 
-        function startTour() {
-            isTourActive = true;
-            isPanelCollapsed = false;
-            updatePanelState();
-            
-            const driver = window.driver.js.driver;
-            const driverObj = driver({
-                showProgress: true, animate: true, progressText: '{{current}} из {{total}}',
-                nextBtnText: currentLang === 'ru' ? 'Далее' : 'Next', prevBtnText: currentLang === 'ru' ? 'Назад' : 'Prev', doneBtnText: currentLang === 'ru' ? 'Завершить' : 'Done',
-                onDestroyed: () => { isTourActive = false; if (window.scrollY > 150) collapsePanelIfScrolled(); },
-                steps: [
-                    { popover: { title: currentLang==='ru'?'«Добро пожаловать!»':'Welcome!', description: currentLang==='ru'?'Это продвинутая версия. Пройдем по новым функциям.':'Let\'s explore the advanced PRO features.' } },
-                    { element: '#tour-step-goalseeker', popover: { title: currentLang==='ru'?'«Обратный расчет»':'Goal Seeker', description: currentLang==='ru'?'Вместо вопроса "что будет, если я вложу X", решите задачу "с чего мне начать, чтобы получить Y через Z месяцев".':'Calculate required starting capital to reach your dream target in time.' } },
-                    { element: '#tour-field-startCap', popover: { title: currentLang==='ru'?'«Стартовый капитал»':'Start Capital', description: currentLang==='ru'?'Сумма, с которой вы начинаете закупки.':'Your initial investment base.' } },
-                    { element: '#tour-field-roi', popover: { title: currentLang==='ru'?'«ROI за цикл»':'Cycle ROI', description: currentLang==='ru'?'Ваша чистая рентабельность на вложенные средства.':'Net return per 1 turnover cycle.' } },
-                    { element: '#tour-field-cycle', popover: { title: currentLang==='ru'?'«Оборачиваемость»':'Turnover', description: currentLang==='ru'?'Оборачиваемость. Переводит ROI в реальный процент в месяц.':'Converts ROI to effective monthly rate based on cycle days.' } },
-                    { element: '#tour-field-months', popover: { title: currentLang==='ru'?'«Период»':'Period', description: currentLang==='ru'?'Горизонт планирования (например, 12 или 24 месяца).':'Forecast period in months.' } },
-                    { element: '#tour-field-add', popover: { title: currentLang==='ru'?'«Довложения»':'Top-up', description: currentLang==='ru'?'Регулярные вливания из личного бюджета в оборот.':'Regular external monthly injections.' } },
-                    { element: '#tour-field-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
-                    { element: '#tour-field-inflation', popover: { title: currentLang==='ru'?'«Инфляция»':'Inflation', description: currentLang==='ru'?'Показывает реальную покупательную способность будущего капитала в таблице.':'Shows real purchasing power in the table below.' } },
-                    { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'«Снижение ROI»':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности: чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
-                    { element: '#tour-field-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
-                    { element: '#tour-field-scenarios', popover: { title: currentLang==='ru'?'«Вилка ROI»':'ROI Fork', description: currentLang==='ru'?'Сравнение пессимистичного и оптимистичного сценариев на одном графике.':'Compare pessimistic and optimistic scenarios directly on chart.' } },
-                    { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'«Реинвест»':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в товар.':'How much profit goes back to goods.' } },
-                    { element: '#tour-field-dynamicReinvest', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
-                    { element: '#tour-field-goals', popover: { title: currentLang==='ru'?'«Цели и Имена»':'Goals & Names', description: currentLang==='ru'?'Кликните на слово "ЦЕЛЬ 1", чтобы назвать её (например, "Квартира") и впишите сумму.':'Click on "GOAL 1" to rename it and set the target amount.' } },
-                    { element: '#tour-field-fixedCost', popover: { title: currentLang==='ru'?'«Пост. расходы»':'Fixed Costs', description: currentLang==='ru'?'Аренда, ЗП, сервисы. Вычитаются ежемесячно, повышая риск кассового разрыва.':'Monthly fixed expenses. Increases cash gap risk.' } },
-                    { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'«Ступени расходов»':'Step Costs', description: currentLang==='ru'?'Укажите, сколько добавлять к расходам за каждый новый заработанный миллион.':'Add extra costs per million earned.' } },
-                    { element: '#tour-field-useCredit', popover: { title: currentLang==='ru'?'«Кредиты»':'Credit', description: currentLang==='ru'?'Добавьте кредит. Алгоритм сам посчитает аннуитет. Будьте осторожны с кассовым разрывом!':'Add credit. Algorithm calculates annuity payments.' } },
-                    { element: '#tour-field-costSeasonality', popover: { title: currentLang==='ru'?'«Сезонность трат»':'Cost Seasonality', description: currentLang==='ru'?'Удорожание логистики и складов в сезон (ноябрь-декабрь). Укажите множитель.':'Increase fixed costs during expensive months.' } },
-                    { element: '#tour-step-hints', popover: { title: currentLang==='ru'?'«Умные советы»':'Smart Hints', description: currentLang==='ru'?'ИИ-помощник подскажет Точку Безубыточности и найдет слабые места стратегии.':'AI assistant shows your Break-even ROI and strategy weaknesses.' } },
-                    { element: '#tour-step-chart', popover: { title: currentLang==='ru'?'«Сводка и Флажки»':'Summary & Flags', description: currentLang==='ru'?'Обратите внимание: на графике появятся "Флажки" в месяцы достижения ваших целей!':'Note: Milestone Flags will appear on the chart when you reach goals!' } },
-                    { element: '#tour-step-table', popover: { title: currentLang==='ru'?'«Режимы Таблицы»':'Table Modes', description: currentLang==='ru'?'Переключайтесь между "Всей бухгалтерией" и "Только моим доходом", скрывая лишнее.':'Toggle between full accounting and just your personal dividend flow.' } },
-                    { element: '#tour-projects', popover: { title: currentLang==='ru'?'«Проекты»':'Projects', description: currentLang==='ru'?'Сохраняйте разные финансовые сценарии и переключайтесь между ними в 1 клик.':'Save and switch between different financial scenarios easily.' } }
-                ]
+        function toggleTooltip(event, element) {
+            event.stopPropagation();
+            document.querySelectorAll('.tooltip-content').forEach(el => {
+                if (el !== element.nextElementSibling) { el.classList.add('hidden'); el.classList.remove('opacity-100'); }
             });
-            driverObj.drive();
+            const tooltip = element.nextElementSibling;
+            if (tooltip) {
+                const isHidden = tooltip.classList.contains('hidden');
+                if (isHidden) { tooltip.classList.remove('hidden'); setTimeout(() => tooltip.classList.add('opacity-100'), 10); } 
+                else { tooltip.classList.remove('opacity-100'); setTimeout(() => tooltip.classList.add('hidden'), 200); }
+            }
         }
+        
+        document.addEventListener('click', (event) => {
+            document.querySelectorAll('.tooltip-content').forEach(el => {
+                el.classList.remove('opacity-100'); setTimeout(() => el.classList.add('hidden'), 200);
+            });
+            const currencyDropdown = document.getElementById('currencyDropdown');
+            const currencyContainer = document.getElementById('customCurrencyContainer');
+            if(currencyContainer && !currencyContainer.contains(event.target)) { currencyDropdown.classList.add('hidden'); }
+        });
 
         const milestonePlugin = {
             id: 'milestones',
@@ -1431,9 +1456,7 @@
                 const achievements = chart.options.plugins.milestonesData;
 
                 ctx.save();
-                ctx.font = '14px Inter';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
+                ctx.font = '14px Inter'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
 
                 for (let i = 1; i <= 4; i++) {
                     const month = achievements[i];
@@ -1441,8 +1464,7 @@
                         const index = month - 1; 
                         if(index >= 0 && index < meta.data.length && meta.data[index]) {
                             const point = meta.data[index];
-                            const x = point.x;
-                            const y = point.y;
+                            const x = point.x; const y = point.y;
                             ctx.fillStyle = document.documentElement.classList.contains('dark') ? '#fcd34d' : '#f59e0b';
                             ctx.fillText('🏆 ' + i, x, y - 8);
                         }
@@ -1511,7 +1533,6 @@
             const newReinvestShare = state.newReinvestShare / 100;
 
             const isRealistic = state.realisticRoi === 1;
-            
             const isSeasonal = state.seasonality === 1;
             const seasonalMonthsList = state.seasonalityMonths.split(',').map(m => parseInt(m.trim())).filter(m => !isNaN(m));
             const seasonMulti = state.seasonalityMultiplier;
@@ -1668,6 +1689,16 @@
                         progress = Math.min(Math.max(progress, 0), 99);
                         progressEl.style.width = `${progress}%`; progressTextEl.innerText = `${progress.toFixed(0)}%`;
                     }
+                }
+
+                // Million Widget Control
+                const millionWidget = document.getElementById('millionWidget');
+                if (millionWidget) {
+                    let threshold = 1000000;
+                    if (currentCurrency === 'USD' || currentCurrency === 'EUR') threshold = 10000;
+                    if (currentCurrency === 'BYN') threshold = 35000;
+                    if (currentCurrency === 'KZT') threshold = 5000000;
+                    if (totalPayout >= threshold) { millionWidget.classList.remove('hidden'); } else { millionWidget.classList.add('hidden'); }
                 }
 
                 const alertBox = document.getElementById('cashGapAlert');
@@ -1857,9 +1888,9 @@
                 const isDark = document.documentElement.classList.contains('dark');
                 updateChartTheme(isDark);
 
-                if (!localStorage.getItem('tourCompletedPRO2')) {
+                if (!localStorage.getItem('tourCompletedPRO3')) {
                     setTimeout(startTour, 1000);
-                    localStorage.setItem('tourCompletedPRO2', 'true');
+                    localStorage.setItem('tourCompletedPRO3', 'true');
                 }
             } catch (e) { console.error("Initialization Error:", e); }
         };
@@ -1870,6 +1901,28 @@
             });
         });
         observer.observe(document.documentElement, { attributes: true });
+
+        let isPanelCollapsed = false; let collapseTimeout;
+
+        function updatePanelState() {
+            const topPanel = document.getElementById('topPanel'); const wrapper = document.getElementById('panelContentWrapper'); const btn = document.getElementById('panelToggleBtn');
+            if (isPanelCollapsed) { wrapper.classList.remove('max-w-lg', 'opacity-100'); wrapper.classList.add('max-w-0', 'opacity-0'); btn.classList.remove('hidden'); topPanel.classList.remove('px-4', 'md:px-4'); topPanel.classList.add('px-3'); } 
+            else { wrapper.classList.remove('max-w-0', 'opacity-0'); wrapper.classList.add('max-w-lg', 'opacity-100'); btn.classList.add('hidden'); topPanel.classList.add('px-4', 'md:px-4'); topPanel.classList.remove('px-3'); }
+        }
+
+        window.addEventListener('scroll', () => {
+            if (isTourActive) return;
+            if (window.scrollY > 150 && !isPanelCollapsed) { isPanelCollapsed = true; updatePanelState(); } 
+            else if (window.scrollY <= 150 && isPanelCollapsed) { isPanelCollapsed = false; updatePanelState(); }
+        });
+
+        function expandPanel() { if (window.scrollY > 150) { isPanelCollapsed = false; updatePanelState(); clearTimeout(collapseTimeout); } }
+        function collapsePanelIfScrolled() { if (isTourActive) return; if (window.scrollY > 150) { collapseTimeout = setTimeout(() => { isPanelCollapsed = true; updatePanelState(); }, 300); } }
+        function togglePanel() {
+            if (isTourActive) return;
+            isPanelCollapsed = !isPanelCollapsed; updatePanelState();
+            if(!isPanelCollapsed) { clearTimeout(collapseTimeout); collapseTimeout = setTimeout(() => { if (window.scrollY > 150 && !isTourActive) { isPanelCollapsed = true; updatePanelState(); } }, 4000); }
+        }
     </script>
 </body>
 </html>
