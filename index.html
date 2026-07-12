@@ -4,22 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- SEO Мета-теги -->
     <title>Калькулятор капитализации PRO | Финансовое планирование и масштабирование</title>
     <meta name="description" content="Интерактивная финансовая модель и калькулятор сложного процента для e-commerce. Рассчитайте сроки выхода на масштабные финансовые цели с учетом налогов, кредитов, инфляции и сезонности.">
     <meta name="keywords" content="калькулятор капитализации, калькулятор сложного процента, финансовая модель селлера, юнит-экономика Ozon, масштабирование бизнеса, калькулятор ROI, расчет чистой прибыли маркетплейсы, Роман Солкин, кассовый разрыв, планирование дивидендов">
     <meta name="author" content="Роман Солкин">
     
-    <!-- Обязательные теги верификации поисковиков -->
     <meta name="google-site-verification" content="HWiXwLRq7-eUjkvclx4z9hhZSoAxgSqS2VbRob0JU5c" />
     <meta name="yandex-verification" content="37c3c939a952a508" />
     
-    <!-- PWA Manifest & Icons -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#3b82f6">
+    <link rel="apple-touch-icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'>
     <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>' type="image/svg+xml">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,7 +25,6 @@
         }
     </script>
     
-    <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
@@ -41,55 +37,22 @@
         body.lang-ru .lang-en { display: none !important; }
         input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         
-        /* Range Slider */
         input[type="range"] { -webkit-appearance: none; width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; outline: none; transition: background 0.3s; }
         .dark input[type="range"] { background: #334155; }
         input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.1s; }
         input[type="range"]::-webkit-slider-thumb:active { transform: scale(0.9); }
 
-        /* Premium Driver.js Styling */
-        .driver-popover {
-            font-family: 'Inter', sans-serif !important;
-            border-radius: 1.25rem !important;
-            padding: 1.5rem !important;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2) !important;
-            border: 1px solid #e2e8f0 !important;
-            max-width: 360px !important;
-        }
-        .driver-popover-title {
-            font-weight: 700 !important;
-            font-size: 1.125rem !important;
-            color: #0f172a !important;
-            margin-bottom: 0.75rem !important;
-            line-height: 1.3 !important;
-        }
-        .driver-popover-description {
-            color: #475569 !important;
-            font-size: 0.9rem !important;
-            line-height: 1.5 !important;
-        }
-        .driver-popover-footer { margin-top: 1.25rem !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
-        .driver-popover-footer button {
-            border-radius: 0.5rem !important;
-            font-weight: 600 !important;
-            padding: 0.5rem 1rem !important;
-            transition: all 0.2s ease !important;
-            text-shadow: none !important;
-        }
-        /* Фикс для индикатора шагов - всегда в одну строку */
-        .driver-popover-progress {
-            white-space: nowrap !important;
-            font-weight: 600 !important;
-            color: #64748b !important;
-            font-size: 0.85rem !important;
-        }
-        html.dark .driver-popover { background-color: #1e293b !important; border-color: #334155 !important; }
+        .driver-popover { font-family: 'Inter', sans-serif !important; border-radius: 1rem !important; padding: 1.25rem !important; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1) !important; border: none !important; }
+        .driver-popover-title { font-weight: 700 !important; font-size: 1.125rem !important; color: #0f172a !important; margin-bottom: 0.5rem !important; }
+        .driver-popover-description { color: #475569 !important; font-size: 0.875rem !important; line-height: 1.6 !important; }
+        .driver-popover-footer button { border-radius: 0.5rem !important; font-weight: 600 !important; padding: 0.5rem 1rem !important; transition: all 0.2s ease !important; text-shadow: none !important;}
+        .driver-popover-progress { white-space: nowrap !important; font-weight: 600 !important; color: #64748b !important; font-size: 0.85rem !important; }
+        html.dark .driver-popover { background-color: #1e293b !important; }
         html.dark .driver-popover-title { color: #f8fafc !important; }
         html.dark .driver-popover-description { color: #94a3b8 !important; }
         html.dark .driver-popover-footer button { background-color: #334155 !important; color: #f8fafc !important; border: 1px solid #475569 !important; }
-        html.dark .driver-popover-footer .driver-popover-next-btn { background-color: #3b82f6 !important; border-color: #3b82f6 !important; color: white !important;}
+        html.dark .driver-popover-footer .driver-popover-next-btn { background-color: #3b82f6 !important; border-color: #3b82f6 !important; }
 
-        /* Mobile Tables */
         @media (max-width: 768px) {
             .mobile-card-table thead { display: none; }
             .mobile-card-table tr { display: block; margin-bottom: 1rem; border-radius: 0.75rem; border: 1px solid var(--tw-border-opacity); }
@@ -172,6 +135,41 @@
         </div>
     </div>
 
+    <div id="goalSeekerModal" class="hidden fixed inset-0 bg-slate-900/60 dark:bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" data-html2canvas-ignore="true">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-slate-200 dark:border-slate-700 relative transform transition-transform scale-95 opacity-0" id="goalSeekerContent">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-ru">Обратный расчет от Цели</span><span class="lang-en">Goal Seeker Calculator</span>
+                </h3>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+                <span class="lang-ru">Сколько денег вы хотите увидеть в Итоговом обороте через заданное время? Мы рассчитаем, с какой суммы нужно начать сегодня.</span>
+                <span class="lang-en">How much Ending Capital do you want to reach? We will calculate required Start Capital.</span>
+            </p>
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5"><span class="lang-ru">Желаемый Итоговый Капитал</span><span class="lang-en">Desired Target Capital</span></label>
+                    <input type="text" inputmode="numeric" id="goalSeekerTarget" value="10 000 000" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-semibold text-slate-800 dark:text-slate-200 transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5"><span class="lang-ru">Через сколько месяцев?</span><span class="lang-en">In how many months?</span></label>
+                    <input type="number" id="goalSeekerMonths" value="12" min="1" max="120" class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-semibold text-slate-800 dark:text-slate-200 transition-all">
+                </div>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeGoalSeekerModal()" class="px-5 py-2.5 text-slate-600 dark:text-slate-400 font-medium hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors active:scale-95">
+                    <span class="lang-ru">Отмена</span><span class="lang-en">Cancel</span>
+                </button>
+                <button onclick="calculateGoalSeeker()" class="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-md active:scale-95">
+                    <span class="lang-ru">Рассчитать старт</span><span class="lang-en">Calculate Start</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <main class="flex-grow p-4 md:p-8 pt-4 md:pt-10 mb-20 md:mb-0">
         <div id="pdf-area" class="max-w-6xl mx-auto space-y-6">
             
@@ -186,6 +184,7 @@
                 </p>
             </div>
             
+            <!-- Cash Gap Alert Box -->
             <div id="cashGapAlert" class="hidden bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 p-5 rounded-2xl flex items-start gap-4 transition-all duration-300 transform hover:scale-[1.01]">
                 <svg class="w-6 h-6 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 <div>
@@ -200,12 +199,12 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-6 rounded-3xl text-sm leading-relaxed text-left mx-auto max-w-4xl shadow-sm transition-all duration-300" data-html2canvas-ignore="true">
+            <div class="mt-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-6 rounded-3xl text-sm leading-relaxed text-left mx-auto max-w-4xl shadow-sm transition-all duration-300" data-html2canvas-ignore="true">
                 <div class="flex items-center justify-between cursor-pointer group" onclick="toggleInstruction()">
                     <strong class="text-blue-600 dark:text-blue-400 text-base flex items-center gap-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
                         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <span class="lang-ru">Как использовать калькулятор (PRO-версия)</span>
-                        <span class="lang-en">How to use the calculator (PRO Version)</span>
+                        <span class="lang-ru">Как использовать калькулятор (Инструкция)</span>
+                        <span class="lang-en">How to use the calculator (Instructions)</span>
                     </strong>
                     <div class="p-1 rounded-full bg-slate-100 dark:bg-slate-700 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 transition-colors flex-shrink-0">
                         <svg id="instructionChevron" class="w-5 h-5 text-blue-600 dark:text-blue-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -215,27 +214,21 @@
                 <div id="instructionBody" class="overflow-hidden transition-all duration-500 ease-in-out max-h-[1500px] opacity-100 mt-4">
                     <span class="lang-ru">
                         <ul class="space-y-3 text-slate-600 dark:text-slate-300 mb-4">
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">1. Базовые метрики:</strong> Введите капитал, средний ROI за цикл, длину цикла оборачиваемости (в днях) и горизонт планирования.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">2. Рынок и Риски:</strong> Выберите базу налога. Укажите множитель сезонности для пиковых месяцев продаж и включите «Снижение ROI» для симуляции потолка рынка. Активируйте Вилку ROI для сравнения пессимистичных и оптимистичных сценариев на одном графике.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">3. Стратегия вывода:</strong> Настройте долю реинвестирования. Активируйте «Умный реинвест», чтобы автоматически забирать больше прибыли после пробития целевого капитала. Дайте названия своим финансовым Целям.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">4. Расходы и Кредит:</strong> Укажите постоянные операционные затраты и Ступени роста расходов (на каждый 1М оборота). Настройте параметры займа.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">5. Сравнение и Экспорт:</strong> Сохраняйте сценарии как «Проекты», делитесь ссылками в 1 клик, генерируйте PDF-питч для инвесторов.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">1. Базовые метрики:</strong> Введите капитал, средний ROI за цикл, длину цикла оборачиваемости (в днях) и горизонт планирования. <em>Кнопка "Обратный расчет" позволит узнать нужный старт от финальной цели.</em></li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">2. Рынок и Риски:</strong> Выберите базу налога (с оборота или с прибыли). Укажите множитель сезонности для пиковых месяцев продаж и включите «Снижение ROI» для симуляции потолка рынка. Активируйте Сравнение 3-х сценариев для добавления вилки рисков на график.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">3. Стратегия вывода:</strong> Настройте долю реинвестирования. Активируйте «Умный реинвест», чтобы автоматически забирать больше прибыли после пробития целевого капитала. Дайте личные названия своим Целям (кликнув на них).</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">4. Кредит и Расходы:</strong> Укажите фикс. затраты, ступени роста расходов, а также сезонность трат (например, удорожание логистики зимой). Настройте параметры займа.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">5. Аналитика:</strong> Обратите внимание на блок "Умных советов" под целями (он покажет вашу точку безубыточности). Используйте переключатель "Только мой доход" над таблицей для скрытия бухгалтерии.</li>
                         </ul>
-                        <div class="pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-[13px] md:text-sm">
-                            <em>Алгоритм: Прибыль формируется после вычета налогов. Затем вычитаются постоянные расходы и платежи по кредиту. Оставшаяся часть реинвестируется, остаток выводится «на себя».</em>
-                        </div>
                     </span>
                     <span class="lang-en">
                         <ul class="space-y-3 text-slate-600 dark:text-slate-300 mb-4">
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">1. Basic Metrics:</strong> Enter capital, average ROI, cycle length in days, and timeframe.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">2. Market & Risks:</strong> Select tax base. Set seasonality multiplier and enable "ROI Drop". Activate ROI Fork to compare scenarios.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">3. Payout Strategy:</strong> Adjust reinvestment share. Enable "Dynamic Reinvest" to automatically withdraw more profit after a threshold. Set your Goals.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">4. Credit & Costs:</strong> Specify fixed monthly costs and Cost Steps. Set loan parameters.</li>
-                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">5. Export & Compare:</strong> Save scenarios as "Projects", share links, and generate a PDF Pitch.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">1. Basic Metrics:</strong> Enter capital, average ROI, cycle length in days, and timeframe. <em>Use Goal Seeker to find required start capital for a target.</em></li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">2. Market & Risks:</strong> Select tax base. Set seasonality multiplier and enable "ROI Drop". Activate 3 Scenarios to add risk lines to the chart.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">3. Payout Strategy:</strong> Adjust reinvestment share. Enable "Dynamic Reinvest" to automatically withdraw more profit after a threshold. Name your custom Goals by clicking on them.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">4. Credit & Expenses:</strong> Specify fixed costs, cost growth steps, and cost seasonality. Set loan parameters.</li>
+                            <li><strong class="text-slate-800 dark:text-slate-100 font-semibold text-blue-600/80 dark:text-blue-400/80">5. Analytics:</strong> Check the Smart Hints block for your Break-even ROI. Use the "My Money Only" toggle above the table to hide raw accounting.</li>
                         </ul>
-                        <div class="pt-4 border-t border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 text-[13px] md:text-sm">
-                            <em>Algorithm: Profit is calculated after tax. Fixed expenses and loan payments are deducted. The remaining part is reinvested based on settings, the rest is your payout.</em>
-                        </div>
                     </span>
                 </div>
             </div>
@@ -243,9 +236,15 @@
             <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 space-y-8">
                 
                 <div id="tour-step-1">
-                    <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
-                        <span class="lang-ru">1. Базовые метрики</span><span class="lang-en">1. Basic Metrics</span>
-                    </h3>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 border-b border-slate-100 dark:border-slate-700 pb-2">
+                        <h3 class="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                            <span class="lang-ru">1. Базовые метрики</span><span class="lang-en">1. Basic Metrics</span>
+                        </h3>
+                        <button id="tour-step-goalseeker" onclick="openGoalSeekerModal()" class="text-xs font-bold px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors active:scale-95 flex items-center gap-1.5 self-start md:self-auto border border-blue-100 dark:border-blue-800/50">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span class="lang-ru">Рассчитать старт от Цели</span><span class="lang-en">Goal Seeker (Reverse)</span>
+                        </button>
+                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-5">
                         <div class="w-full relative" id="tour-field-startCap">
                             <div class="flex items-center justify-start mb-1.5">
@@ -269,7 +268,7 @@
                             <input type="number" id="roi" value="50" step="0.1" class="w-full px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-900 dark:text-white transition-all shadow-sm">
                         </div>
 
-                        <div class="w-full relative" id="tour-field-cycle">
+                        <div class="w-full relative" id="tour-step-cycle">
                             <div class="flex items-center justify-start mb-1.5">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Дней в цикле</span><span class="lang-en">Cycle Days</span></label>
                                 <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -310,7 +309,7 @@
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
                         
-                        <div class="w-full relative col-span-1 md:col-span-2 grid grid-cols-2 gap-3" id="tour-field-tax">
+                        <div class="w-full relative col-span-1 md:col-span-2 grid grid-cols-2 gap-3" id="tour-step-tax">
                             <div>
                                 <div class="flex items-center justify-start mb-1.5">
                                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">Налог (%)</span><span class="lang-en">Tax (%)</span></label>
@@ -321,7 +320,7 @@
                                 </div>
                                 <input type="number" id="tax" value="0" step="0.1" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-medium transition-all">
                             </div>
-                            <div id="tour-field-taxbase">
+                            <div>
                                 <div class="flex items-center justify-start mb-1.5">
                                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-300"><span class="lang-ru">База налога</span><span class="lang-en">Tax Base</span></label>
                                     <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 ml-1.5 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -364,7 +363,7 @@
                             </div>
                         </div>
                         
-                        <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-seasonality">
+                        <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-step-seasonality">
                             <div class="flex flex-wrap items-center justify-start gap-4">
                                 <div class="flex items-center gap-1.5">
                                     <label class="flex items-center cursor-pointer">
@@ -396,7 +395,6 @@
                             </div>
                         </div>
 
-                        <!-- 3 Scenarios Toggle -->
                         <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-scenarios">
                             <div class="flex flex-wrap items-center justify-start gap-4">
                                 <div class="flex items-center gap-1.5">
@@ -454,7 +452,7 @@
                             </div>
                         </div>
 
-                        <div class="w-full md:w-1/2 bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700" id="tour-field-dynamicReinvest">
+                        <div class="w-full md:w-1/2 bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700" id="tour-step-dynamic">
                             <div class="flex items-center relative mb-3">
                                 <label class="flex items-center cursor-pointer">
                                     <div class="relative flex-shrink-0">
@@ -486,7 +484,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-2 relative" id="tour-field-goals">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-2 relative" id="tour-step-goals">
                         <div class="w-full relative bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
                             <input type="text" id="goal1Name" value="ЦЕЛЬ 1" class="w-full bg-transparent text-xs font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider text-center md:text-left focus:outline-none focus:border-b focus:border-blue-500 mb-2">
                             <input type="text" inputmode="numeric" id="goal1" value="100 000" class="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-semibold text-slate-800 dark:text-slate-200 text-center md:text-left transition-all">
@@ -591,6 +589,39 @@
                                 <input type="number" id="creditTerm" value="12" min="1" placeholder="мес" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-slate-800 dark:text-slate-200 text-center">
                             </div>
                         </div>
+
+                        <div class="w-full flex flex-col justify-end relative col-span-1 md:col-span-4 border-t border-slate-100 dark:border-slate-700 pt-4 mt-2" id="tour-field-costSeasonality">
+                            <div class="flex flex-wrap items-center justify-start gap-4">
+                                <div class="flex items-center gap-1.5">
+                                    <label class="flex items-center cursor-pointer">
+                                        <div class="relative flex-shrink-0">
+                                            <input type="checkbox" id="costSeasonality" class="sr-only peer" onchange="toggleCostSeasonalityFields()">
+                                            <div class="w-10 h-6 bg-slate-200 dark:bg-slate-600 rounded-full peer peer-checked:after:translate-x-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
+                                        </div>
+                                        <span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-300"><span class="lang-ru">Сезонность расходов</span><span class="lang-en">Cost Seasonality</span></span>
+                                    </label>
+                                    <div class="relative flex items-center">
+                                        <svg onclick="toggleTooltip(event, this)" class="w-4 h-4 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors active:scale-90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <div class="tooltip-content absolute bottom-full mb-2 left-0 md:left-1/2 md:-translate-x-1/2 hidden bg-slate-800 dark:bg-slate-700 text-white text-[13px] leading-relaxed font-medium rounded-xl p-3 w-64 text-center shadow-xl z-50">
+                                            <span class="lang-ru">Месяцы, когда логистика и хранение обходятся дороже (например, Q4). Укажите множитель для Фикс. расходов.</span>
+                                            <span class="lang-en">Months when logistics are more expensive. Applies a multiplier to Fixed Costs.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="costSeasonalityWrapper" class="hidden flex flex-wrap items-center gap-3 relative">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs text-slate-500 dark:text-slate-400"><span class="lang-ru">Месяцы:</span><span class="lang-en">Months:</span></span>
+                                        <input type="text" id="costSeasonalityMonths" value="10, 11, 12" placeholder="10, 11, 12" class="w-[80px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium text-slate-800 dark:text-slate-200 transition-all">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs text-slate-500 dark:text-slate-400"><span class="lang-ru">Множитель трат:</span><span class="lang-en">Multiplier:</span></span>
+                                        <input type="number" id="costSeasonalityMultiplier" value="1.5" step="0.1" min="0.1" class="w-[70px] px-2 py-1.5 text-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium text-slate-800 dark:text-slate-200 transition-all">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -631,6 +662,36 @@
                 </div>
             </div>
 
+            <div id="tour-step-hints" class="bg-indigo-50/50 dark:bg-indigo-900/10 p-5 md:p-6 rounded-3xl border border-indigo-100 dark:border-indigo-800/30 flex flex-col md:flex-row gap-6 items-center shadow-sm">
+                <div class="flex-shrink-0 bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                </div>
+                <div class="w-full">
+                    <h4 class="text-indigo-900 dark:text-indigo-300 font-bold text-base mb-2">
+                        <span class="lang-ru">Аналитика и советы</span><span class="lang-en">Smart Insights & Hints</span>
+                    </h4>
+                    <ul id="smartHintsList" class="space-y-2 text-sm text-indigo-700/80 dark:text-indigo-200/80 font-medium leading-relaxed list-disc pl-4">
+                        <!-- Сгенерируется через JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Виджет "Время до первого миллиона" -->
+            <div id="millionWidget" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-6 rounded-3xl shadow-md flex items-center justify-center gap-5 transform hover:scale-[1.01] transition-transform mb-8" data-html2canvas-ignore="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 flex-shrink-0 text-blue-500 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl md:text-2xl font-bold mb-1.5 text-blue-600 dark:text-blue-400">
+                        <span class="lang-ru">Ваш первый миллион!</span><span class="lang-en">Your First Million!</span>
+                    </h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm md:text-base font-medium leading-relaxed">
+                        <span class="lang-ru">При текущей стратегии вы заработаете свой первый миллион чистыми через <span class="millionMonthVal font-bold text-white text-lg bg-blue-500 dark:bg-blue-600 px-2 py-0.5 rounded-lg border border-blue-600 dark:border-blue-500 shadow-sm"></span> мес.</span>
+                        <span class="lang-en">With current strategy, you will earn your first pure million in <span class="millionMonthVal font-bold text-white text-lg bg-blue-500 dark:bg-blue-600 px-2 py-0.5 rounded-lg border border-blue-600 dark:border-blue-500 shadow-sm"></span> mo.</span>
+                    </p>
+                </div>
+            </div>
+
             <div id="tour-step-chart" class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50">
                 
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
@@ -639,7 +700,7 @@
                             <span class="lang-ru">Динамика роста</span>
                             <span class="lang-en">Growth Dynamics</span>
                         </h3>
-                        <div class="flex flex-wrap gap-2" data-html2canvas-ignore="true" id="tour-field-planA">
+                        <div class="flex flex-wrap gap-2" data-html2canvas-ignore="true" id="tour-step-compare">
                             <button onclick="saveBaseline()" id="btnBaseline" class="text-xs font-semibold px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors active:scale-95">
                                 <span class="lang-ru">Запомнить как План А</span><span class="lang-en">Save as Plan A</span>
                             </button>
@@ -674,12 +735,22 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 overflow-hidden">
+            <div id="tour-step-table" class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4">
                     <h3 id="tableTitle" class="text-lg font-bold text-slate-800 dark:text-white text-center md:text-left">
                         <span class="lang-ru">Помесячная детализация</span>
                         <span class="lang-en">Monthly Breakdown</span>
                     </h3>
+                    
+                    <!-- Table Mode Toggle -->
+                    <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700/50 p-1 rounded-xl">
+                        <button onclick="setTableMode('all')" id="btnTableAll" class="px-4 py-2 text-sm font-semibold rounded-lg bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400 transition-all">
+                            <span class="lang-ru">Вся бухгалтерия</span><span class="lang-en">Full Accounting</span>
+                        </button>
+                        <button onclick="setTableMode('personal')" id="btnTablePersonal" class="px-4 py-2 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-all">
+                            <span class="lang-ru">Только мой доход</span><span class="lang-en">My Money Only</span>
+                        </button>
+                    </div>
                     
                     <div id="export-buttons" data-html2canvas-ignore="true" class="flex flex-wrap gap-3 justify-center">
                         <button onclick="exportCSV()" class="flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-4 py-2.5 rounded-xl hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition shadow-sm font-semibold border border-emerald-100 dark:border-emerald-500/20 active:scale-95">
@@ -694,34 +765,25 @@
                         </button>
                     </div>
                 </div>
-                <div class="w-full overflow-x-auto">
-                    <table id="mainTable" class="min-w-full divide-y divide-slate-200 dark:divide-slate-700/50 text-sm mobile-card-table">
-                        <thead class="bg-slate-50 dark:bg-slate-800/50">
-                            <tr>
-                                <th scope="col" class="px-6 py-4 text-left font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs">
-                                    <span class="lang-ru">Месяц</span><span class="lang-en">Month</span>
-                                </th>
-                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs">
-                                    <span class="lang-ru">Старт. капитал</span><span class="lang-en">Start. Capital</span>
-                                </th>
-                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs">
-                                    <span class="lang-ru">Прибыль (Чистая)</span><span class="lang-en">Net Profit</span>
-                                </th>
-                                <th scope="col" class="px-6 py-4 text-right font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider text-xs">
-                                    <span class="lang-ru">Вывод на себя</span><span class="lang-en">Your Payout</span>
-                                </th>
-                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-800 dark:text-white uppercase tracking-wider text-xs">
-                                    <span class="lang-ru">Итоговый оборот</span><span class="lang-en">Ending Capital</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody" class="bg-white dark:bg-transparent md:divide-y md:divide-slate-100 dark:md:divide-slate-700/30">
-                            <!-- Рендерится через JS -->
-                        </tbody>
+                <div class="w-full overflow-x-auto relative min-h-[200px]">
+                    <table id="mainTable" class="min-w-full divide-y divide-slate-200 dark:divide-slate-700/50 text-sm mobile-card-table relative">
+                        <!-- Рендерится через JS -->
                     </table>
                 </div>
             </div>
 
+            <!-- Лид Магнит Баннер -->
+            <div id="leadMagnet" class="hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transform hover:scale-[1.01] transition-transform" data-html2canvas-ignore="true">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-2">🔥 Вы достигли Цели 4!</h3>
+                    <p class="text-blue-100 text-sm md:text-base leading-relaxed">Хотите узнать, как делать ROI 50%+ стабильно каждый месяц и превратить этот план в реальность? Читайте закрепленный пост в моем канале!</p>
+                </div>
+                <a href="https://t.me/OzonGreenROI" target="_blank" class="px-8 py-3.5 bg-white text-blue-600 font-bold rounded-xl whitespace-nowrap hover:bg-blue-50 hover:shadow-lg transition-all shadow-sm active:scale-95">
+                    Перейти в Telegram
+                </a>
+            </div>
+
+            <!-- Нижний блок -->
             <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 flex flex-col gap-6" data-html2canvas-ignore="true">
                 
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700/50 pb-6">
@@ -776,6 +838,7 @@
                 </div>
             </div>
 
+            <!-- SEO Статья (Новая маркетинговая) -->
             <article class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-700/50 mb-8 text-slate-600 dark:text-slate-400 leading-relaxed" data-html2canvas-ignore="true">
                 <div class="lang-ru space-y-4 text-[15px] md:text-base">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">Магия чисел: Как превратить расчет чистой прибыли в масштабирование бизнеса</h2>
@@ -961,6 +1024,7 @@
         let donutChartInstance = null;
         let currentLang = 'ru';
         let currentCurrency = 'RUB';
+        let currentTableMode = 'all'; // 'all' or 'personal'
         const currencies = {
             'RUB': { locale: 'ru-RU', curr: 'RUB', symbol: '₽' },
             'USD': { locale: 'en-US', curr: 'USD', symbol: '$' },
@@ -970,13 +1034,10 @@
         };
         let globalMonthlyData = [];
         let baselineData = null; 
-        let globalTotals = { tax: 0, cost: 0, credit: 0, payout: 0, retained: 0, gross: 0 };
-        let isTourActive = false; // Block auto-collapse for panel
+        let globalTotals = { tax: 0, cost: 0, credit: 0, payout: 0, retained: 0, gross: 0, breakEvenROI: 0 };
+        let isTourActive = false;
 
-        function getSafeString(id, defaultVal) {
-            const el = document.getElementById(id);
-            return el ? el.value : defaultVal;
-        }
+        function getSafeString(id, defaultVal) { const el = document.getElementById(id); return el ? el.value : defaultVal; }
 
         function getStateObj() {
             return {
@@ -1007,6 +1068,9 @@
                 currency: currentCurrency, lang: currentLang, 
                 fixedCost: getRawNumber('fixedCost'),
                 stepCost: getRawNumber('stepCost'),
+                costSeasonality: document.getElementById('costSeasonality') ? (document.getElementById('costSeasonality').checked ? 1 : 0) : 0,
+                costSeasonalityMonths: getSafeString('costSeasonalityMonths', '10, 11, 12'),
+                costSeasonalityMultiplier: document.getElementById('costSeasonalityMultiplier') ? (Number(document.getElementById('costSeasonalityMultiplier').value) || 1.5) : 1.5,
                 useCredit: document.getElementById('useCredit').checked ? 1 : 0, 
                 creditAmount: getRawNumber('creditAmount'),
                 creditRate: Number(document.getElementById('creditRate').value) || 0, 
@@ -1066,6 +1130,10 @@
             if(state.hasOwnProperty('fixedCost')) document.getElementById('fixedCost').value = formatRawNumber(state.fixedCost || 0);
             if(state.hasOwnProperty('stepCost') && document.getElementById('stepCost')) document.getElementById('stepCost').value = formatRawNumber(state.stepCost || 0);
             
+            if(state.hasOwnProperty('costSeasonality') && document.getElementById('costSeasonality')) document.getElementById('costSeasonality').checked = state.costSeasonality == 1;
+            if(state.hasOwnProperty('costSeasonalityMonths') && document.getElementById('costSeasonalityMonths')) document.getElementById('costSeasonalityMonths').value = state.costSeasonalityMonths;
+            if(state.hasOwnProperty('costSeasonalityMultiplier') && document.getElementById('costSeasonalityMultiplier')) document.getElementById('costSeasonalityMultiplier').value = state.costSeasonalityMultiplier;
+
             if(state.hasOwnProperty('useCredit')) document.getElementById('useCredit').checked = state.useCredit == 1;
             if(state.hasOwnProperty('creditAmount')) document.getElementById('creditAmount').value = formatRawNumber(state.creditAmount || 0);
             if(state.hasOwnProperty('creditRate')) document.getElementById('creditRate').value = state.creditRate || 15;
@@ -1075,6 +1143,7 @@
             if(typeof toggleSeasonalityFields === 'function') toggleSeasonalityFields(false);
             if(typeof toggleScenarioFields === 'function') toggleScenarioFields(false);
             if(typeof toggleDynamicReinvest === 'function') toggleDynamicReinvest(false);
+            if(typeof toggleCostSeasonalityFields === 'function') toggleCostSeasonalityFields(false);
         }
 
         function encodeState(state) {
@@ -1106,6 +1175,44 @@
             const defaultState = getStateObj();
             const mergedState = { ...defaultState, ...state };
             applyStateObj(mergedState);
+        }
+
+        function openGoalSeekerModal() {
+            document.getElementById('goalSeekerModal').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('goalSeekerContent').classList.remove('scale-95', 'opacity-0'); }, 10);
+        }
+        function closeGoalSeekerModal() {
+            document.getElementById('goalSeekerContent').classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { document.getElementById('goalSeekerModal').classList.add('hidden'); }, 200);
+        }
+        function calculateGoalSeeker() {
+            const targetCapital = getRawNumber('goalSeekerTarget');
+            const targetMonth = Number(document.getElementById('goalSeekerMonths').value) || 12;
+            if(targetCapital <= 0 || targetMonth <= 0) return;
+
+            let low = 1;
+            let high = targetCapital * 3;
+            let best = 100000;
+            
+            const state = getStateObj();
+            state.months = targetMonth;
+            
+            for(let i=0; i<60; i++) {
+                let mid = (low + high) / 2;
+                state.startCapital = mid;
+                const sim = runSim(state.roi, state);
+                if (!sim || !sim.data || sim.data.length < targetMonth) break;
+                const resultCapital = sim.data[targetMonth - 1].endCapital;
+                
+                if (Math.abs(resultCapital - targetCapital) < 10) { best = mid; break; }
+                if (resultCapital < targetCapital) { low = mid; } else { high = mid; }
+                best = mid;
+            }
+            
+            document.getElementById('startCapital').value = formatRawNumber(Math.round(best));
+            closeGoalSeekerModal();
+            calculate();
+            showToast(currentLang === 'ru' ? 'Расчет старта выполнен!' : 'Start Capital Calculated!');
         }
 
         function toggleTooltip(event, element) {
@@ -1205,279 +1312,110 @@
                 nextBtnText: currentLang === 'ru' ? 'Далее' : 'Next', prevBtnText: currentLang === 'ru' ? 'Назад' : 'Prev', doneBtnText: currentLang === 'ru' ? 'Завершить' : 'Done',
                 onDestroyed: () => { isTourActive = false; if (window.scrollY > 150) collapsePanelIfScrolled(); },
                 steps: [
-                    { popover: { title: currentLang==='ru'?'«Добро пожаловать!»':'Welcome!', description: currentLang==='ru'?'Краткий тур по профессиональным функциям модели.':'A quick tour of the PRO model features.' } },
+                    { popover: { title: currentLang==='ru'?'«Добро пожаловать!»':'Welcome!', description: currentLang==='ru'?'Это продвинутая версия. Пройдем по новым функциям.':'Let\'s explore the advanced PRO features.' } },
+                    { element: '#tour-step-goalseeker', popover: { title: currentLang==='ru'?'«Обратный расчет»':'Goal Seeker', description: currentLang==='ru'?'Вместо вопроса "что будет, если я вложу X", решите задачу "с чего мне начать, чтобы получить Y через Z месяцев".':'Calculate required starting capital to reach your dream target in time.' } },
                     { element: '#tour-field-startCap', popover: { title: currentLang==='ru'?'«Стартовый капитал»':'Start Capital', description: currentLang==='ru'?'Сумма, с которой вы начинаете закупки.':'Your initial investment base.' } },
                     { element: '#tour-field-roi', popover: { title: currentLang==='ru'?'«ROI за цикл»':'Cycle ROI', description: currentLang==='ru'?'Ваша чистая рентабельность на вложенные средства.':'Net return per 1 turnover cycle.' } },
-                    { element: '#tour-field-cycle', popover: { title: currentLang==='ru'?'«Дней в цикле»':'Cycle Days', description: currentLang==='ru'?'Оборачиваемость. Переводит ROI в реальный процент в месяц.':'Converts ROI to effective monthly rate based on cycle days.' } },
+                    { element: '#tour-step-cycle', popover: { title: currentLang==='ru'?'«Оборачиваемость»':'Turnover', description: currentLang==='ru'?'Оборачиваемость. Переводит ROI в реальный процент в месяц.':'Converts ROI to effective monthly rate based on cycle days.' } },
                     { element: '#tour-field-months', popover: { title: currentLang==='ru'?'«Период»':'Period', description: currentLang==='ru'?'Горизонт планирования (например, 12 или 24 месяца).':'Forecast period in months.' } },
                     { element: '#tour-field-add', popover: { title: currentLang==='ru'?'«Довложения»':'Top-up', description: currentLang==='ru'?'Регулярные вливания из личного бюджета в оборот.':'Regular external monthly injections.' } },
-                    { element: '#tour-field-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
+                    { element: '#tour-step-tax', popover: { title: currentLang==='ru'?'«Налоги»':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
                     { element: '#tour-field-inflation', popover: { title: currentLang==='ru'?'«Инфляция»':'Inflation', description: currentLang==='ru'?'Показывает реальную покупательную способность будущего капитала в таблице.':'Shows real purchasing power in the table below.' } },
-                    { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'«Снижение ROI»':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности (потолок рынка): чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
-                    { element: '#tour-field-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
+                    { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'«Снижение ROI»':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности: чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
+                    { element: '#tour-step-seasonality', popover: { title: currentLang==='ru'?'«Сезонность»':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
                     { element: '#tour-field-scenarios', popover: { title: currentLang==='ru'?'«Вилка ROI»':'ROI Fork', description: currentLang==='ru'?'Сравнение пессимистичного и оптимистичного сценариев на одном графике.':'Compare pessimistic and optimistic scenarios directly on chart.' } },
-                    { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'«Реинвест»':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в товар. Чем больше, тем быстрее рост, но меньше дивидендов.':'How much profit goes back to goods.' } },
-                    { element: '#tour-field-dynamicReinvest', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
-                    { element: '#tour-field-goals', popover: { title: currentLang==='ru'?'«Финансовые цели»':'Goals', description: currentLang==='ru'?'Переименуйте их (например, «Машина») и впишите суммы. Алгоритм попытается их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
+                    { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'«Реинвест»':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в товар.':'How much profit goes back to goods.' } },
+                    { element: '#tour-step-dynamic', popover: { title: currentLang==='ru'?'«Умный реинвест»':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
+                    { element: '#tour-step-goals', popover: { title: currentLang==='ru'?'«Цели и Имена»':'Goals & Names', description: currentLang==='ru'?'Кликните на слово "ЦЕЛЬ 1", чтобы назвать её (например, "Квартира") и впишите сумму.':'Click on "GOAL 1" to rename it and set the target amount.' } },
                     { element: '#tour-field-fixedCost', popover: { title: currentLang==='ru'?'«Пост. расходы»':'Fixed Costs', description: currentLang==='ru'?'Аренда, ЗП, сервисы. Вычитаются ежемесячно, повышая риск кассового разрыва.':'Monthly fixed expenses. Increases cash gap risk.' } },
-                    { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'«Ступени расходов»':'Step Costs', description: currentLang==='ru'?'Расходы растут вместе с бизнесом. Укажите, сколько добавлять за каждый новый заработанный миллион.':'Expenses grow with business. Add extra costs per million earned.' } },
+                    { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'«Ступени расходов»':'Step Costs', description: currentLang==='ru'?'Укажите, сколько добавлять к расходам за каждый новый заработанный миллион.':'Add extra costs per million earned.' } },
                     { element: '#tour-field-useCredit', popover: { title: currentLang==='ru'?'«Кредиты»':'Credit', description: currentLang==='ru'?'Добавьте кредит. Алгоритм сам посчитает аннуитет. Будьте осторожны с кассовым разрывом!':'Add credit. Algorithm calculates annuity payments.' } },
+                    { element: '#tour-field-costSeasonality', popover: { title: currentLang==='ru'?'«Сезонность трат»':'Cost Seasonality', description: currentLang==='ru'?'Удорожание логистики и складов в сезон (ноябрь-декабрь). Укажите множитель.':'Increase fixed costs during expensive months.' } },
+                    { element: '#tour-step-hints', popover: { title: currentLang==='ru'?'«Умные советы»':'Smart Hints', description: currentLang==='ru'?'ИИ-помощник подскажет Точку Безубыточности и найдет слабые места стратегии.':'AI assistant shows your Break-even ROI and strategy weaknesses.' } },
+                    { element: '#tour-step-chart', popover: { title: currentLang==='ru'?'«Сводка и Флажки»':'Summary & Flags', description: currentLang==='ru'?'Обратите внимание: на графике появятся "Флажки" в месяцы достижения ваших целей!':'Note: Milestone Flags will appear on the chart when you reach goals!' } },
+                    { element: '#tour-step-table', popover: { title: currentLang==='ru'?'«Режимы Таблицы»':'Table Modes', description: currentLang==='ru'?'Переключайтесь между "Всей бухгалтерией" и "Только моим доходом", скрывая лишнее.':'Toggle between full accounting and just your personal dividend flow.' } },
                     { element: '#tour-projects', popover: { title: currentLang==='ru'?'«Проекты»':'Projects', description: currentLang==='ru'?'Сохраняйте разные финансовые сценарии и переключайтесь между ними в 1 клик.':'Save and switch between different financial scenarios easily.' } }
                 ]
             });
             driverObj.drive();
         }
 
-        function initInstruction() {
-            const isCollapsed = localStorage.getItem('instructionCollapsed') === 'true';
-            const body = document.getElementById('instructionBody'); const chevron = document.getElementById('instructionChevron');
-            if (isCollapsed) { body.classList.replace('max-h-[1500px]', 'max-h-0'); body.classList.replace('opacity-100', 'opacity-0'); body.classList.replace('mt-4', 'mt-0'); chevron.classList.add('-rotate-90'); }
-        }
+        const milestonePlugin = {
+            id: 'milestones',
+            afterDraw: (chart) => {
+                const ctx = chart.ctx;
+                const dsIndex = chart.data.datasets.findIndex(d => d.order === 2); // 'Capital (Base)'
+                if(dsIndex === -1) return;
+                const meta = chart.getDatasetMeta(dsIndex);
 
-        function toggleInstruction() {
-            const body = document.getElementById('instructionBody'); const chevron = document.getElementById('instructionChevron');
-            const isCurrentlyCollapsed = body.classList.contains('max-h-0');
-            if (isCurrentlyCollapsed) { body.classList.replace('max-h-0', 'max-h-[1500px]'); body.classList.replace('opacity-0', 'opacity-100'); body.classList.replace('mt-0', 'mt-4'); chevron.classList.remove('-rotate-90'); localStorage.setItem('instructionCollapsed', 'false'); } 
-            else { body.classList.replace('max-h-[1500px]', 'max-h-0'); body.classList.replace('opacity-100', 'opacity-0'); body.classList.replace('mt-4', 'mt-0'); chevron.classList.add('-rotate-90'); localStorage.setItem('instructionCollapsed', 'true'); }
-        }
+                if(!chart.options.plugins.milestonesData) return;
+                const achievements = chart.options.plugins.milestonesData;
 
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateChartTheme(isDark);
-        }
+                ctx.save();
+                ctx.font = '14px Inter';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
 
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); }
-
-        const watermarkPlugin = {
-            id: 'watermark',
-            beforeDraw: (chart) => {
-                const ctx = chart.ctx; const width = chart.width; const height = chart.height;
-                ctx.save(); ctx.font = 'bold 3.5rem Inter';
-                ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.03)' : 'rgba(15, 23, 42, 0.03)';
-                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-                ctx.translate(width / 2, height / 2); ctx.rotate(-Math.PI / 6);
-                ctx.fillText('t.me/OzonGreenROI', 0, 0); ctx.restore();
+                for (let i = 1; i <= 4; i++) {
+                    const month = achievements[i];
+                    if (month) {
+                        const index = month - 1; 
+                        if(index >= 0 && index < meta.data.length && meta.data[index]) {
+                            const point = meta.data[index];
+                            const x = point.x;
+                            const y = point.y;
+                            ctx.fillStyle = document.documentElement.classList.contains('dark') ? '#fcd34d' : '#f59e0b';
+                            ctx.fillText('🏆 ' + i, x, y - 8);
+                        }
+                    }
+                }
+                ctx.restore();
             }
         };
-        Chart.register(watermarkPlugin);
+        Chart.register(milestonePlugin);
 
-        function updateChartTheme(isDark) {
-            if(!chartInstance) return;
-            const gridColor = isDark ? '#334155' : '#f1f5f9'; const tickColor = isDark ? '#94a3b8' : '#64748b'; const textColor = isDark ? '#f8fafc' : '#334155';
-            
-            chartInstance.options.scales.x.grid.color = gridColor; 
-            chartInstance.options.scales.x.ticks.color = tickColor; 
-            chartInstance.options.scales.y.grid.color = gridColor; 
-            chartInstance.options.scales.y.ticks.color = tickColor; 
-            if(chartInstance.options.scales.y1) {
-                chartInstance.options.scales.y1.ticks.color = tickColor;
-            }
-            
-            chartInstance.options.plugins.legend.labels.color = textColor;
-            if (chartInstance.data.datasets && chartInstance.data.datasets.length >= 2) {
-                const baseLineDataset = chartInstance.data.datasets.find(d => d.order === 2);
-                if(baseLineDataset) {
-                    baseLineDataset.borderColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 23, 42, 0.8)';
-                    baseLineDataset.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 23, 42, 0.05)';
-                    baseLineDataset.pointBackgroundColor = isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(15, 23, 42, 1)';
-                }
-            }
-            chartInstance.update();
-            if(donutChartInstance) { donutChartInstance.options.plugins.legend.labels.color = textColor; donutChartInstance.update(); }
-        }
-
-        function toggleLang(lang) {
-            currentLang = lang;
-            if (lang === 'en') {
-                document.body.classList.add('lang-en'); document.body.classList.remove('lang-ru');
-                document.getElementById('btn-ru').classList.replace('font-bold', 'font-normal'); document.getElementById('btn-ru').classList.replace('text-blue-600', 'text-slate-400'); document.getElementById('btn-ru').classList.replace('dark:text-blue-400', 'dark:text-slate-500');
-                document.getElementById('btn-en').classList.replace('font-normal', 'font-bold'); document.getElementById('btn-en').classList.replace('text-slate-400', 'text-blue-600'); document.getElementById('btn-en').classList.replace('dark:text-slate-500', 'dark:text-blue-400');
-                const taxTypeSelect = document.getElementById('taxType'); taxTypeSelect.options[0].text = 'Profit'; taxTypeSelect.options[1].text = 'Turnover';
-            } else {
-                document.body.classList.add('lang-ru'); document.body.classList.remove('lang-en');
-                document.getElementById('btn-en').classList.replace('font-bold', 'font-normal'); document.getElementById('btn-en').classList.replace('text-blue-600', 'text-slate-400'); document.getElementById('btn-en').classList.replace('dark:text-blue-400', 'dark:text-slate-500');
-                document.getElementById('btn-ru').classList.replace('font-normal', 'font-bold'); document.getElementById('btn-ru').classList.replace('text-slate-400', 'text-blue-600'); document.getElementById('btn-ru').classList.replace('dark:text-slate-500', 'dark:text-blue-400');
-                const taxTypeSelect = document.getElementById('taxType'); taxTypeSelect.options[0].text = 'С прибыли'; taxTypeSelect.options[1].text = 'С оборота';
-            }
-            if(chartInstance) calculate();
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.remove('opacity-0', 'translate-y-4'); toast.classList.add('opacity-100', 'translate-y-0');
-            if(window.toastTimeout) clearTimeout(window.toastTimeout);
-            window.toastTimeout = setTimeout(() => { toast.classList.remove('opacity-100', 'translate-y-0'); toast.classList.add('opacity-0', 'translate-y-4'); }, 4000);
-        }
-
-        let baseVotes = 124, baseAvg = 4.8;
-        function updateStarsDisplay() {
-            let userRating = localStorage.getItem('calc_rating'); const stars = document.querySelectorAll('.star-btn'); const ratingValue = userRating ? Number(userRating) : 0;
-            stars.forEach((star, index) => {
-                if (index < ratingValue) { star.classList.replace('text-slate-300', 'text-amber-400'); star.classList.replace('dark:text-slate-600', 'dark:text-amber-400'); } 
-                else { star.classList.replace('text-amber-400', 'text-slate-300'); star.classList.replace('dark:text-amber-400', 'dark:text-slate-600'); }
-            });
-            let finalAvg = userRating ? ((baseAvg * baseVotes) + Number(userRating)) / (baseVotes + 1) : baseAvg; document.getElementById('avg-rating').innerText = finalAvg.toFixed(1) + ' / 5';
-        }
-        function rate(val) { localStorage.setItem('calc_rating', val); updateStarsDisplay(); showToast(currentLang === 'ru' ? 'Спасибо за вашу оценку!' : 'Thank you for your rating!'); }
-
-        function handleNumberInput(e) {
-            const input = e.target; let val = input.value.replace(/[^\d]/g, '');
-            if (val !== '') { input.value = new Intl.NumberFormat('ru-RU').format(val); } else { input.value = ''; }
-            calculate();
-        }
-
-        function getRawNumber(id) { 
-            const el = document.getElementById(id);
-            if(!el) return 0;
-            const val = el.value.replace(/[^\d]/g, ''); return Number(val) || 0; 
-        }
-        function formatRawNumber(num) { if(!num) return '0'; return new Intl.NumberFormat('ru-RU').format(num); }
-
-        function toggleCreditFields() {
-            const useCredit = document.getElementById('useCredit').checked;
-            document.querySelectorAll('.credit-field').forEach(field => { useCredit ? field.classList.remove('hidden') : field.classList.add('hidden'); });
-            calculate();
-        }
-
-        function toggleSeasonalityFields(doCalculate = true) {
-            const el = document.getElementById('seasonality');
-            if(!el) return;
-            const useSeasonality = el.checked;
-            useSeasonality ? document.getElementById('seasonalityWrapper').classList.remove('hidden') : document.getElementById('seasonalityWrapper').classList.add('hidden');
-            if(doCalculate) calculate();
-        }
-
-        function toggleScenarioFields(doCalculate = true) {
-            const el = document.getElementById('useScenarios');
-            if(!el) return;
-            const useScenarios = el.checked;
-            useScenarios ? document.getElementById('scenariosWrapper').classList.remove('hidden') : document.getElementById('scenariosWrapper').classList.add('hidden');
-            if(doCalculate) calculate();
-        }
-        
-        function toggleDynamicReinvest(doCalculate = true) {
-            const el = document.getElementById('dynamicReinvest');
-            if(!el) return;
-            const useDynamic = el.checked;
-            useDynamic ? document.getElementById('dynamicReinvestWrapper').classList.remove('hidden') : document.getElementById('dynamicReinvestWrapper').classList.add('hidden');
-            if(doCalculate) calculate();
-        }
-
-        const formatMoney = (num) => { const conf = currencies[currentCurrency]; return new Intl.NumberFormat(conf.locale, { style: 'currency', currency: conf.curr, maximumFractionDigits: 0 }).format(num); };
-
-        function exportCSV() {
-            const sep = currentLang === 'ru' ? ';' : ',';
-            let csv = currentLang === 'ru'
-                ? `Месяц${sep}Старт. капитал${sep}Валовая Прибыль${sep}Налог/Потери${sep}Пост. расходы${sep}Кредит${sep}Чистая Прибыль${sep}Вливания${sep}Вывод на себя${sep}Итоговый оборот${sep}С учетом инфляции\n`
-                : `Month${sep}Start Capital${sep}Gross Profit${sep}Tax/Loss${sep}Fixed Costs${sep}Credit Payment${sep}Net Profit${sep}Top-up${sep}Payout${sep}Ending Capital${sep}Inflation Adjusted\n`;
-
-            const formatCsvNum = (num) => { if (num === null || num === undefined) return 0; return currentLang === 'ru' ? num.toFixed(2).replace('.', ',') : num.toFixed(2); };
-
-            globalMonthlyData.forEach(d => {
-                csv += `${d.month}${sep}${formatCsvNum(d.startCapital)}${sep}${formatCsvNum(d.grossProfit)}${sep}${formatCsvNum(d.taxAmount)}${sep}${formatCsvNum(d.fixedCost)}${sep}${formatCsvNum(d.creditPayment)}${sep}${formatCsvNum(d.profit)}${sep}${formatCsvNum(d.monthlyAdd)}${sep}${formatCsvNum(d.payout)}${sep}${formatCsvNum(d.endCapital)}${sep}${formatCsvNum(d.realEndCapital)}\n`;
-            });
-
-            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' }); 
-            const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "roi-calc-export.csv";
-            document.body.appendChild(link); link.click(); document.body.removeChild(link);
-            showToast(currentLang === 'ru' ? 'Таблица успешно скачана!' : 'Table downloaded successfully!');
-        }
-
-        function exportPitchPDF() {
-            showToast(currentLang === 'ru' ? 'Генерация Инвест-Питча...' : 'Generating Pitch Deck...');
-            
-            const s = getStateObj();
-            document.getElementById('pitch-inputs').innerHTML = `
-                <li><strong>${currentLang === 'ru' ? 'Капитал:' : 'Capital:'}</strong> ${formatMoney(s.startCapital)}</li>
-                <li><strong>${currentLang === 'ru' ? 'ROI (база):' : 'ROI (base):'}</strong> ${s.roi}%</li>
-                <li><strong>${currentLang === 'ru' ? 'Период:' : 'Period:'}</strong> ${s.months} ${currentLang === 'ru' ? 'мес.' : 'mo.'}</li>
-                <li><strong>${currentLang === 'ru' ? 'Налоги:' : 'Taxes:'}</strong> ${s.tax}% (${s.taxType === 'profit' ? (currentLang === 'ru' ? 'С прибыли' : 'From Profit') : (currentLang === 'ru' ? 'С оборота' : 'From Turnover')})</li>
-            `;
-
-            const finalCap = globalMonthlyData.length > 0 ? globalMonthlyData[globalMonthlyData.length-1].endCapital : 0;
-            document.getElementById('pitch-summary').innerHTML = `
-                <li><strong>${currentLang === 'ru' ? 'Итоговый капитал:' : 'Ending Capital:'}</strong> ${formatMoney(finalCap)}</li>
-                <li><strong>${currentLang === 'ru' ? 'Всего выведено:' : 'Total Payouts:'}</strong> ${formatMoney(globalTotals.payout)}</li>
-                <li><strong>${currentLang === 'ru' ? 'Сумма налогов:' : 'Total Taxes:'}</strong> ${formatMoney(globalTotals.tax)}</li>
-                <li><strong>${currentLang === 'ru' ? 'Чистая прибыль:' : 'Net Profit:'}</strong> ${formatMoney(globalTotals.payout + Math.max(0, globalTotals.retained))}</li>
-            `;
-
+        const initChart = () => {
+            const ctx = document.getElementById('growthChart').getContext('2d');
             const isDark = document.documentElement.classList.contains('dark');
-            if (isDark) {
-                document.documentElement.classList.remove('dark');
-                updateChartTheme(false);
-            }
+            const gridColor = isDark ? '#334155' : '#f1f5f9';
+            const tickColor = isDark ? '#94a3b8' : '#64748b';
+            const textColor = isDark ? '#f8fafc' : '#334155';
 
-            document.getElementById('pitch-chart-1').src = document.getElementById('growthChart').toDataURL('image/png', 1.0);
-            document.getElementById('pitch-chart-2').src = document.getElementById('donutChart').toDataURL('image/png', 1.0);
-            
-            let tableHTML = document.querySelector('#mainTable').innerHTML;
-            tableHTML = tableHTML.replace(/dark:[^\s"']+/g, '').replace(/bg-rose-50/g, 'bg-red-50'); 
-            document.getElementById('pitch-table-container').innerHTML = `<table class="min-w-full divide-y divide-slate-200 text-left border border-slate-200 mt-4">${tableHTML}</table>`;
-
-            const element = document.getElementById('pitch-template');
-            element.style.top = '0';
-            element.style.left = '0'; 
-            element.style.zIndex = '100'; 
-            
-            const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: 'Investment_Pitch.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#ffffff', windowWidth: 1200 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
-            
-            html2pdf().set(opt).from(element).save().then(() => {
-                element.style.top = '-9999px';
-                element.style.left = '-9999px';
-                element.style.zIndex = '-100'; 
-                if (isDark) {
-                    document.documentElement.classList.add('dark');
-                    updateChartTheme(true);
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true, maintainAspectRatio: false, animation: { duration: 0 }, interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8, padding: 20, color: textColor } },
+                        tooltip: { usePointStyle: true, boxPadding: 8, callbacks: { label: function(context) { let label = context.dataset.label || ''; if (label) { label = label.trim() + ': '; } if (context.parsed.y !== null) { label += formatMoney(context.parsed.y); } return label; } } },
+                        milestonesData: {}
+                    },
+                    scales: {
+                        y: { 
+                            type: 'linear', display: true, position: 'left', beginAtZero: true, 
+                            title: { display: true, text: currentLang==='ru'?'Оборот':'Capital', color: textColor, font: {size: 11} },
+                            ticks: { color: tickColor, callback: function(value) { if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B'; if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M'; if (value >= 1000) return (value / 1000).toFixed(0) + 'k'; return value; } }, 
+                            grid: { color: gridColor, drawBorder: false } 
+                        },
+                        y1: { 
+                            type: 'linear', display: true, position: 'right', beginAtZero: true, 
+                            title: { display: true, text: currentLang==='ru'?'Вывод':'Payout', color: '#3b82f6', font: {size: 11} },
+                            ticks: { color: '#3b82f6', callback: function(value) { if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B'; if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M'; if (value >= 1000) return (value / 1000).toFixed(0) + 'k'; return value; } }, 
+                            grid: { drawOnChartArea: false }
+                        },
+                        x: { ticks: { color: tickColor, maxTicksLimit: 12, maxRotation: 0 }, grid: { display: false, drawBorder: false } }
+                    },
+                    layout: { padding: { top: 20 } }
                 }
-                showToast(currentLang === 'ru' ? 'Питч успешно скачан!' : 'Pitch Deck downloaded!');
             });
-        }
-
-        function generateShareText(url) {
-            const startCap = formatMoney(getRawNumber('startCapital')); const roiVal = document.getElementById('roi').value + '%';
-            let text = currentLang === 'ru' ? `Мои результаты масштабирования бизнеса!\nСтарт: ${startCap}, Средний ROI: ${roiVal}\n\n` : `My business scaling results!\nStart: ${startCap}, Average ROI: ${roiVal}\n\n`;
-            for (let i = 1; i <= 4; i++) {
-                const res = document.getElementById(`achieve-goal${i}`).innerText; const goalAmount = formatMoney(getRawNumber(`goal${i}`));
-                text += currentLang === 'ru' ? `Цель ${i} (${goalAmount}): ${res}\n` : `Goal ${i} (${goalAmount}): ${res}\n`;
-            }
-            text += currentLang === 'ru' ? `\nРассчитай свои цели: ${url}` : `\nCalculate your goals: ${url}`;
-            return text;
-        }
-
-        function shareSocial(platform) {
-            let realUrl = window.location.href;
-            if (realUrl.startsWith('blob:') || realUrl.includes('googleusercontent') || realUrl.includes('webcontainer')) { realUrl = 'https://rmslk.github.io/roi-calc/'; const urlParams = new URLSearchParams(window.location.search).toString(); if(urlParams) realUrl += '?' + urlParams; }
-            const fullText = generateShareText(realUrl);
-            if (platform === 'copy') { navigator.clipboard.writeText(fullText).then(() => showToast(currentLang === 'ru' ? 'Текст и ссылка скопированы!' : 'Text and link copied!')).catch(() => showToast(currentLang === 'ru' ? 'Ошибка копирования.' : 'Copy error.')); } 
-            else {
-                let encodedUrl = encodeURIComponent(realUrl); let encodedText = encodeURIComponent(fullText); let shareUrl = '';
-                switch(platform) {
-                    case 'tg': shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`; break;
-                    case 'vk': shareUrl = `https://vk.com/share.php?url=${encodedUrl}&title=${encodedText}`; break;
-                    case 'tw': shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`; break;
-                    case 'fb': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`; break;
-                }
-                if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
-            }
-        }
-
-        function openFeedbackModal() { document.getElementById('feedbackModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('feedbackModalContent').classList.remove('scale-95', 'opacity-0'); document.getElementById('feedbackModalContent').classList.add('scale-100', 'opacity-100'); }, 10); document.getElementById('feedbackText').focus(); }
-        function closeFeedbackModal() { document.getElementById('feedbackModalContent').classList.remove('scale-100', 'opacity-100'); document.getElementById('feedbackModalContent').classList.add('scale-95', 'opacity-0'); setTimeout(() => { document.getElementById('feedbackModal').classList.add('hidden'); }, 200); }
-
-        function sendFeedback() {
-            const text = document.getElementById('feedbackText').value.trim(); if(!text) return;
-            const target = "termitdream@gmail.com"; const subject = currentLang === 'ru' ? 'Идея для Калькулятора Капитализации' : 'Feedback on Capitalization Calculator';
-            const btn = document.getElementById('sendBtn'); const originalText = btn.innerHTML; btn.innerHTML = currentLang === 'ru' ? 'Отправка...' : 'Sending...'; btn.disabled = true;
-            fetch(`https://formsubmit.co/ajax/${target}`, { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ _subject: subject, _template: "box", message: text }) })
-            .then(res => res.json()).then(data => { if (data.success === "true" || data.success === true) { showToast(currentLang === 'ru' ? 'Успешно отправлено!' : 'Sent successfully!'); closeFeedbackModal(); document.getElementById('feedbackText').value = ''; } else throw new Error(); })
-            .catch(() => { window.location.href = `mailto:${target}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`; closeFeedbackModal(); })
-            .finally(() => { btn.innerHTML = originalText; btn.disabled = false; });
-        }
-
-        function saveBaseline() { baselineData = globalMonthlyData.map(d => ({ payout: d.payout, capital: d.endCapital })); document.getElementById('btnClearBaseline').classList.remove('hidden'); showToast(currentLang === 'ru' ? '«План А» сохранен! Измените настройки для сравнения.' : 'Plan A saved! Change settings to compare.'); calculate(); }
-        function clearBaseline() { baselineData = null; document.getElementById('btnClearBaseline').classList.add('hidden'); calculate(); }
+            
+            donutChartInstance = new Chart(document.getElementById('donutChart').getContext('2d'), {
+                type: 'doughnut',
+                data: { labels: [], datasets: [{ data: [], backgroundColor: ['#3b82f6', '#10b981', '#f43f5e', '#f59e0b', '#8b5cf6'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: textColor, usePointStyle: true, boxWidth: 8, padding: 15 } }, tooltip: { callbacks: { label: function(context) { return ' ' + formatMoney(context.parsed); } } } } }
+            });
+        };
 
         function runSim(roiPercent, state) {
             const startCapital = state.startCapital;
@@ -1494,9 +1432,14 @@
             const newReinvestShare = state.newReinvestShare / 100;
 
             const isRealistic = state.realisticRoi === 1;
+            
             const isSeasonal = state.seasonality === 1;
             const seasonalMonthsList = state.seasonalityMonths.split(',').map(m => parseInt(m.trim())).filter(m => !isNaN(m));
             const seasonMulti = state.seasonalityMultiplier;
+
+            const isCostSeasonal = state.costSeasonality === 1;
+            const costSeasonalMonthsList = state.costSeasonalityMonths.split(',').map(m => parseInt(m.trim())).filter(m => !isNaN(m));
+            const costSeasonMulti = state.costSeasonalityMultiplier;
             
             const fixedCost = state.fixedCost;
             const stepCost = state.stepCost || 0;
@@ -1522,7 +1465,15 @@
             let data = [];
             let achievements = { 1: null, 2: null, 3: null, 4: null };
             let totalPayout = 0;
+            let cumulativePayout = 0;
             let totals = { tax: 0, cost: 0, credit: 0, payout: 0, retained: 0, gross: 0 };
+            
+            let breakEvenROI = 0;
+            if (startCapital > 0) {
+                let baseTaxMult = taxType === 'profit' ? (1 - taxRate/100) : 1; 
+                breakEvenROI = (fixedCost + creditMonthlyPayment) / (startCapital * baseTaxMult);
+                if (taxType === 'turnover') breakEvenROI += (taxRate/100);
+            }
 
             let threshold = 1000000;
             if (state.currency === 'USD' || state.currency === 'EUR') threshold = 15000;
@@ -1534,6 +1485,7 @@
             for (let month = 1; month <= totalMonths; month++) {
                 let currentRoi = effectiveMonthlyRoi;
                 const currentMonthInYear = ((month - 1) % 12) + 1;
+                
                 if (isSeasonal && seasonalMonthsList.includes(currentMonthInYear)) { currentRoi *= seasonMulti; }
                 if (isRealistic) { let drops = Math.floor(currentCapital / threshold); currentRoi = Math.max(effectiveMonthlyRoi * 0.2, currentRoi * Math.pow(0.95, drops)); }
 
@@ -1545,7 +1497,10 @@
                 else taxAmount = grossProfit * (taxRate / 100);
                 
                 let profitAfterTax = grossProfit - taxAmount;
+                
                 let currentFixedCost = fixedCost + Math.floor(currentCapital / 1000000) * stepCost;
+                if (isCostSeasonal && costSeasonalMonthsList.includes(currentMonthInYear)) { currentFixedCost *= costSeasonMulti; }
+
                 let currentCreditPayment = (useCredit && month <= creditTerm) ? creditMonthlyPayment : 0;
                 
                 let isCashGap = false;
@@ -1572,17 +1527,26 @@
                 let realEndCapital = endCapital / Math.pow(1 + monthlyInf, month);
 
                 totalPayout += payout;
+                cumulativePayout += payout;
+                
                 if(taxAmount > 0) totals.tax += taxAmount;
                 if(currentFixedCost > 0) totals.cost += currentFixedCost;
                 if(currentCreditPayment > 0) totals.credit += currentCreditPayment;
                 if(payout > 0) totals.payout += payout;
 
-                data.push({ month, startCapital: currentCapital, grossProfit, taxAmount, fixedCost: currentFixedCost, creditPayment: currentCreditPayment, profit: netProfit, monthlyAdd, payout, retained, endCapital, realEndCapital, isCashGap });
+                data.push({ month, startCapital: currentCapital, grossProfit, taxAmount, fixedCost: currentFixedCost, creditPayment: currentCreditPayment, profit: netProfit, monthlyAdd, payout, cumulativePayout, retained, endCapital, realEndCapital, isCashGap });
                 currentCapital = endCapital;
             }
             
             totals.retained = currentCapital - startCapital - (monthlyAdd * totalMonths);
-            return { data, totals, achievements, totalPayout, hasGlobalCashGap, goals };
+            return { data, totals, achievements, totalPayout, hasGlobalCashGap, goals, breakEvenROI };
+        }
+
+        function setTableMode(mode) {
+            currentTableMode = mode;
+            document.getElementById('btnTableAll').className = mode === 'all' ? "px-4 py-2 text-sm font-semibold rounded-lg bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400 transition-all" : "px-4 py-2 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-all";
+            document.getElementById('btnTablePersonal').className = mode === 'personal' ? "px-4 py-2 text-sm font-semibold rounded-lg bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400 transition-all" : "px-4 py-2 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-all";
+            calculate();
         }
 
         const calculate = () => {
@@ -1630,6 +1594,46 @@
                 const alertBox = document.getElementById('cashGapAlert');
                 if(alertBox) { if (baseSim.hasGlobalCashGap) alertBox.classList.remove('hidden'); else alertBox.classList.add('hidden'); }
 
+                // Smart Hints Generation
+                const hintsList = document.getElementById('smartHintsList');
+                hintsList.innerHTML = '';
+                let breakEvenROI = baseSim.breakEvenROI * 100;
+                let hintsCount = 0;
+                
+                if(breakEvenROI > 0) {
+                    hintsList.innerHTML += `<li>${currentLang==='ru'?'Точка безубыточности в 1-й месяц':'Break-even ROI in month 1'}: <strong class="text-indigo-900 dark:text-indigo-200">${breakEvenROI.toFixed(1)}%</strong>. ${currentLang==='ru'?'Если ROI упадет ниже, вы уйдете в минус из-за расходов.':'If ROI drops below this, fixed costs will cause losses.'}</li>`;
+                    hintsCount++;
+                }
+                if(state.reinvestShare === 100 && state.dynamicReinvest === 0 && totalPayout === 0) {
+                    hintsList.innerHTML += `<li>${currentLang==='ru'?'Вы реинвестируете 100% прибыли. Рост будет взрывным, но высокий риск выгорания из-за отсутствия личного дохода.':'100% reinvestment provides explosive growth, but carries high burnout risk without personal payout.'}</li>`;
+                    hintsCount++;
+                }
+                if(state.useCredit === 1 && globalTotals.credit > globalTotals.gross * 0.3) {
+                    hintsList.innerHTML += `<li class="text-rose-600 dark:text-rose-400">${currentLang==='ru'?'Кредитная нагрузка съедает более 30% валовой прибыли. Рассмотрите рефинансирование.':'Credit load consumes >30% of gross profit. Consider refinancing.'}</li>`;
+                    hintsCount++;
+                }
+                if(hintsCount === 0) {
+                    hintsList.innerHTML += `<li>${currentLang==='ru'?'У вас сбалансированная финансовая модель. Так держать!':'Your financial model looks well-balanced. Keep it up!'}</li>`;
+                }
+
+                // Millionaire check
+                let millionMonth = null;
+                let millionThreshold = 1000000;
+                if (currentCurrency === 'USD' || currentCurrency === 'EUR') millionThreshold = 1000000;
+                if (currentCurrency === 'BYN') millionThreshold = 3000000;
+                if (currentCurrency === 'KZT') millionThreshold = 450000000;
+                
+                globalMonthlyData.forEach(d => { if(d.cumulativePayout >= millionThreshold && millionMonth === null) millionMonth = d.month; });
+                const millionWidget = document.getElementById('millionWidget');
+                const millionMonthEls = document.querySelectorAll('.millionMonthVal');
+                if (millionMonth !== null) {
+                    millionMonthEls.forEach(el => el.innerText = millionMonth);
+                    millionWidget.classList.remove('hidden');
+                } else { millionWidget.classList.add('hidden'); }
+
+                const leadMagnet = document.getElementById('leadMagnet');
+                if(baseSim.achievements[4] !== null) leadMagnet.classList.remove('hidden'); else leadMagnet.classList.add('hidden');
+
                 document.getElementById('totalPayoutDisplay').innerText = formatMoney(totalPayout);
 
                 if(!chartInstance) return;
@@ -1641,9 +1645,19 @@
 
                 const mLabel = currentLang === 'ru' ? 'мес.' : 'mo.';
                 chartInstance.data.labels = globalMonthlyData.map(d => `${d.month} ${mLabel}`);
+                chartInstance.options.plugins.milestonesData = baseSim.achievements;
                 
                 let newDatasets = [
-                    { type: 'bar', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout', data: globalMonthlyData.map(d => d.payout), backgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 0.8)' : 'rgba(59, 130, 246, 0.8)'), borderRadius: 4, order: 3, yAxisID: 'y1' },
+                    { 
+                        type: 'bar', 
+                        label: currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout', 
+                        data: globalMonthlyData.map(d => d.payout), 
+                        backgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 0.3)' : 'rgba(59, 130, 246, 0.3)'), 
+                        hoverBackgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 1)' : 'rgba(59, 130, 246, 1)'),
+                        borderRadius: 4, 
+                        order: 3, 
+                        yAxisID: 'y1' 
+                    },
                     { type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Базовый)' : '\u00A0\u00A0Capital (Base)', data: globalMonthlyData.map(d => d.endCapital), borderColor: baseLineColor, backgroundColor: baseBgColor, borderWidth: 3, pointRadius: 2, pointBackgroundColor: basePointColor, fill: true, tension: 0.4, order: 2, yAxisID: 'y' }
                 ];
 
@@ -1659,6 +1673,8 @@
                     newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (План А)' : '\u00A0\u00A0Capital (Plan A)', data: baselineData.map(d => d.capital), borderColor: 'rgba(59, 130, 246, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 7, yAxisID: 'y' });
                 }
 
+                chartInstance.options.scales.y.title.text = currentLang==='ru'?'Оборот':'Capital';
+                chartInstance.options.scales.y1.title.text = currentLang==='ru'?'Вывод на себя':'Payout';
                 chartInstance.data.datasets = newDatasets;
                 chartInstance.update();
                 
@@ -1670,90 +1686,91 @@
                     donutChartInstance.update();
                 }
 
-                const tbody = document.getElementById('tableBody'); tbody.innerHTML = '';
-                const lMonth = currentLang === 'ru' ? 'Месяц' : 'Month'; const lStartCap = currentLang === 'ru' ? 'Старт. капитал' : 'Start. Capital'; const lProfit = currentLang === 'ru' ? 'Прибыль (Чистая)' : 'Net Profit'; const lPayout = currentLang === 'ru' ? 'Вывод на себя' : 'Your Payout'; const lEndCap = currentLang === 'ru' ? 'Итоговый оборот' : 'Ending Capital';
+                const mainTable = document.getElementById('mainTable'); 
+                mainTable.innerHTML = '';
                 
-                globalMonthlyData.forEach(data => {
-                    const trClass = data.isCashGap ? "bg-rose-50 dark:bg-rose-900/20 md:table-row" : "hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors md:table-row";
-                    const tr = document.createElement('tr'); tr.className = trClass;
-                    const isPayoutMonth = data.payout > 0; const emptyMoney = formatMoney(0);
+                if(currentTableMode === 'personal') {
+                    const lMonth = currentLang === 'ru' ? 'Месяц' : 'Month'; const lPayout = currentLang === 'ru' ? 'Вывод на себя' : 'Payout'; const lCumPayout = currentLang === 'ru' ? 'Всего выведено' : 'Cumulative Payout';
                     
-                    let profitHtml = `<span class="text-slate-700 dark:text-slate-300 font-semibold">${data.profit >= 0 ? '+' : ''} ${formatMoney(data.profit)}</span>`;
-                    if (data.monthlyAdd > 0) { const topupText = currentLang === 'ru' ? 'Вливания' : 'Top-up'; profitHtml += `<br><span class="text-xs text-slate-400 dark:text-slate-500">+ ${formatMoney(data.monthlyAdd)} ${topupText}</span>`; }
-                    if (data.taxAmount > 0 || data.fixedCost > 0 || data.creditPayment > 0) {
-                         profitHtml += `<div class="text-xs text-rose-500/80 dark:text-rose-400/80 mt-1">`;
-                        if (data.taxAmount > 0) { const taxText = currentLang === 'ru' ? 'Налог' : 'Tax'; profitHtml += `<div>- ${formatMoney(data.taxAmount)} ${taxText}</div>`; }
-                        if (data.fixedCost > 0) { const fcText = currentLang === 'ru' ? 'Расходы' : 'Fixed Costs'; profitHtml += `<div>- ${formatMoney(data.fixedCost)} ${fcText}</div>`; }
-                        if (data.creditPayment > 0) { const crText = currentLang === 'ru' ? 'Кредит' : 'Credit'; profitHtml += `<div>- ${formatMoney(data.creditPayment)} ${crText}</div>`; }
-                        profitHtml += `</div>`;
-                    }
-
-                    let endCapHtml = `<span class="font-bold ${data.isCashGap ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-white'}">${formatMoney(data.endCapital)}</span>`;
-                    if (state.inflation > 0) { const infText = currentLang === 'ru' ? 'В реальных ценах' : 'Real Value'; endCapHtml += `<br><span class="text-xs text-slate-400 font-normal">${infText}: ${formatMoney(data.realEndCapital)}</span>`; }
-
-                    tr.innerHTML = `
-                        <td data-label="${lMonth}" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 dark:text-white font-medium text-lg md:text-sm">${lMonth} ${data.month}</td>
-                        <td data-label="${lStartCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-500 dark:text-slate-400">${formatMoney(data.startCapital)}</td>
-                        <td data-label="${lProfit}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right">${profitHtml}</td>
-                        <td data-label="${lPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-600'}">${isPayoutMonth ? formatMoney(data.payout) : emptyMoney}</td>
-                        <td data-label="${lEndCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right bg-slate-50 dark:bg-slate-700/50 md:bg-transparent md:dark:bg-transparent rounded-lg md:rounded-none mt-2 md:mt-0">${endCapHtml}</td>
+                    mainTable.innerHTML = `
+                        <thead class="bg-slate-50 dark:bg-slate-800/50">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 text-left font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs">${lMonth}</th>
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider text-xs">${lPayout}</th>
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-800 dark:text-white uppercase tracking-wider text-xs">${lCumPayout}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-transparent md:divide-y md:divide-slate-100 dark:md:divide-slate-700/30">
+                        </tbody>
                     `;
-                    tbody.appendChild(tr);
-                });
+                    const tbody = mainTable.querySelector('tbody');
+                    globalMonthlyData.forEach(data => {
+                        const trClass = "hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors md:table-row";
+                        const tr = document.createElement('tr'); tr.className = trClass;
+                        const isPayoutMonth = data.payout > 0; const emptyMoney = formatMoney(0);
+                        
+                        tr.innerHTML = `
+                            <td data-label="${lMonth}" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 dark:text-white font-medium text-lg md:text-sm">${lMonth} ${data.month}</td>
+                            <td data-label="${lPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-600'}">${isPayoutMonth ? formatMoney(data.payout) : emptyMoney}</td>
+                            <td data-label="${lCumPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-bold text-slate-800 dark:text-white">${formatMoney(data.cumulativePayout)}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    const lMonth = currentLang === 'ru' ? 'Месяц' : 'Month'; const lStartCap = currentLang === 'ru' ? 'Старт. капитал' : 'Start. Capital'; const lProfit = currentLang === 'ru' ? 'Прибыль (Чистая)' : 'Net Profit'; const lPayout = currentLang === 'ru' ? 'Вывод на себя' : 'Your Payout'; const lEndCap = currentLang === 'ru' ? 'Итоговый оборот' : 'Ending Capital';
+                    
+                    const tooltipHtml1 = currentLang === 'ru' ? 'Деньги в работе на начало месяца' : 'Money in work at start';
+                    const tooltipHtml2 = currentLang === 'ru' ? 'Сгенерировано за месяц (с учетом налогов и расходов)' : 'Generated profit after taxes and costs';
+                    const tooltipHtml3 = currentLang === 'ru' ? 'Сколько вы забрали лично себе' : 'Your personal dividends';
+                    const tooltipHtml4 = currentLang === 'ru' ? 'Сумма, которая пойдет в закупку на следующий месяц' : 'Amount rolled over to next month';
+
+                    mainTable.innerHTML = `
+                        <thead class="bg-slate-50 dark:bg-slate-800/50">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 text-left font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs">${lMonth}</th>
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs" title="${tooltipHtml1}">${lStartCap} <span class="text-[10px] text-slate-400 cursor-help">(?)</span></th>
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs" title="${tooltipHtml2}">${lProfit} <span class="text-[10px] text-slate-400 cursor-help">(?)</span></th>
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-blue-600 dark:text-blue-500 uppercase tracking-wider text-xs" title="${tooltipHtml3}">${lPayout} <span class="text-[10px] text-blue-400 cursor-help">(?)</span></th>
+                                <th scope="col" class="px-6 py-4 text-right font-bold text-slate-800 dark:text-white uppercase tracking-wider text-xs" title="${tooltipHtml4}">${lEndCap} <span class="text-[10px] text-slate-500 cursor-help">(?)</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-transparent md:divide-y md:divide-slate-100 dark:md:divide-slate-700/30">
+                        </tbody>
+                    `;
+                    const tbody = mainTable.querySelector('tbody');
+                    
+                    globalMonthlyData.forEach(data => {
+                        const trClass = data.isCashGap ? "bg-rose-50 dark:bg-rose-900/20 md:table-row" : "hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors md:table-row";
+                        const tr = document.createElement('tr'); tr.className = trClass;
+                        const isPayoutMonth = data.payout > 0; const emptyMoney = formatMoney(0);
+                        
+                        let profitHtml = `<span class="text-slate-700 dark:text-slate-300 font-semibold">${data.profit >= 0 ? '+' : ''} ${formatMoney(data.profit)}</span>`;
+                        if (data.monthlyAdd > 0) { const topupText = currentLang === 'ru' ? 'Вливания' : 'Top-up'; profitHtml += `<br><span class="text-xs text-slate-400 dark:text-slate-500">+ ${formatMoney(data.monthlyAdd)} ${topupText}</span>`; }
+                        if (data.taxAmount > 0 || data.fixedCost > 0 || data.creditPayment > 0) {
+                             profitHtml += `<div class="text-xs text-rose-500/80 dark:text-rose-400/80 mt-1">`;
+                            if (data.taxAmount > 0) { const taxText = currentLang === 'ru' ? 'Налог' : 'Tax'; profitHtml += `<div>- ${formatMoney(data.taxAmount)} ${taxText}</div>`; }
+                            if (data.fixedCost > 0) { const fcText = currentLang === 'ru' ? 'Расходы' : 'Fixed Costs'; profitHtml += `<div>- ${formatMoney(data.fixedCost)} ${fcText}</div>`; }
+                            if (data.creditPayment > 0) { const crText = currentLang === 'ru' ? 'Кредит' : 'Credit'; profitHtml += `<div>- ${formatMoney(data.creditPayment)} ${crText}</div>`; }
+                            profitHtml += `</div>`;
+                        }
+
+                        let endCapHtml = `<span class="font-bold ${data.isCashGap ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-white'}">${formatMoney(data.endCapital)}</span>`;
+                        if (state.inflation > 0) { const infText = currentLang === 'ru' ? 'В реальных ценах' : 'Real Value'; endCapHtml += `<br><span class="text-xs text-slate-400 font-normal">${infText}: ${formatMoney(data.realEndCapital)}</span>`; }
+
+                        tr.innerHTML = `
+                            <td data-label="${lMonth}" class="md:px-6 md:py-4 whitespace-nowrap text-slate-900 dark:text-white font-medium text-lg md:text-sm">${lMonth} ${data.month}</td>
+                            <td data-label="${lStartCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right text-slate-500 dark:text-slate-400">${formatMoney(data.startCapital)}</td>
+                            <td data-label="${lProfit}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right">${profitHtml}</td>
+                            <td data-label="${lPayout}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right font-semibold ${isPayoutMonth ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-600'}">${isPayoutMonth ? formatMoney(data.payout) : emptyMoney}</td>
+                            <td data-label="${lEndCap}" class="md:px-6 md:py-4 whitespace-nowrap md:text-right bg-slate-50 dark:bg-slate-700/50 md:bg-transparent md:dark:bg-transparent rounded-lg md:rounded-none mt-2 md:mt-0">${endCapHtml}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
                 saveUrlState();
             } catch (error) {
                 console.error("Calculation Error: ", error);
             }
-        };
-
-        const initChart = () => {
-            const ctx = document.getElementById('growthChart').getContext('2d');
-            const isDark = document.documentElement.classList.contains('dark');
-            const gridColor = isDark ? '#334155' : '#f1f5f9';
-            const tickColor = isDark ? '#94a3b8' : '#64748b';
-            const textColor = isDark ? '#f8fafc' : '#334155';
-
-            const formatCallback = function(value) { 
-                if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B'; 
-                if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M'; 
-                if (value >= 1000) return (value / 1000).toFixed(0) + 'k'; 
-                return value; 
-            };
-
-            chartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: { labels: [], datasets: [] },
-                options: {
-                    responsive: true, maintainAspectRatio: false, animation: { duration: 0 }, interaction: { mode: 'index', intersect: false },
-                    plugins: {
-                        legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8, padding: 20, color: textColor } },
-                        tooltip: { usePointStyle: true, boxPadding: 8, callbacks: { label: function(context) { let label = context.dataset.label || ''; if (label) { label = label.trim() + ': '; } if (context.parsed.y !== null) { label += formatMoney(context.parsed.y); } return label; } } }
-                    },
-                    scales: {
-                        y: { 
-                            type: 'linear', display: true, position: 'left', beginAtZero: true, 
-                            ticks: { color: tickColor, callback: formatCallback }, 
-                            grid: { color: gridColor, drawBorder: false } 
-                        },
-                        y1: { 
-                            type: 'linear', display: true, position: 'right', beginAtZero: true, 
-                            ticks: { color: tickColor, callback: formatCallback }, 
-                            grid: { drawOnChartArea: false }
-                        },
-                        x: { 
-                            ticks: { color: tickColor, maxTicksLimit: 12, maxRotation: 0 }, 
-                            grid: { display: false, drawBorder: false } 
-                        }
-                    },
-                    layout: { padding: { top: 20 } }
-                }
-            });
-            
-            donutChartInstance = new Chart(document.getElementById('donutChart').getContext('2d'), {
-                type: 'doughnut',
-                data: { labels: [], datasets: [{ data: [], backgroundColor: ['#3b82f6', '#10b981', '#f43f5e', '#f59e0b', '#8b5cf6'], borderWidth: 0 }] },
-                options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: textColor, usePointStyle: true, boxWidth: 8, padding: 15 } }, tooltip: { callbacks: { label: function(context) { return ' ' + formatMoney(context.parsed); } } } } }
-            });
         };
 
         // --- БЕЗОПАСНАЯ ИНИЦИАЛИЗАЦИЯ И СЛУШАТЕЛИ ---
@@ -1762,13 +1779,13 @@
                 initInstruction();
                 initChart();
 
-                const textInputs = ['startCapital', 'monthlyAdd', 'goal1', 'goal2', 'goal3', 'goal4', 'fixedCost', 'stepCost', 'creditAmount', 'seasonalityMonths', 'reinvestThreshold'];
-                textInputs.forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', id === 'seasonalityMonths' ? calculate : handleNumberInput); });
+                const textInputs = ['startCapital', 'monthlyAdd', 'goal1', 'goal2', 'goal3', 'goal4', 'fixedCost', 'stepCost', 'creditAmount', 'seasonalityMonths', 'costSeasonalityMonths', 'reinvestThreshold'];
+                textInputs.forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', (id === 'seasonalityMonths' || id === 'costSeasonalityMonths') ? calculate : handleNumberInput); });
 
                 const nameInputs = ['goal1Name', 'goal2Name', 'goal3Name', 'goal4Name'];
                 nameInputs.forEach(id => { const el = document.getElementById(id); if(el) el.addEventListener('input', calculate); });
 
-                const otherInputs = ['roi', 'cycleDays', 'months', 'tax', 'taxType', 'inflation', 'realisticRoi', 'seasonality', 'seasonalityMultiplier', 'useScenarios', 'roiPessimistic', 'roiOptimistic', 'creditRate', 'creditTerm', 'dynamicReinvest'];
+                const otherInputs = ['roi', 'cycleDays', 'months', 'tax', 'taxType', 'inflation', 'realisticRoi', 'seasonality', 'seasonalityMultiplier', 'costSeasonality', 'costSeasonalityMultiplier', 'useScenarios', 'roiPessimistic', 'roiOptimistic', 'creditRate', 'creditTerm', 'dynamicReinvest'];
                 otherInputs.forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', calculate); });
                 
                 const rsEl = document.getElementById('reinvestShare'); if(rsEl) rsEl.addEventListener('input', function(e) { document.getElementById('reinvestShareVal').innerText = e.target.value + '%'; calculate(); });
@@ -1781,9 +1798,9 @@
                 const isDark = document.documentElement.classList.contains('dark');
                 updateChartTheme(isDark);
 
-                if (!localStorage.getItem('tourCompletedPRO')) {
+                if (!localStorage.getItem('tourCompletedPRO2')) {
                     setTimeout(startTour, 1000);
-                    localStorage.setItem('tourCompletedPRO', 'true');
+                    localStorage.setItem('tourCompletedPRO2', 'true');
                 }
             } catch (e) { console.error("Initialization Error:", e); }
         };
