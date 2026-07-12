@@ -1574,7 +1574,7 @@
                 let breakEvenROI = baseSim.breakEvenROI * 100; let hintsCount = 0;
                 
                 if (baseSim.hasGlobalCashGap) {
-                    hintsList.innerHTML = `<li class="text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-500/10 p-3 rounded-xl border border-rose-200 dark:border-rose-500/20 mb-3 shadow-sm"><strong>${currentLang==='ru'?'⚠️ Внимание: Риск кассового разрыва!':'⚠️ Warning: Cash Gap Risk!'}</strong> ${currentLang==='ru'?'В некоторых месяцах вам не хватит денег на оплату фиксированных расходов или кредита. Посмотрите красные столбцы на графике ниже.':'In some months you will lack funds to cover fixed costs or credit. Check the red bars on the chart below.'}</li>` + hintsList.innerHTML;
+                    hintsList.innerHTML = `<li class="text-rose-600 dark:text-rose-400"><strong>${currentLang==='ru'?'Внимание: Риск кассового разрыва!':'Warning: Cash Gap Risk!'}</strong> ${currentLang==='ru'?'В некоторых месяцах вам не хватит денег на оплату фиксированных расходов или кредита. Посмотрите красные столбцы на графике ниже.':'In some months you will lack funds to cover fixed costs or credit. Check the red bars on the chart below.'}</li>` + hintsList.innerHTML;
                     hintsCount++;
                 }
 
