@@ -108,7 +108,6 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 lang-ru relative">
 
-    <!-- Floating Panel -->
     <div id="topPanel" class="fixed bottom-4 left-1/2 -translate-x-1/2 md:top-6 md:right-8 md:bottom-auto md:left-auto md:translate-x-0 flex items-center bg-white/80 dark:bg-slate-800/80 backdrop-blur-md px-4 py-2.5 rounded-full shadow-xl border border-slate-200/50 dark:border-slate-700/50 z-[60] text-sm transition-all duration-300" data-html2canvas-ignore="true" onmouseenter="expandPanel()" onmouseleave="collapsePanelIfScrolled()">
         <button id="panelToggleBtn" onclick="togglePanel()" class="hidden text-slate-500 hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-400 focus:outline-none flex items-center justify-center w-6 h-6 transition-colors active:scale-95">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
@@ -750,6 +749,12 @@
                             <button onclick="shareSocial('tg')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0088cc] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Telegram">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
                             </button>
+                            <button onclick="shareSocial('tw')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-black dark:hover:bg-slate-700 hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Twitter / X">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+                            </button>
+                            <button onclick="shareSocial('fb')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#1877f2] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="Facebook">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                            </button>
                             <button onclick="shareSocial('vk')" class="w-11 h-11 flex items-center justify-center bg-transparent text-slate-400 hover:text-white hover:bg-[#0077FF] hover:border-transparent border border-slate-200 dark:border-slate-700 rounded-full transition-all flex-shrink-0 active:scale-90" title="VK">
                                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.959 8.61c-.13-.42-.455-.66-.88-.66h-2.613c-.5 0-.79.256-.96.657 0 0-1.328 3.193-3.197 5.267-.61.6-1.02.787-1.32.787-.15 0-.34-.187-.34-.657V8.61c0-.5-.15-.81-.62-.81H9.866c-.35 0-.56.257-.56.5 0 .52.78.643.86 2.115v3.194c0 .64-.13.788-.43.788-.81 0-2.79-3.21-3.95-6.883-.24-.657-.48-.81-1.09-.81H2.083c-.68 0-.82.316-.82.656 0 .61 1.05 4.887 4.54 9.08 2.33 2.79 5.61 4.302 8.56 4.302 1.77 0 1.99-.395 1.99-1.076v-2.47c0-.61.13-.73.6-.73.34 0 .94.17 2.33 1.517 1.58 1.63 1.84 2.36 2.87 2.36h2.61c.68 0 1.02-.34.83-1.01-.23-.66-1.07-1.64-2.18-2.88-5.26-5.24-1.23-3.8-2.16-5.06-.61-.83-.43-1.21 0-1.89 0 0 2.54-3.567 2.78-4.757z"/></svg>
                             </button>
@@ -1243,28 +1248,35 @@
 
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); }
 
-        const watermarkPlugin = {
-            id: 'watermark',
-            beforeDraw: (chart) => {
-                const ctx = chart.ctx; const width = chart.width; const height = chart.height;
-                ctx.save(); ctx.font = 'bold 3.5rem Inter';
-                ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.03)' : 'rgba(15, 23, 42, 0.03)';
-                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-                ctx.translate(width / 2, height / 2); ctx.rotate(-Math.PI / 6);
-                ctx.fillText('t.me/OzonGreenROI', 0, 0); ctx.restore();
-            }
-        };
-        Chart.register(watermarkPlugin);
-
         function updateChartTheme(isDark) {
             if(!chartInstance) return;
             const gridColor = isDark ? '#334155' : '#f1f5f9'; const tickColor = isDark ? '#94a3b8' : '#64748b'; const textColor = isDark ? '#f8fafc' : '#334155';
-            chartInstance.options.scales.x.grid.color = gridColor; chartInstance.options.scales.y.grid.color = gridColor; chartInstance.options.scales.x.ticks.color = tickColor; chartInstance.options.scales.y.ticks.color = tickColor; chartInstance.options.plugins.legend.labels.color = textColor;
-            if (chartInstance.data.datasets && chartInstance.data.datasets.length >= 2) {
-                chartInstance.data.datasets[1].borderColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 23, 42, 0.8)';
-                chartInstance.data.datasets[1].backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 23, 42, 0.05)';
-                chartInstance.data.datasets[1].pointBackgroundColor = isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(15, 23, 42, 1)';
+            
+            // Primary Y axis (Capital)
+            chartInstance.options.scales.y.grid.color = gridColor; 
+            chartInstance.options.scales.y.ticks.color = tickColor; 
+            
+            // Secondary Y axis (Payouts)
+            if(chartInstance.options.scales.y1) {
+                chartInstance.options.scales.y1.ticks.color = tickColor;
             }
+
+            // X axis
+            chartInstance.options.scales.x.grid.color = gridColor; 
+            chartInstance.options.scales.x.ticks.color = tickColor; 
+            
+            chartInstance.options.plugins.legend.labels.color = textColor;
+            
+            // Theme base lines if scenarios are not used
+            if (chartInstance.data.datasets && chartInstance.data.datasets.length >= 2) {
+                const baseLineDataset = chartInstance.data.datasets.find(d => d.order === 2);
+                if (baseLineDataset) {
+                    baseLineDataset.borderColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 23, 42, 0.8)';
+                    baseLineDataset.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(15, 23, 42, 0.05)';
+                    baseLineDataset.pointBackgroundColor = isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(15, 23, 42, 1)';
+                }
+            }
+            
             chartInstance.update();
             if(donutChartInstance) { donutChartInstance.options.plugins.legend.labels.color = textColor; donutChartInstance.update(); }
         }
@@ -1388,7 +1400,6 @@
             if (isDark) {
                 document.documentElement.classList.remove('dark');
                 updateChartTheme(false);
-                if(chartInstance && chartInstance.data.datasets.length >= 2) { chartInstance.data.datasets[1].borderColor = 'rgba(15, 23, 42, 0.8)'; chartInstance.data.datasets[1].backgroundColor = 'rgba(15, 23, 42, 0.05)'; chartInstance.data.datasets[1].pointBackgroundColor = 'rgba(15, 23, 42, 1)'; chartInstance.update(); }
             }
 
             document.getElementById('pitch-chart-1').src = document.getElementById('growthChart').toDataURL('image/png', 1.0);
@@ -1400,19 +1411,18 @@
 
             const element = document.getElementById('pitch-template');
             element.style.top = '0';
-            element.style.left = '0'; // FIX: Ensures the element is in the viewport bounds horizontally 
+            element.style.left = '0'; // FIX: Ensures element is properly aligned for html2pdf
             element.style.zIndex = '100'; 
             
             const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: 'Investment_Pitch.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#ffffff', windowWidth: 1200 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
             
             html2pdf().set(opt).from(element).save().then(() => {
                 element.style.top = '-9999px';
-                element.style.left = '-9999px'; // Restoring hidden state
+                element.style.left = '-9999px';
                 element.style.zIndex = '-100'; 
                 if (isDark) {
                     document.documentElement.classList.add('dark');
                     updateChartTheme(true);
-                    if(chartInstance && chartInstance.data.datasets.length >= 2) { chartInstance.data.datasets[1].borderColor = 'rgba(255, 255, 255, 0.8)'; chartInstance.data.datasets[1].backgroundColor = 'rgba(255, 255, 255, 0.05)'; chartInstance.data.datasets[1].pointBackgroundColor = 'rgba(255, 255, 255, 1)'; chartInstance.update(); }
                 }
                 showToast(currentLang === 'ru' ? 'Питч успешно скачан!' : 'Pitch Deck downloaded!');
             });
@@ -1460,7 +1470,7 @@
         }
 
         function saveBaseline() { baselineData = globalMonthlyData.map(d => ({ payout: d.payout, capital: d.endCapital })); document.getElementById('btnClearBaseline').classList.remove('hidden'); showToast(currentLang === 'ru' ? '«План А» сохранен! Измените настройки для сравнения.' : 'Plan A saved! Change settings to compare.'); calculate(); }
-        function clearBaseline() { baselineData = null; document.getElementById('btnClearBaseline').classList.add('hidden'); if(chartInstance && chartInstance.data.datasets.length > 2) { chartInstance.data.datasets.splice(2, 2); } calculate(); }
+        function clearBaseline() { baselineData = null; document.getElementById('btnClearBaseline').classList.add('hidden'); calculate(); }
 
         function runSim(roiPercent, state) {
             const startCapital = state.startCapital;
@@ -1626,20 +1636,20 @@
                 chartInstance.data.labels = globalMonthlyData.map(d => `${d.month} ${mLabel}`);
                 
                 let newDatasets = [
-                    { type: 'bar', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout', data: globalMonthlyData.map(d => d.payout), backgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 0.8)' : 'rgba(59, 130, 246, 0.8)'), borderRadius: 4, order: 3 },
-                    { type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Базовый)' : '\u00A0\u00A0Capital (Base)', data: globalMonthlyData.map(d => d.endCapital), borderColor: baseLineColor, backgroundColor: baseBgColor, borderWidth: 3, pointRadius: 2, pointBackgroundColor: basePointColor, fill: true, tension: 0.4, order: 2 }
+                    { type: 'bar', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод на себя' : '\u00A0\u00A0Payout', data: globalMonthlyData.map(d => d.payout), backgroundColor: globalMonthlyData.map(d => d.isCashGap ? 'rgba(244, 63, 94, 0.8)' : 'rgba(59, 130, 246, 0.8)'), borderRadius: 4, order: 3, yAxisID: 'y1' },
+                    { type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Базовый)' : '\u00A0\u00A0Capital (Base)', data: globalMonthlyData.map(d => d.endCapital), borderColor: baseLineColor, backgroundColor: baseBgColor, borderWidth: 3, pointRadius: 2, pointBackgroundColor: basePointColor, fill: true, tension: 0.4, order: 2, yAxisID: 'y' }
                 ];
 
                 if (state.useScenarios) {
                     const pessSim = runSim(state.roiPessimistic, state);
                     const optSim = runSim(state.roiOptimistic, state);
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Пессим.)' : '\u00A0\u00A0Capital (Pessimistic)', data: pessSim.data.map(d => d.endCapital), borderColor: 'rgba(244, 63, 94, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 4 });
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Оптим.)' : '\u00A0\u00A0Capital (Optimistic)', data: optSim.data.map(d => d.endCapital), borderColor: 'rgba(16, 185, 129, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 5 });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Пессим.)' : '\u00A0\u00A0Capital (Pessimistic)', data: pessSim.data.map(d => d.endCapital), borderColor: 'rgba(244, 63, 94, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 4, yAxisID: 'y' });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (Оптим.)' : '\u00A0\u00A0Capital (Optimistic)', data: optSim.data.map(d => d.endCapital), borderColor: 'rgba(16, 185, 129, 0.6)', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, order: 5, yAxisID: 'y' });
                 }
 
                 if (baselineData) {
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод (План А)' : '\u00A0\u00A0Payout (Plan A)', data: baselineData.map(d => d.payout), borderColor: 'rgba(16, 185, 129, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 6 });
-                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (План А)' : '\u00A0\u00A0Capital (Plan A)', data: baselineData.map(d => d.capital), borderColor: 'rgba(59, 130, 246, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 7 });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Вывод (План А)' : '\u00A0\u00A0Payout (Plan A)', data: baselineData.map(d => d.payout), borderColor: 'rgba(16, 185, 129, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 6, yAxisID: 'y1' });
+                    newDatasets.push({ type: 'line', label: currentLang === 'ru' ? '\u00A0\u00A0Оборот (План А)' : '\u00A0\u00A0Capital (Plan A)', data: baselineData.map(d => d.capital), borderColor: 'rgba(59, 130, 246, 0.4)', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, fill: false, order: 7, yAxisID: 'y' });
                 }
 
                 chartInstance.data.datasets = newDatasets;
@@ -1696,6 +1706,13 @@
             const tickColor = isDark ? '#94a3b8' : '#64748b';
             const textColor = isDark ? '#f8fafc' : '#334155';
 
+            const formatCallback = function(value) { 
+                if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B'; 
+                if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M'; 
+                if (value >= 1000) return (value / 1000).toFixed(0) + 'k'; 
+                return value; 
+            };
+
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: { labels: [], datasets: [] },
@@ -1706,8 +1723,20 @@
                         tooltip: { usePointStyle: true, boxPadding: 8, callbacks: { label: function(context) { let label = context.dataset.label || ''; if (label) { label = label.trim() + ': '; } if (context.parsed.y !== null) { label += formatMoney(context.parsed.y); } return label; } } }
                     },
                     scales: {
-                        y: { beginAtZero: true, ticks: { color: tickColor, callback: function(value) { if (value >= 1000000000) return (value / 1000000000).toFixed(1) + 'B'; if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M'; if (value >= 1000) return (value / 1000).toFixed(0) + 'k'; return value; } }, grid: { color: gridColor, drawBorder: false } },
-                        x: { ticks: { color: tickColor, maxTicksLimit: 12, maxRotation: 0 }, grid: { display: false, drawBorder: false } }
+                        y: { 
+                            type: 'linear', display: true, position: 'left', beginAtZero: true, 
+                            ticks: { color: tickColor, callback: formatCallback }, 
+                            grid: { color: gridColor, drawBorder: false } 
+                        },
+                        y1: { 
+                            type: 'linear', display: true, position: 'right', beginAtZero: true, 
+                            ticks: { color: tickColor, callback: formatCallback }, 
+                            grid: { drawOnChartArea: false } // No conflicting grid lines
+                        },
+                        x: { 
+                            ticks: { color: tickColor, maxTicksLimit: 12, maxRotation: 0 }, 
+                            grid: { display: false, drawBorder: false } 
+                        }
                     },
                     layout: { padding: { top: 20 } }
                 }
@@ -1720,6 +1749,7 @@
             });
         };
 
+        // --- EVENTS ---
         window.onload = () => {
             try {
                 initInstruction();
@@ -1758,6 +1788,7 @@
         });
         observer.observe(document.documentElement, { attributes: true });
 
+        // --- УМНОЕ СКРЫТИЕ ПАНЕЛИ ---
         let isPanelCollapsed = false; let collapseTimeout;
 
         function updatePanelState() {
