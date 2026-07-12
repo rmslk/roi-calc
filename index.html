@@ -987,14 +987,14 @@
             ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.moveTo(x, y + 2);
-            ctx.lineTo(x, y - 10);
+            ctx.lineTo(x, y - 8); // shortened stick
             ctx.stroke();
             
             ctx.fillStyle = '#f59e0b';
             ctx.beginPath();
-            ctx.moveTo(x, y - 10); 
-            ctx.lineTo(x + 7, y - 7); 
-            ctx.lineTo(x, y - 4); 
+            ctx.moveTo(x, y - 8); 
+            ctx.lineTo(x + 6, y - 5); // points right, slightly smaller
+            ctx.lineTo(x, y - 2); 
             ctx.fill();
             ctx.restore();
         };
@@ -1022,7 +1022,7 @@
                         ctx.font = 'bold 10px Inter, sans-serif';
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
-                        ctx.fillText(goal.id, point.x + 2, point.y - 16);
+                        ctx.fillText(goal.id, point.x + 2, point.y - 14); // lowered text
                         ctx.restore();
                     }
                 });
@@ -1039,8 +1039,9 @@
                         const ctx = chart.ctx;
                         const padX = (tooltip.options.padding && tooltip.options.padding.x) || tooltip.options.padding || 8;
                         const padY = (tooltip.options.padding && tooltip.options.padding.y) || tooltip.options.padding || 8;
+                        
                         const x = tooltip.x + padX + 2; 
-                        let y = tooltip.y + padY + 12; 
+                        let y = tooltip.y + padY + 28; // Properly pushed below the title
 
                         achievedGoals.forEach((goal) => {
                             drawFlag(ctx, x, y);
