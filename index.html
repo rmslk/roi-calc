@@ -1622,6 +1622,44 @@
             } catch (error) { console.error("Calculation Error: ", error); }
         };
 
+        function startTour() {
+            isTourActive = true;
+            isPanelCollapsed = false;
+            updatePanelState();
+            
+            const driver = window.driver.js.driver;
+            const driverObj = driver({
+                showProgress: true, animate: true, progressText: '{{current}} из {{total}}',
+                nextBtnText: currentLang === 'ru' ? 'Далее' : 'Next', prevBtnText: currentLang === 'ru' ? 'Назад' : 'Prev', doneBtnText: currentLang === 'ru' ? 'Завершить' : 'Done',
+                onDestroyed: () => { isTourActive = false; if (window.scrollY > 150) collapsePanelIfScrolled(); },
+                steps: [
+                    { popover: { title: currentLang==='ru'?'Добро пожаловать!':'Welcome!', description: currentLang==='ru'?'Краткий тур по профессиональным функциям модели.':'A quick tour of the PRO model features.' } },
+                    { element: '#tour-field-startCap', popover: { title: currentLang==='ru'?'Стартовый капитал':'Start Capital', description: currentLang==='ru'?'Сумма, с которой вы начинаете закупки.':'Your initial investment base.' } },
+                    { element: '#tour-field-roi', popover: { title: currentLang==='ru'?'ROI за цикл':'Cycle ROI', description: currentLang==='ru'?'Ваша чистая рентабельность на вложенные средства.':'Net return per 1 turnover cycle.' } },
+                    { element: '#tour-field-cycle', popover: { title: currentLang==='ru'?'Дней в цикле':'Cycle Days', description: currentLang==='ru'?'Оборачиваемость. Переводит ROI в реальный процент в месяц.':'Converts ROI to effective monthly rate based on cycle days.' } },
+                    { element: '#tour-field-months', popover: { title: currentLang==='ru'?'Период':'Period', description: currentLang==='ru'?'Горизонт планирования (например, 12 или 24 месяца).':'Forecast period in months.' } },
+                    { element: '#tour-field-add', popover: { title: currentLang==='ru'?'Довложения':'Top-up', description: currentLang==='ru'?'Регулярные вливания из личного бюджета в оборот.':'Regular external monthly injections.' } },
+                    { element: '#tour-field-tax', popover: { title: currentLang==='ru'?'Налоги':'Taxes', description: currentLang==='ru'?'Налог вычитается до реинвестирования. Выберите базу: с оборота или с прибыли.':'Tax is deducted before reinvestment. Select base.' } },
+                    { element: '#tour-field-inflation', popover: { title: currentLang==='ru'?'Инфляция':'Inflation', description: currentLang==='ru'?'Показывает реальную покупательную способность будущего капитала в таблице.':'Shows real purchasing power in the table below.' } },
+                    { element: '#tour-field-roiDrop', popover: { title: currentLang==='ru'?'Снижение ROI':'ROI Drop', description: currentLang==='ru'?'Симуляция реальности (потолок рынка): чем больше капитал, тем сложнее держать высокий ROI.':'Simulates reality: larger capital usually means lower ROI.' } },
+                    { element: '#tour-field-seasonality', popover: { title: currentLang==='ru'?'Сезонность':'Seasonality', description: currentLang==='ru'?'Укажите пиковые месяцы продаж и множитель рентабельности.':'Set peak months and exactly how much ROI multiplies.' } },
+                    { element: '#tour-field-scenarios', popover: { title: currentLang==='ru'?'Вилка ROI':'ROI Fork', description: currentLang==='ru'?'Сравнение пессимистичного и оптимистичного сценариев на одном графике.':'Compare pessimistic and optimistic scenarios directly on chart.' } },
+                    { element: '#tour-field-reinvestBase', popover: { title: currentLang==='ru'?'Реинвест':'Reinvest', description: currentLang==='ru'?'Сколько чистой прибыли возвращать в товар. Чем больше, тем быстрее рост, но меньше дивидендов.':'How much profit goes back to goods.' } },
+                    { element: '#tour-field-dynamicReinvest', popover: { title: currentLang==='ru'?'Умный реинвест':'Dynamic Reinvest', description: currentLang==='ru'?'Автоматически снижает долю реинвеста после пробития заданного порога капитала.':'Automatically change reinvest share when capital hits a specific threshold.' } },
+                    { element: '#tour-field-goals', popover: { title: currentLang==='ru'?'Финансовые цели':'Goals', description: currentLang==='ru'?'Переименуйте их (например, Машина) и впишите суммы. Алгоритм попытается их достичь.':'Rename them and set amounts. Algorithm will try to reach them.' } },
+                    { element: '#tour-field-fixedCost', popover: { title: currentLang==='ru'?'Пост. расходы':'Fixed Costs', description: currentLang==='ru'?'Аренда, ЗП, сервисы. Вычитаются ежемесячно, повышая риск кассового разрыва.':'Monthly fixed expenses. Increases cash gap risk.' } },
+                    { element: '#tour-field-stepCost', popover: { title: currentLang==='ru'?'Ступени расходов':'Step Costs', description: currentLang==='ru'?'Расходы растут вместе с бизнесом. Укажите, сколько добавлять за каждый новый заработанный миллион.':'Expenses grow with business. Add extra costs per million earned.' } },
+                    { element: '#tour-field-costSeasonality', popover: { title: currentLang==='ru'?'Сезонность трат':'Cost Seasonality', description: currentLang==='ru'?'В сезон (например, Q4) склады и логистика могут дорожать. Укажите множитель для таких месяцев.':'In season, costs may increase. Set a multiplier for such months.' } },
+                    { element: '#tour-field-useCredit', popover: { title: currentLang==='ru'?'Кредиты':'Credit', description: currentLang==='ru'?'Добавьте кредит. Алгоритм сам посчитает аннуитет. Будьте осторожны с кассовым разрывом!':'Add credit. Algorithm calculates annuity payments.' } },
+                    { element: '#tour-step-hints', popover: { title: currentLang==='ru'?'Умные советы':'Smart Hints', description: currentLang==='ru'?'Алгоритм автоматически проанализирует вашу модель и укажет на риски (например, рассчитает точку безубыточности).':'Algorithm automatically analyzes your model and points out risks.' } },
+                    { element: '#tour-field-planA', popover: { title: currentLang==='ru'?'Сохранить План А':'Save Plan A', description: currentLang==='ru'?'Запомните текущий график, измените настройки и сравните две стратегии визуально.':'Remember current chart, change settings and compare two strategies.' } },
+                    { element: '#tour-step-table', popover: { title: currentLang==='ru'?'Детализация и Экспорт':'Details & Export', description: currentLang==='ru'?'Анализируйте каждый месяц и скачивайте PDF-питч для инвесторов или CSV-таблицу.':'Analyze each month and download PDF pitch or CSV.' } },
+                    { element: '#tour-projects', popover: { title: currentLang==='ru'?'Проекты':'Projects', description: currentLang==='ru'?'Сохраняйте разные финансовые сценарии и переключайтесь между ними в 1 клик.':'Save and switch between different financial scenarios easily.' } }
+                ]
+            });
+            driverObj.drive();
+        }
+
         window.onload = () => {
             try {
                 initInstruction(); initChart();
